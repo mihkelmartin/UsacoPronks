@@ -36,8 +36,14 @@ public class Lemmikloomad {
             for (int i = 0; i < n; i++) {
                 if ((b & (1<<i)) > 0) subset.add(i);
             }
-            subset.forEach(index -> out.print(index + " "));
-            out.println("");
+
+            int summa = 0;
+            String loomad = "";
+            for (Integer nr : subset){
+                summa += lemmikloomad.get(nr).hind;
+                loomad += lemmikloomad.get(nr).liik + " ";
+            }
+            if(eelarve >= summa) out.println(loomad + " " + summa);
         }
         out.close();
     }
