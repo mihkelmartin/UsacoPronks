@@ -36,7 +36,14 @@ public class Lemmikloomad {
         for (int b = 0; b < (1<<n); b++) {
             ArrayList<Integer> subset = new ArrayList<>();
             for (int i = 0; i < n; i++) {
-                if ((b & (1<<i)) > 0) subset.add(i);
+                if ((b & (1<<i)) > 0) {
+                    subset.add(i);
+                    System.out.println("Lisatud " + i);
+                }
+
+                // System.out.println(Integer.toBinaryString(b));
+                // System.out.println(Integer.toBinaryString(1<<i));
+                // System.out.println("");
             }
 
             int summa = 0;
@@ -59,6 +66,9 @@ public class Lemmikloomad {
 
         if(permutatsioonid.size() == valitud.length){
             permutatsioonid.forEach(i -> System.out.print(i + " "));
+            // siin saaks kontrollida kas see perumtatsioon sobib
+            // Või siis lisada siin tulemus ArrayListi ja seda kasutatakse
+            // Väljaspool
             System.out.println("");
             return;
         }
