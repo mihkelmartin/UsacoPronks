@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 
 public class Lehmanumbrid {
 
+
+    //
     static char[][] margid = {
             {'A', 'B', 'C'},
             {'D', 'E', 'F'},
