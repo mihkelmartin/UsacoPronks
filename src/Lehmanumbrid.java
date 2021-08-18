@@ -50,10 +50,10 @@ public class Lehmanumbrid {
         }
 
         int number = Integer.valueOf(Character.toString(numberStr.charAt(numberStrPos)));
-        if(charPos < margid[number].length - 1  ){
+        if(charPos < margidStr1[number].length() - 1  ){
             arvuta(numberStr, length, str, numberStrPos, charPos + 1);
         }
-        str = str + margid[number][charPos];
+        str = str + margidStr1[number].charAt(charPos);
         arvuta(numberStr, length, str, numberStrPos + 1, 0);
     }
 }
