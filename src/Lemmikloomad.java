@@ -24,7 +24,7 @@ public class Lemmikloomad {
         int eelarve = Integer.valueOf(st_p.nextToken());
         ArrayList<Lemmikloom> lemmikloomad = new ArrayList<>();
 
-        for (int i = 0; i < loomi; i++) {
+        while(loomi-- > 0) {
             st_p = new StringTokenizer(f.readLine(), " ");
             lemmikloomad.add(new Lemmikloom(st_p.nextToken(), Integer.valueOf(st_p.nextToken())));
         }
