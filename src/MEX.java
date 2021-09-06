@@ -7,6 +7,7 @@ public class MEX {
 
     public static void main(String[] args )throws Exception {
 
+        // Täida massiiv xorid, nii, et iga indeksi kohal on eelmiste XOR-imine tulemus
         fillXOR();
 
         InputStreamReader ina = new InputStreamReader(System.in);
