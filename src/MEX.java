@@ -40,6 +40,7 @@ public class MEX {
         }
     }
 
+    // Efektiivne, aga peab meeles pidama
     private static int computeXOR(int n)
     {
 
@@ -59,6 +60,7 @@ public class MEX {
         return 0;
     }
 
+    // Lihtne, tuleb vaid korra teha
     private static void fillXOR(){
         int xorid_size = xorid.length;
         for (int i = 1; i < xorid_size; i++) {
