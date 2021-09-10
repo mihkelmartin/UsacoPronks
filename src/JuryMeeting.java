@@ -31,10 +31,48 @@ public class JuryMeeting {
             tasks.add(task);
         }
         int max_taskide_arv = Collections.frequency(tasks, max_tasks);
-        int max_taskide_arv_1 = Collections.frequency(tasks, max_tasks-1);
-        int ylejaanud = tasks.size() - max_taskide_arv - max_taskide_arv_1;
+        int max_miinus_1_taskide_arv = Collections.frequency(tasks, max_tasks-1);
+        int ylejaanud = tasks.size() - max_taskide_arv - max_miinus_1_taskide_arv;
+        // Kõigil sama arv taske st kõik on max_tasks
+        if(max_miinus_1_taskide_arv == 0 && ylejaanud == 0){
+            System.out.println(permutatsioonid(max_taskide_arv));
+        } else if (max_miinus_1_taskide_arv == 0){ // Kui on muid ka siis peab leiduma vähemnalt 1 inimene kellel on taske max_taskide_arv - 1
+            System.out.println("0");
+        } else {
+            // Kõik võimalikud
+            long permutatsioonid = permutatsioonid(tasks.size());
 
-        System.out.println(max_taskide_arv + " " + max_taskide_arv_1 + " " + ylejaanud);
+            // Nüüd hakkame maha lahutama neid mis ei sobi e kus kõik max_miinus_1_taskide_arv on eespool
+            // Niipalju kui on ylejäänuuid tuleb kombineerida
+            // 3 3 3 4 1 2 kõik max miinus-1 ees
+            // 3 3 3 1 4 2 kõik max miinus-1 1 ees ja 1 ylejäänud ka
+            // 3 3 3 1 2 4
+            for (int i = 0; i <= ylejaanud; i++) {
+                long eesmise_otsa_perm = permutatsioonid(max_miinus_1_taskide_arv + i);
+                long tagumise_otsa_perm = permutatsioonid(ylejaanud - i);
+                // Lisaks kombinatsioonid mida saab teha ylejäänutes koguarvust niipalju kaupa kui on ees otas
+                // eesotsas on i tükki, järelikult i kaupa ylejäänust
+                long kombinatsioonid = kombinatsioonid(ylejaanud, i);
+            }
+            System.out.println(max_taskide_arv + " " + max_miinus_1_taskide_arv + " " + ylejaanud);
+        }
+    }
 
+    private static long kombinatsioonid(long millest, long kaupa) {
+        long retVal = 1;
+        for (long d = 1; d <= kaupa; ++d) {
+            retVal *= millest--;  // Hakkame tagantpoolt, ehk kui 10, siis retval = 1*10 esimene kord
+            retVal /= d;  // Ja nüüd teeme seda jagamist mis kombinatsioonides tehakse aga algusest
+            retVal %= MOD; // Siin peaks ka tohtima MOD teha
+        }
+        return retVal;
+    }
+
+    private static long permutatsioonid(long max_taskide_arv) {
+        long retVal = 1;
+        for (int i = 1; i <= max_taskide_arv ; i++) {
+         retVal = (retVal*i)%MOD;
+        }
+        return retVal;
     }
 }
