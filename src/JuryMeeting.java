@@ -59,6 +59,8 @@ public class JuryMeeting {
 
                 // Lisaks kombinatsioonid mida saab teha ylejäänutes koguarvust niipalju kaupa kui on ees otas
                 // eesotsas on i tükki, järelikult i kaupa ylejaannu-st
+                // https://cp-algorithms.com/combinatorics/binomial-coefficients.html
+
                 long kombinatsioonid = nCrModp(ylejaanud, i);
 
                 // Pane tähele, et vahepeal tuleb %MOD teha, muidu "jookseb üle" KONTROLLI !
@@ -74,14 +76,12 @@ public class JuryMeeting {
 
     private static long kombinatsioonid(long millest, long kaupa) {
         long retVal = 1;
-        long jagaja = 1;
         for (long d = 1; d <= kaupa; ++d) {
             retVal *= millest--;  // Hakkame tagantpoolt, ehk kui 10, siis retval = 1*10 esimene kord, järgmine 10 * 9, kuni kaupa jätkub
             retVal /= d;  // Kuna muurujoone all oli k!(n-k)! siis siin jagame seda k!-d 1, 2, 3  (n-k)! pole vaja sest eelmine samm väldib seda
                   ; // Siin peaks ka tohtima MOD teha
-            retVal %= MOD;
         }
-        return retVal;
+        return retVal%MOD;
     }
 
     private static long permutatsioonid(long max_taskide_arv) {
