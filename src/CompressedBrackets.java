@@ -20,7 +20,12 @@ public class CompressedBrackets {
         for (int i = 0; i < pikkus-1; i = i + 2) {
             int a = numbrid[i];
             int b = numbrid[i+1];
-            if(a >= b){
+            if(a > b){
+                meeles = meeles + a - b;
+                tulemus = tulemus + b;
+                jarjes = 1;
+            }
+            if(a == b){
                 meeles = meeles + a - b;
                 tulemus = tulemus + b;
                 jarjes++;
