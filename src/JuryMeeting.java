@@ -61,14 +61,10 @@ public class JuryMeeting {
                 // eesotsas on i tükki, järelikult i kaupa ylejaannu-st
                 // https://cp-algorithms.com/combinatorics/binomial-coefficients.html
 
-                long kombinatsioonid = nCrModp(ylejaanud, i);
+                long kombinatsioonid = kombinatsioonid(ylejaanud, i);
 
-                // Pane tähele, et vahepeal tuleb %MOD teha, muidu "jookseb üle" KONTROLLI !
+                // Pane tähele, et vahepeal tuleb %MOD teha, muidu "jookseb üle"
                 permutatsioonid = (permutatsioonid - ((eesmise_otsa_perm * tagumise_otsa_perm)%MOD * kombinatsioonid)%MOD + MOD) % MOD;
-            }
-            if(permutatsioonid == 6065523) {
-                // 10 8 4 7 5 1 5 4 5 1 1 6 6 5 1 5 5 1 2 7 1 1 1 3 1 8 5 4 4 7 4 4 8 4 1 4 8 9
-                System.out.println(sisend.substring(1, sisend.length()).replaceAll(" ", ";"));
             }
             System.out.println(permutatsioonid);
         }
@@ -107,4 +103,5 @@ public class JuryMeeting {
         }
         return C[r];
     }
+
 }
