@@ -59,7 +59,7 @@ public class JuryMeeting {
 
                 // Lisaks kombinatsioonid mida saab teha ylejäänutes koguarvust niipalju kaupa kui on ees otas
                 // eesotsas on i tükki, järelikult i kaupa ylejaannu-st
-                long kombinatsioonid = kombinatsioonid(ylejaanud, i);
+                long kombinatsioonid = nCrModp(ylejaanud, i);
 
                 // Pane tähele, et vahepeal tuleb %MOD teha, muidu "jookseb üle" KONTROLLI !
                 permutatsioonid = (permutatsioonid - ((eesmise_otsa_perm * tagumise_otsa_perm)%MOD * kombinatsioonid)%MOD + MOD) % MOD;
@@ -90,5 +90,21 @@ public class JuryMeeting {
          retVal = (retVal*i%MOD)%MOD;
         }
         return retVal;
+    }
+
+    private static long nCrModp(int n, int r)
+    {
+        if (r > n - r)
+            r = n - r;
+
+        long[] C = new long[r+1];
+
+        C[0] = 1;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = Math.min(i, r); j > 0; j--)
+                C[j] = (C[j] + C[j - 1]) % MOD;
+        }
+        return C[r];
     }
 }
