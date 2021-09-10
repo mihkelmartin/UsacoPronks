@@ -64,7 +64,7 @@ public class JuryMeeting {
                 // Pane tähele, et vahepeal tuleb %MOD teha, muidu "jookseb üle" KONTROLLI !
                 permutatsioonid = (permutatsioonid - ((eesmise_otsa_perm * tagumise_otsa_perm)%MOD * kombinatsioonid)%MOD + MOD) % MOD;
             }
-            if(permutatsioonid == 606875523) {
+            if(permutatsioonid == 6065523) {
                 // 10 8 4 7 5 1 5 4 5 1 1 6 6 5 1 5 5 1 2 7 1 1 1 3 1 8 5 4 4 7 4 4 8 4 1 4 8 9
                 System.out.println(sisend.substring(1, sisend.length()).replaceAll(" ", ";"));
             }
@@ -74,18 +74,20 @@ public class JuryMeeting {
 
     private static long kombinatsioonid(long millest, long kaupa) {
         long retVal = 1;
+        long jagaja = 1;
         for (long d = 1; d <= kaupa; ++d) {
             retVal *= millest--;  // Hakkame tagantpoolt, ehk kui 10, siis retval = 1*10 esimene kord, järgmine 10 * 9, kuni kaupa jätkub
             retVal /= d;  // Kuna muurujoone all oli k!(n-k)! siis siin jagame seda k!-d 1, 2, 3  (n-k)! pole vaja sest eelmine samm väldib seda
                   ; // Siin peaks ka tohtima MOD teha
+            retVal %= MOD;
         }
-        return retVal%MOD;
+        return retVal;
     }
 
     private static long permutatsioonid(long max_taskide_arv) {
         long retVal = 1;
         for (int i = 1; i <= max_taskide_arv ; i++) {
-         retVal = (retVal*i)%MOD;
+         retVal = (retVal*i%MOD)%MOD;
         }
         return retVal;
     }
