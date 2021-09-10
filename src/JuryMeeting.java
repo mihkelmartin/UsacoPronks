@@ -48,21 +48,30 @@ public class JuryMeeting {
             // 3 3 3 1 4 2 kõik max miinus-1 1 ees ja 1 ylejäänud ka
             // 3 3 3 1 2 4
             for (int i = 0; i <= ylejaanud; i++) {
+
+                // Kõik miinus-1 on eesotsas ja lisaks ylejäänutest i
                 long eesmise_otsa_perm = permutatsioonid(max_miinus_1_taskide_arv + i);
-                long tagumise_otsa_perm = permutatsioonid(ylejaanud - i);
+
+                // Tuleb arvestada, et maksimume võib mitu olla, siis tekib tagumises otsa
+                // permutatsioone ylejaanud -i  korda max_taskide_arv
+                long tagumise_otsa_perm = (permutatsioonid(ylejaanud - i) * max_taskide_arv)%MOD;
+
                 // Lisaks kombinatsioonid mida saab teha ylejäänutes koguarvust niipalju kaupa kui on ees otas
                 // eesotsas on i tükki, järelikult i kaupa ylejäänust
                 long kombinatsioonid = kombinatsioonid(ylejaanud, i);
+
+                // Pane tähele, et vahepeal tuleb %MOD teha, muidu "jookseb üle" KONTROLLI !
+                permutatsioonid = (permutatsioonid - ((eesmise_otsa_perm * tagumise_otsa_perm)%MOD * kombinatsioonid)%MOD + MOD) % MOD;
             }
-            System.out.println(max_taskide_arv + " " + max_miinus_1_taskide_arv + " " + ylejaanud);
+            System.out.println(permutatsioonid);
         }
     }
 
     private static long kombinatsioonid(long millest, long kaupa) {
         long retVal = 1;
         for (long d = 1; d <= kaupa; ++d) {
-            retVal *= millest--;  // Hakkame tagantpoolt, ehk kui 10, siis retval = 1*10 esimene kord
-            retVal /= d;  // Ja nüüd teeme seda jagamist mis kombinatsioonides tehakse aga algusest
+            retVal *= millest--;  // Hakkame tagantpoolt, ehk kui 10, siis retval = 1*10 esimene kord, järgmine 10 * 9, kuni kaupa jätkub
+            retVal /= d;  // Kuna muurujoone all oli k!(n-k)! siis siin jagame seda k!-d 1, 2, 3  (n-k)! pole vaja sest eelmine samm väldib seda
             retVal %= MOD; // Siin peaks ka tohtima MOD teha
         }
         return retVal;
