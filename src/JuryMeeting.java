@@ -8,41 +8,52 @@ import java.util.Collections;
 public class JuryMeeting {
 
     private static final long MOD=998244353;
+    private static final int mx = 2 * 100001;
+    private static final long[] fact = new long[mx];
+    private static final long[] inv = new long[mx];
+    private static final long[] invfact = new long[mx];
     private static InputStreamReader ina = new InputStreamReader(System.in);
     private static BufferedReader in = new BufferedReader(ina);
 
     public static void main(String[] args )throws Exception {
 
+        fillFactorials();
         int teste = Integer.parseInt(in.readLine());
         while (teste-- > 0) {
             solve();
         }
     }
 
+    private static void fillFactorials() {
+        fact[0] = fact[1] = inv[1] = invfact[0] = invfact[1] = 1;
+        for (int i = 2; i < mx; i++) {
+            fact[i] = (fact[i-1]*i) % MOD;
+            inv[i] = MOD - MOD/i*inv[(int)MOD%i]%MOD;
+            invfact[i] = inv[i]*invfact[i-1]%MOD;
+        }
+    }
+
     private static void solve() throws Exception {
         int inimesi = Integer.parseInt(in.readLine());
-        String sisend = in.readLine();
-        String[] tasks_str = sisend.split(" ");
+        String[] tasks_str = in.readLine().split(" ");
         ArrayList<Long> tasks = new ArrayList<>();
-        long max_tasks = 0;
         for (int i = 0; i < inimesi; i++) {
-            long task = Integer.parseInt(tasks_str[i]);
-            if(task > max_tasks){
-                max_tasks = task;
-            }
-            tasks.add(task);
+            tasks.add(Long.valueOf(tasks_str[i]));
         }
+
+        long max_tasks = Collections.max(tasks);
         int max_taskide_arv = Collections.frequency(tasks, max_tasks);
         int max_miinus_1_taskide_arv = Collections.frequency(tasks, max_tasks-1);
         int ylejaanud = tasks.size() - max_taskide_arv - max_miinus_1_taskide_arv;
+
         // Kui max_taskide arvuga inimesi on rohkem kui 1 siis on kõik permutatsiooni ilusad, sest nad omavahel saavad hakkama
         if(max_taskide_arv > 1){
-            System.out.println(permutatsioonid(tasks.size()));
+            System.out.println(fact[tasks.size()]);
         } else if (max_miinus_1_taskide_arv == 0){ // Kui max_taskidega on 1 inimene, siis peab leiduma vähemnalt 1 inimene kellel on taske max_taskide_arv - 1
             System.out.println("0");
         } else {
             // Kõik võimalikud
-            long permutatsioonid = permutatsioonid(tasks.size());
+            long permutatsioonid = fact[tasks.size()];
 
             // Nüüd hakkame maha lahutama neid mis ei sobi e kus kõik max_miinus_1_taskide_arv on eespool
             // Niipalju kui on ylejäänuuid tuleb kombineerida
@@ -52,10 +63,10 @@ public class JuryMeeting {
             for (int i = 0; i <= ylejaanud; i++) {
 
                 // Kõik miinus-1 on eesotsas ja lisaks ylejäänutest i
-                long eesmise_otsa_perm = permutatsioonid(max_miinus_1_taskide_arv + i);
+                long eesmise_otsa_perm = fact[max_miinus_1_taskide_arv + i];
 
                 // Taga permuteeruvad ylejäänud - u
-                long tagumise_otsa_perm = permutatsioonid(ylejaanud - i);
+                long tagumise_otsa_perm = fact[ylejaanud - i];
 
                 // Lisaks kombinatsioonid mida saab teha ylejäänutes koguarvust niipalju kaupa kui on ees otas
                 // eesotsas on i tükki, järelikult i kaupa ylejaannu-st
@@ -68,25 +79,15 @@ public class JuryMeeting {
             }
             System.out.println(permutatsioonid);
         }
+        // precomp(25);
     }
 
-    private static long kombinatsioonid(long millest, long kaupa) {
-        long retVal = 1;
-        for (long d = 1; d <= kaupa; ++d) {
-            retVal *= millest--;  // Hakkame tagantpoolt, ehk kui 10, siis retval = 1*10 esimene kord, järgmine 10 * 9, kuni kaupa jätkub
-            retVal /= d;  // Kuna muurujoone all oli k!(n-k)! siis siin jagame seda k!-d 1, 2, 3  (n-k)! pole vaja sest eelmine samm väldib seda
-                  ; // Siin peaks ka tohtima MOD teha
-        }
-        return retVal%MOD;
+    private static long kombinatsioonid(int millest, int kaupa) {
+
+        // MOD-i tuleb igakorrutamise järel teha
+        return fact[millest] * invfact[millest-kaupa] % MOD * invfact[kaupa] % MOD;
     }
 
-    private static long permutatsioonid(long max_taskide_arv) {
-        long retVal = 1;
-        for (int i = 1; i <= max_taskide_arv ; i++) {
-         retVal = (retVal*i%MOD)%MOD;
-        }
-        return retVal;
-    }
 
     private static long nCrModp(int n, int r)
     {
@@ -103,5 +104,6 @@ public class JuryMeeting {
         }
         return C[r];
     }
+
 
 }
