@@ -14,7 +14,7 @@ public class MINMEXCUT {
             String s = in.readLine();
             int lenght = s.length();
             byte result = 0;
-            char previous_character = 0;
+            char previous_character = 0; // alge väärtus
 
             for (int i = 0; i < lenght; i++) {
                 char current = s.charAt(i);
