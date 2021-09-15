@@ -70,6 +70,7 @@ public class Kylaskaigud {
 
 
         HashMap<Integer, Integer> gruppide_pikkuste_puu = new HashMap<>();
+        // Siin on gruppide arve see Maksimum
         loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size());
 
         // Hakka otsima
