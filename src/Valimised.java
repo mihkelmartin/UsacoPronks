@@ -19,7 +19,7 @@ public class Valimised {
             String haaletus[] = in.readLine().split(" ");
             String poolt = haaletus[0];
             String vastu = haaletus[1];
-            paar.put(poolt+vastu, paar.computeIfAbsent(poolt+vastu, i -> new Integer(0)).intValue() + 1);
+            paar.put(poolt+";"+vastu, paar.computeIfAbsent(poolt+";"+vastu, i -> new Integer(0)).intValue() + 1);
         }
         int max = 0;
         for (Map.Entry<String, Integer> entry : paar.entrySet()){
@@ -36,11 +36,16 @@ public class Valimised {
 
         int max_rahuolevaid = 0;
         for (String parim_paar : parimad){
-            String esim_pool = parim_paar.substring(0,2);
-            String teine_pool = parim_paar.substring(2,4);
+            int eraldaja = parim_paar.indexOf(";", 1);
+            String esim_pool = parim_paar.substring(0,eraldaja);
+            String teine_pool = parim_paar.substring(eraldaja +1 );
             int vahe_parimaid = 0;
             for (Map.Entry<String, Integer> entry : paar.entrySet()){
-                if(esim_pool.equals(entry.getKey().substring(0,2)) || teine_pool.equals(entry.getKey().substring(2,4))){
+                int entry_eraldaja = entry.getKey().indexOf(";", 1);
+                String entry_esim_pool = entry.getKey().substring(0,entry_eraldaja);
+                String entry_teine_pool = entry.getKey().substring(entry_eraldaja + 1);
+
+                if(esim_pool.equals(entry_esim_pool) || teine_pool.equals(entry_teine_pool)){
                     vahe_parimaid += entry.getValue();
                 }
             }
