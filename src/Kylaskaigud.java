@@ -77,7 +77,11 @@ public class Kylaskaigud {
             String maja1_maja2[] = in.readLine().split(" ");
             int maja1 = Integer.valueOf(maja1_maja2[0]);
             int maja2 = Integer.valueOf(maja1_maja2[1]);
-            int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, gruppide_pikkuste_puu.size(), maja1, maja2);
+
+            int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, gruppide_pikkuste_puu.size(),
+                    maja_grupp[maja1][1], maja_grupp[maja2][1]);
+
+            // Lisak Nüüd tuleb vaadata kaugusi lõikude otspunktides
             System.out.println(max_kaugus);
         }
 
