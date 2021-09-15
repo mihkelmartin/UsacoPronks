@@ -78,6 +78,7 @@ public class Kylaskaigud {
             int maja1 = Integer.valueOf(maja1_maja2[0]);
             int maja2 = Integer.valueOf(maja1_maja2[1]);
             int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, gruppide_pikkuste_puu.size(), maja1, maja2);
+            System.out.println(max_kaugus);
         }
 
 
