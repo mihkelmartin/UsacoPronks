@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
@@ -62,9 +61,6 @@ public class Kylaskaigud {
         korgus_grupi_andmed[2] = ++korgus_grupi_pikkus;
         korgus_grupid_maps.put(korgus_grupp, korgus_grupi_andmed);
 
-        HashMap<Integer, Integer> gruppide_pikkuste_puu = new HashMap<>();
-        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size());
-
         // Nüüd tuleb teha kahendpuu Kõrgusgruppidest
         // Sealt saame kiirelt teada mis on mingite gruppide pikimad lõigud - näiteks grupist 35 - 2300 pikim lõik 45
         // Kui antakse sisend majade indeksitega, siis massiivist maja_grupp leiame kuhu gruppi vastava maja kuulub
@@ -72,11 +68,25 @@ public class Kylaskaigud {
         // ja maja_lopp grupist ühe väiksema vahemikust. Sest äärtes võib olla mittetäielik kattumine, neid peab eraldi vaatama
         // Selleks aga on meil korgus_grupid_maps TreeMap, kust saame vastavad andmed
 
-        // Kuidas teha kahendpuu
+
+        HashMap<Integer, Integer> gruppide_pikkuste_puu = new HashMap<>();
+        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size());
+
+        // Hakka otsima
+        while (lapsi-- > 0){
+            String maja1_maja2[] = in.readLine().split(" ");
+            int maja1 = Integer.valueOf(maja1_maja2[0]);
+            int maja2 = Integer.valueOf(maja1_maja2[1]);
+            int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, gruppide_pikkuste_puu.size(), maja1, maja2);
+        }
 
 
         System.out.println("Total execution time: " + (System.currentTimeMillis() - startTime));
 
+    }
+
+    private static int otsi_kahendpuust(HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp, int maja1, int maja2) {
+        return tipp;
     }
 
     private static void loo_kahendpuu(TreeMap<Integer, Object> korgus_grupid_maps, HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp) {
