@@ -79,16 +79,23 @@ public class Kylaskaigud {
             int maja1 = Integer.valueOf(maja1_maja2[0]);
             int maja2 = Integer.valueOf(maja1_maja2[1]);
 
+            int maja_grupp1 = maja_grupp[maja1][1];
+            int maja_grupp2 = maja_grupp[maja2][1];
+            if(maja_grupp1 == maja_grupp2){
+                System.out.println(maja2 - maja1 + 1);
+                continue;
+            }
+
             // Grupid võta +1 ja -1. Ostsi vaatame eraldi
             // Korgus --> lopp peab olema korgus grupid !!!!
             int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size(),
-                    maja_grupp[maja1][1] + 1, maja_grupp[maja2][1] - 1);
+                    maja_grupp1 + 1, maja_grupp2 - 1);
 
 
             // Lisaks  tuleb vaadata kaugusi lõikude otspunktides kui alguse maha ei ole täpselt grupi alguses või
             // lõpu maja ei ole täpselt grupi lõpus. Selleks oli meil TreeMap (võiks olla ka HashMap)
-            int[] maja1_grupi_andmed = (int[])korgus_grupid_maps.get(maja_grupp[maja1][1]);
-            int[] maja2_grupi_andmed = (int[])korgus_grupid_maps.get(maja_grupp[maja2][1]);
+            int[] maja1_grupi_andmed = (int[])korgus_grupid_maps.get(maja_grupp1);
+            int[] maja2_grupi_andmed = (int[])korgus_grupid_maps.get(maja_grupp2);
             // Grupi Lõpust arvutades
             int maja1_oma_grupis_pikkus = maja1_grupi_andmed[1] - maja1 + 1;
             // Grupi algusests arvutades
@@ -97,10 +104,7 @@ public class Kylaskaigud {
             max_kaugus = Math.max(Math.max(maja2_oma_grupis_pikkus, max_kaugus), maja1_oma_grupis_pikkus);
             System.out.println(max_kaugus);
         }
-
-
-        System.out.println("Total execution time: " + (System.currentTimeMillis() - startTime));
-
+//        System.out.println("Total execution time: " + (System.currentTimeMillis() - startTime));
     }
 
     private static int otsi_kahendpuust(HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp, int maja1, int maja2) {
