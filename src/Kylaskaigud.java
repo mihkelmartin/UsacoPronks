@@ -82,14 +82,14 @@ public class Kylaskaigud {
     private static void loo_kahendpuu(TreeMap<Integer, Object> korgus_grupid_maps, HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp) {
 
         if(algus == lopp) { // Oleme jõudnud puu lehele, kus on algandmed otse
-            gruppide_pikkuste_puu.put(tipp, ((int[])korgus_grupid_maps.get(algus))[3]);
+            gruppide_pikkuste_puu.put(tipp, ((int[])korgus_grupid_maps.get(algus))[2]);
             return;
         }
 
         int uus_tipp = tipp * 2;
-        int pooleks = (lopp - algus) / 2;
+        int pooleks = (lopp + algus) / 2;
         loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp, algus, pooleks);
-        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp  + 1, pooleks + 1, (lopp);
+        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp  + 1, pooleks + 1, lopp);
 
         gruppide_pikkuste_puu.put(tipp, Math.max(gruppide_pikkuste_puu.get(uus_tipp), gruppide_pikkuste_puu.get(uus_tipp+1)));
 
