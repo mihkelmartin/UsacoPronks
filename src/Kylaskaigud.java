@@ -78,10 +78,22 @@ public class Kylaskaigud {
             int maja1 = Integer.valueOf(maja1_maja2[0]);
             int maja2 = Integer.valueOf(maja1_maja2[1]);
 
-            int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, gruppide_pikkuste_puu.size(),
-                    maja_grupp[maja1][1], maja_grupp[maja2][1]);
+            // Grupid võta +1 ja -1. Ostsi vaatame eraldi
+            // Korgus --> lopp peab olema korgus grupid !!!!
+            int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size(),
+                    maja_grupp[maja1][1] + 1, maja_grupp[maja2][1] - 1);
 
-            // Lisak Nüüd tuleb vaadata kaugusi lõikude otspunktides
+
+            // Lisaks  tuleb vaadata kaugusi lõikude otspunktides kui alguse maha ei ole täpselt grupi alguses või
+            // lõpu maja ei ole täpselt grupi lõpus. Selleks oli meil TreeMap (võiks olla ka HashMap)
+            int[] maja1_grupi_andmed = (int[])korgus_grupid_maps.get(maja_grupp[maja1][1]);
+            int[] maja2_grupi_andmed = (int[])korgus_grupid_maps.get(maja_grupp[maja2][1]);
+            // Grupi Lõpust arvutades
+            int maja1_oma_grupis_pikkus = maja1_grupi_andmed[1] - maja1 + 1;
+            // Grupi algusests arvutades
+            int maja2_oma_grupis_pikkus = maja2 - maja2_grupi_andmed[0] + 1;
+
+            max_kaugus = Math.max(Math.max(maja2_oma_grupis_pikkus, max_kaugus), maja1_oma_grupis_pikkus);
             System.out.println(max_kaugus);
         }
 
