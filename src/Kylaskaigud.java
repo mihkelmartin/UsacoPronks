@@ -86,6 +86,17 @@ public class Kylaskaigud {
     }
 
     private static int otsi_kahendpuust(HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp, int maja1, int maja2) {
+
+        if(maja1 > maja2 || maja2 < algus || maja1 > lopp)
+            return 0;
+
+        if(maja1>= algus && maja2 <= lopp)
+            return gruppide_pikkuste_puu.get(tipp);
+
+        // Otsi vasakul
+
+        // Otsi paremalt
+
         return tipp;
     }
 
