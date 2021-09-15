@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -8,6 +9,7 @@ public class Kylaskaigud {
     public static void main(String[] args )throws Exception {
 
         final long startTime = System.currentTimeMillis();
+
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         String sisend[] = in.readLine().split(" ");
@@ -60,6 +62,8 @@ public class Kylaskaigud {
         korgus_grupi_andmed[2] = ++korgus_grupi_pikkus;
         korgus_grupid_maps.put(korgus_grupp, korgus_grupi_andmed);
 
+        HashMap<Integer, Integer> gruppide_pikkuste_puu = new HashMap<>();
+        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size());
 
         // Nüüd tuleb teha kahendpuu Kõrgusgruppidest
         // Sealt saame kiirelt teada mis on mingite gruppide pikimad lõigud - näiteks grupist 35 - 2300 pikim lõik 45
@@ -68,37 +72,26 @@ public class Kylaskaigud {
         // ja maja_lopp grupist ühe väiksema vahemikust. Sest äärtes võib olla mittetäielik kattumine, neid peab eraldi vaatama
         // Selleks aga on meil korgus_grupid_maps TreeMap, kust saame vastavad andmed
 
+        // Kuidas teha kahendpuu
+
 
         System.out.println("Total execution time: " + (System.currentTimeMillis() - startTime));
 
-        /* TreeMap<Integer, Integer> maja_jargmine_korgus = new TreeMap<>();
-        int eelmine_korgus = -1000001; // See ei saa ülesande tingmuste järgi olla
-        int eelmine_indeks = -1;
+    }
 
-        String[] majad = in.readLine().split(" ");
-        for (int i = 1; i <= maju; i++) {
-             int maja = Integer.valueOf(majad[i-1]);
-             if(maja != eelmine_korgus){
-                 if(eelmine_indeks != -1) maja_jargmine_korgus.put(eelmine_indeks, i);
-                 eelmine_korgus = maja;
-                 eelmine_indeks = i;
-             }
-        }
-        maja_jargmine_korgus.put(eelmine_indeks, maju + 1);
+    private static void loo_kahendpuu(TreeMap<Integer, Object> korgus_grupid_maps, HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp) {
 
-        for (int i = 0; i < lapsi; i++) {
-            String liikumine[] = in.readLine().split(" ");
-            int maja1 = Integer.parseInt(liikumine[0]);
-            int maja2 = Integer.parseInt(liikumine[1]);
-            int parim_pikkus = 1;
-            for(Map.Entry<Integer, Integer> entry : maja_jargmine_korgus.entrySet()){
-                if(entry.getValue() - 1 > maja2)
-                    break;
-                parim_pikkus = Math.max(parim_pikkus, entry.getValue() - Math.max(maja1, entry.getKey()));
-            }
-            System.out.println(parim_pikkus);
+        if(algus == lopp) { // Oleme jõudnud puu lehele, kus on algandmed otse
+            gruppide_pikkuste_puu.put(tipp, ((int[])korgus_grupid_maps.get(algus))[3]);
+            return;
         }
 
-         */
+        int uus_tipp = tipp * 2;
+        int pooleks = (lopp - algus) / 2;
+        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp, algus, pooleks);
+        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp  + 1, pooleks + 1, (lopp);
+
+        gruppide_pikkuste_puu.put(tipp, Math.max(gruppide_pikkuste_puu.get(uus_tipp), gruppide_pikkuste_puu.get(uus_tipp+1)));
+
     }
 }
