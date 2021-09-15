@@ -94,10 +94,15 @@ public class Kylaskaigud {
             return gruppide_pikkuste_puu.get(tipp);
 
         // Otsi vasakul
-
+        int uus_tipp = tipp * 2;
+        int pooleks = (algus + lopp) / 2;
+        int vasak_vaartus = otsi_kahendpuust(gruppide_pikkuste_puu, uus_tipp, algus, pooleks, maja1, maja2);
         // Otsi paremalt
+        int parem_vaartus = otsi_kahendpuust(gruppide_pikkuste_puu, uus_tipp + 1, pooleks + 1, lopp, maja1, maja2);
 
-        return tipp;
+        if(vasak_vaartus > parem_vaartus)
+            return vasak_vaartus;
+        return parem_vaartus;
     }
 
     private static void loo_kahendpuu(TreeMap<Integer, Object> korgus_grupid_maps, HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp) {
