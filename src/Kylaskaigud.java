@@ -88,11 +88,17 @@ public class Kylaskaigud {
 
     private static int otsi_kahendpuust(HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp, int maja1, int maja2) {
 
-        if(maja1 > maja2 || maja2 < algus || maja1 > lopp)
+        if(maja1 > maja2 || maja1 > lopp || maja2 < algus)
             return 0;
 
-        if(maja1>= algus && maja2 <= lopp)
-            return gruppide_pikkuste_puu.get(tipp);
+        if( algus >= maja1 && lopp <= maja2){
+
+            // Vaata teooriat - lk 3, osadele indeksitele väärtust ei looda, sest kahenduspuus ei ole kõikväimalikke harusid
+            // siis tuleb tagastada sobiv väärtus Käesoleval juhul 0 pikkus
+            Integer pikkus = gruppide_pikkuste_puu.get(tipp);
+            return pikkus == null ? 0 : pikkus;
+        }
+
 
         // Otsi vasakul
         int uus_tipp = tipp * 2;
