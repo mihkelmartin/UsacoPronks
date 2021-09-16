@@ -27,6 +27,7 @@ public class Torn {
             }
         }
         int max_kaste = 0;
+        int summa = 0;
         int kandevoime = Integer.MAX_VALUE; // Pane max algusesse
         while (true){
             int vahepeale_parim_kandevoime = Integer.MIN_VALUE;
@@ -40,7 +41,8 @@ public class Torn {
                     }
                 }
             }
-            //System.out.println(vahepealne_parim_kast + " " + vahepeale_parim_kandevoime);
+            // System.out.println(vahepealne_parim_kast + " " + vahepeale_parim_kandevoime);
+            summa += vahepealne_parim_kast;
 
             kandevoime = vahepeale_parim_kandevoime;
             if(kandevoime >= 0){
