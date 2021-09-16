@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,7 +11,7 @@ public class Torn {
         BufferedReader in = new BufferedReader(ina);
         int kaste = Integer.parseInt(in.readLine());
 
-        HashMap<Integer, Integer> kastid = new HashMap<>();
+        TreeMap<Integer, Integer> kastid = new TreeMap<>();
         while (kaste-- > 0) {
             String sisend[] = in.readLine().split(" ");
             int kaal = Integer.parseInt(sisend[0]);
@@ -26,19 +27,23 @@ public class Torn {
             }
         }
         int max_kaste = 0;
-        int kandevoime = Integer.MAX_VALUE;
+        int kandevoime = Integer.MAX_VALUE; // Pane max algusesse
         while (true){
             int vahepeale_parim_kandevoime = Integer.MIN_VALUE;
+            int vahepealne_parim_kast = 0;
             for (Map.Entry<Integer, Integer> entry : kastid.entrySet()){
                 if(entry.getValue() <= kandevoime) {
                     int uus_kandevoime = Math.min(entry.getKey(), kandevoime - entry.getValue());
                     if(uus_kandevoime > vahepeale_parim_kandevoime){
                         vahepeale_parim_kandevoime = uus_kandevoime;
+                        vahepealne_parim_kast = entry.getValue();
                     }
                 }
             }
+            //System.out.println(vahepealne_parim_kast + " " + vahepeale_parim_kandevoime);
+
             kandevoime = vahepeale_parim_kandevoime;
-            if(kandevoime >=0){
+            if(kandevoime >= 0){
                 max_kaste++;
             } else {
                 break;
