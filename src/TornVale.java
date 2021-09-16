@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Torn {
+public class TornVale {
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
