@@ -9,46 +9,40 @@ public class Torn {
         BufferedReader in = new BufferedReader(ina);
         int kaste = Integer.parseInt(in.readLine());
 
-        TreeMap<Integer, Integer> kastid = new TreeMap<>();
-        while (kaste-- > 0) {
+        int[][] kastid_kandevoimed = new int[kaste][2];
+        for (int i = 0; i < kaste; i++) {
             String sisend[] = in.readLine().split(" ");
             int kaal = Integer.parseInt(sisend[0]);
             int kandevoime = Integer.parseInt(sisend[1]);
-
-            if(kastid.get(kandevoime) != null){
-               int kaal_olemas = kastid.get(kandevoime);
-               if(kaal_olemas > kaal){
-                   kastid.put(kandevoime, kaal);
-               }
-            } else {
-                kastid.put(kandevoime, kaal);
-            }
+            kastid_kandevoimed[i][0] = kaal;
+            kastid_kandevoimed[i][1] = kandevoime;
         }
-        int max_kaste = 0;
-        int summa = 0;
-        int kandevoime = Integer.MAX_VALUE; // Pane max algusesse
-        while (true){
-            int vahepeale_parim_kandevoime = Integer.MIN_VALUE;
-            int vahepealne_parim_kast = 0;
-            for (Map.Entry<Integer, Integer> entry : kastid.entrySet()){
-                if(entry.getValue() <= kandevoime) {
-                    int uus_kandevoime = Math.min(entry.getKey(), kandevoime - entry.getValue());
+
+        int parim_kaste = 0;
+        for (int i = 0; i < kaste; i++) {
+            int valitud_kasti_indeks = i;
+            int kandevoime = kastid_kandevoimed[i][1]; // Pane max algusesse
+            int max_kaste = 1;
+            while(true){
+                int vahepeale_parim_kandevoime = Integer.MIN_VALUE;
+                for (int j = valitud_kasti_indeks; j < kaste; j++) {
+                    int uus_kandevoime = Math.min(kastid_kandevoimed[j][1], kandevoime - kastid_kandevoimed[j][0]);
                     if(uus_kandevoime > vahepeale_parim_kandevoime){
                         vahepeale_parim_kandevoime = uus_kandevoime;
-                        vahepealne_parim_kast = entry.getValue();
+                        valitud_kasti_indeks = j;
                     }
                 }
+                kandevoime = vahepeale_parim_kandevoime;
+                if(kandevoime >= 0){
+                    max_kaste++;
+                } else {
+                    break;
+                }
             }
-            // System.out.println(vahepealne_parim_kast + " " + vahepeale_parim_kandevoime);
-            summa += vahepealne_parim_kast;
+            if(max_kaste>parim_kaste)
+                parim_kaste = max_kaste;
 
-            kandevoime = vahepeale_parim_kandevoime;
-            if(kandevoime >= 0){
-                max_kaste++;
-            } else {
-                break;
-            }
         }
-        System.out.println(max_kaste);
+        System.out.println(parim_kaste);
     }
 }
