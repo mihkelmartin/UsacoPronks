@@ -12,6 +12,17 @@ public class k5_ArvudeLiitmine {
         int K = Integer.parseInt(sisend[0]);
         int N = Integer.parseInt(sisend[1]);
 
+        int KN_VAHE = 0;
+        int faktoriaale = 1;
+        int tegur = N;
+        if(K > N){
+            KN_VAHE = K-N;
+            faktoriaale = N;
+            tegur = N;
+        } else {
+            faktoriaale = K;
+            tegur = N;
+        }
         long result = 1;
         if(K == 1){
             System.out.println("1");
@@ -22,8 +33,8 @@ public class k5_ArvudeLiitmine {
             // SEE EI TÖÖTA - ERITI KUI K on suurem kui N näiteks, siis tekib 0 palju
             // Lisaks mis siis kui K sama suur kui N või natuke väiksem
             boolean bJagatudKahega = false;
-            while (K-- > 1) {
-                result = result * (N+2);
+            while (faktoriaale-- > 1) {
+                result = result * (tegur+2);
                 if(!bJagatudKahega && result%2 == 0){
                     result /= 2;
                     bJagatudKahega = true;
@@ -31,7 +42,12 @@ public class k5_ArvudeLiitmine {
                 if(bJagatudKahega) {
                     result %= mod;
                 }
-                N--;
+                tegur--;
+            }
+            // Äkki on nii palju kombinatsioone rohkem kui K on suurem kui N, siis saab 0 panne igale poole
+            while (KN_VAHE-- >= 1){
+                result *= N;
+                result %= mod;
             }
             System.out.println(result);
         }
