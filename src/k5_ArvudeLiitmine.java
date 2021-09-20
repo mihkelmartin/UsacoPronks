@@ -33,7 +33,7 @@ public class k5_ArvudeLiitmine {
             // SEE EI TÖÖTA - ERITI KUI K on suurem kui N näiteks, siis tekib 0 palju
             // Lisaks mis siis kui K sama suur kui N või natuke väiksem
             boolean bJagatudKahega = false;
-            while (faktoriaale-- > 1) {
+            while (faktoriaale--> 1) {
                 result = result * (tegur+2);
                 if(!bJagatudKahega && result%2 == 0){
                     result /= 2;
