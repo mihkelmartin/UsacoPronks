@@ -49,6 +49,10 @@ public class k5_ArvudeLiitmine {
                 result *= N;
                 result %= mod;
             }
+            if(KN_VAHE > 0){
+                result -=  KN_VAHE * (N+1);
+                result %= mod;
+            }
             System.out.println(result);
         }
     }
