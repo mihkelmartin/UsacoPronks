@@ -45,12 +45,8 @@ public class k5_ArvudeLiitmine {
                 tegur--;
             }
             // Äkki on nii palju kombinatsioone rohkem kui K on suurem kui N, siis saab 0 panne igale poole
-            while (KN_VAHE-- >= 1){
-                result *= N;
-                result %= mod;
-            }
-            if(KN_VAHE > 0){
-                result -=  KN_VAHE * (N+1);
+            if (KN_VAHE >0){
+                result *= (KN_VAHE) * (N+1)*(N+2)/2;
                 result %= mod;
             }
             System.out.println(result);
