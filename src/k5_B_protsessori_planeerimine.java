@@ -18,9 +18,12 @@ public class k5_B_protsessori_planeerimine {
         }
 
         for (int i = 1; i <= t; i++) {
+
+            // >= garanteerib, et sinna kohta on üldse tuldud, et sealt edasi minna
             if(m <= i && toid_sekundil[i-m] >= 0){
                 toid_sekundil[i] = Math.max(toid_sekundil[i-m] + 1, toid_sekundil[i]);
             }
+            // >= garanteerib, et sinna kohta on üldse tuldud, et sealt edasi minna
             if(n <= i && toid_sekundil[i-n] >= 0){
                 toid_sekundil[i] = Math.max(toid_sekundil[i-n] + 1, toid_sekundil[i]);
             }
