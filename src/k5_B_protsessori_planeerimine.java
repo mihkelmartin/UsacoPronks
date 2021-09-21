@@ -21,29 +21,42 @@ public class k5_B_protsessori_planeerimine {
                 eri_pikkusega_ylesandeid = 2;
             }
             int[] ylesande_kestused = new int[eri_pikkusega_ylesandeid];
-            if(m < n){
+            if(m == n){
                 ylesande_kestused[0] = m;
-                ylesande_kestused[1] = n;
-             } else {
+            } else
+            if(m < n){
                 ylesande_kestused[0] = n;
                 ylesande_kestused[1] = m;
+             } else {
+                ylesande_kestused[0] = m;
+                ylesande_kestused[1] = n;
             }
-            int[] ylesandeid = new int[t+1];  // Javas vaikimisi massiivis, mis ongi 0 ylesannet
+            int[] kaugus_lopust_sekundil = new int[t+1];  //siia peab maks panema
+            int viimane_indeks = 0;
+            for (int i = 0; i < t + 1; i++) {
+                kaugus_lopust_sekundil[i] = t;
+            }
             for (int i = 1; i <= t; i++) {
                 for (int j = 0; j < ylesande_kestused.length; j++) {
-                    if(ylesande_kestused[j] >= i &&
-                            i%ylesande_kestused[j] == 0 &&
-                            ylesandeid[i-ylesande_kestused[j]] + 1 > ylesandeid[i]){
-                        ylesandeid[i]++;
+                    if( i >= ylesande_kestused[j]
+                            && kaugus_lopust_sekundil[i-ylesande_kestused[j]] - ylesande_kestused[j] < kaugus_lopust_sekundil[i]){
+                        kaugus_lopust_sekundil[i] = kaugus_lopust_sekundil[i-ylesande_kestused[j]] - ylesande_kestused[j];
+                        viimane_indeks = j;
                     }
                 }
-                // Kui ei jagunud võta eelmine, see on parim
-                if(ylesandeid[i] == 0) ylesandeid[i] = ylesandeid[i-1];
             }
-            System.out.println(ylesandeid[t]);
+
+            int uus_indeks = t - ylesande_kestused[viimane_indeks] - kaugus_lopust_sekundil[t];
+            int arv = 1;
+            while (uus_indeks > 0) {
+                if (kaugus_lopust_sekundil[uus_indeks - ylesande_kestused[1]] - kaugus_lopust_sekundil[uus_indeks] == ylesande_kestused[1]) {
+                    uus_indeks = uus_indeks - ylesande_kestused[1];
+                } else {
+                    uus_indeks = uus_indeks - ylesande_kestused[0];
+                }
+                arv++;
+            }
+            System.out.println(kaugus_lopust_sekundil[t] + " " + arv);
         }
-
-
-
     }
 }
