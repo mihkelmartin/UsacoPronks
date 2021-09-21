@@ -48,6 +48,27 @@ public class k5_B_protsessori_planeerimine {
                 }
             }
             System.out.println(toid_sekundil[t - kaugus_lopust_sekundil[t]]);
+
+            /*
+            #include<iostream>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+int n,m,t,a[20005];
+int main(){
+	cin>>n>>m>>t;
+	memset(a,-1,sizeof(a));
+	a[0]=0;
+	for(int i=0; i<t; i++) if(a[i]>-1){
+		if(a[i+n]<=a[i]) a[i+n]=a[i]+1;
+		if(a[i+m]<=a[i]) a[i+m]=a[i]+1;
+	}
+	int k=t;
+	while(a[k]==-1) k--;
+	cout<<a[k]<<"\n";
+}
+
+             */
         }
     }
 }
