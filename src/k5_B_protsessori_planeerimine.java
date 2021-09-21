@@ -25,14 +25,16 @@ public class k5_B_protsessori_planeerimine {
                 ylesande_kestused[0] = m;
             } else
             if(m < n){
-                ylesande_kestused[0] = n;
-                ylesande_kestused[1] = m;
-             } else {
                 ylesande_kestused[0] = m;
                 ylesande_kestused[1] = n;
+             } else {
+                ylesande_kestused[0] = n;
+                ylesande_kestused[1] = m;
             }
+
             int[] kaugus_lopust_sekundil = new int[t+1];  //siia peab maks panema
-            int viimane_indeks = 0;
+            int[] toid_sekundil = new int[t+1];  //siia peab maks panema
+
             for (int i = 0; i < t + 1; i++) {
                 kaugus_lopust_sekundil[i] = t;
             }
@@ -41,22 +43,11 @@ public class k5_B_protsessori_planeerimine {
                     if( i >= ylesande_kestused[j]
                             && kaugus_lopust_sekundil[i-ylesande_kestused[j]] - ylesande_kestused[j] < kaugus_lopust_sekundil[i]){
                         kaugus_lopust_sekundil[i] = kaugus_lopust_sekundil[i-ylesande_kestused[j]] - ylesande_kestused[j];
-                        viimane_indeks = j;
+                        toid_sekundil[i] = toid_sekundil[i-ylesande_kestused[j]] + 1;
                     }
                 }
             }
-
-            int uus_indeks = t - ylesande_kestused[viimane_indeks] - kaugus_lopust_sekundil[t];
-            int arv = 1;
-            while (uus_indeks > 0) {
-                if (kaugus_lopust_sekundil[uus_indeks - ylesande_kestused[1]] - kaugus_lopust_sekundil[uus_indeks] == ylesande_kestused[1]) {
-                    uus_indeks = uus_indeks - ylesande_kestused[1];
-                } else {
-                    uus_indeks = uus_indeks - ylesande_kestused[0];
-                }
-                arv++;
-            }
-            System.out.println(kaugus_lopust_sekundil[t] + " " + arv);
+            System.out.println(toid_sekundil[t - kaugus_lopust_sekundil[t]]);
         }
     }
 }
