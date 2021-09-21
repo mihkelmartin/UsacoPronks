@@ -24,19 +24,21 @@ public class k8_A_Torn {
         // i-sse summerrime i kandevõime maximaalset
         int[] kandevoime_kaste = new int[max_kandevoime + 1];
         // Käime üle kõikide kastide
-        for (int j = 0; j <= kaste; j++) {
+        int vastus = 0;
+        for (int j = 0; j < kaste; j++) {
             // Kui vastavat kandevõimet pole pane 1
             if(kandevoime_kaste[kastid_kandevoimed[j][1]] == 0)
                 kandevoime_kaste[kastid_kandevoimed[j][1]] = 1;
             // Leia kandevõimed mille peale sobib kaalu järgi
-            for (int i = max_kandevoime; i < kastid_kandevoimed[j][0]; i--) {
+            for (int i = max_kandevoime; i >= kastid_kandevoimed[j][0]; i--) {
                 // Peab olemas  olema
                 if(kandevoime_kaste[i] != 0){
-                    int uus_kandevoime = Math.min(kandevoime_kaste[i] - kastid_kandevoimed[j][0], kastid_kandevoimed[j][1]);
+                    int uus_kandevoime = Math.min(i - kastid_kandevoimed[j][0], kastid_kandevoimed[j][1]);
                     kandevoime_kaste[uus_kandevoime] = Math.max(kandevoime_kaste[i] + 1, kandevoime_kaste[uus_kandevoime]);
+                    vastus = Math.max(vastus, kandevoime_kaste[uus_kandevoime]);
                 }
             }
         }
-        System.out.println("");
+        System.out.println(vastus);
     }
 }
