@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-public class Valimised {
+public class k8_I_Valimised {
     public static void main(String[] args )throws Exception {
 
         InputStreamReader ina = new InputStreamReader(System.in);

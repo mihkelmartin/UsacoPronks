@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Bussijuhid {
+public class k7_B_Bussijuhid {
 
     public static BufferedReader in;
     public static void main(String[] args )throws Exception {

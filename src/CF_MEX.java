@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class MEX {
+public class CF_MEX {
 
     private static final int[] xorid= new int[300005];
 

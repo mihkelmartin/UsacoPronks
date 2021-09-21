@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class nearest_beautiful {
+public class CF_nearest_beautiful {
 
     public static void main(String[] args) throws Exception{
         InputStreamReader isr = new InputStreamReader(System.in);

@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Bitmask {
+public class k7_H_Bitmask {
 
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);

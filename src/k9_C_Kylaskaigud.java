@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-public class Kylaskaigud {
+public class k9_C_Kylaskaigud {
     public static void main(String[] args )throws Exception {
 
         final long startTime = System.currentTimeMillis();

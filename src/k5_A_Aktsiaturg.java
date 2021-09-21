@@ -1,27 +1,17 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Aktsiaturg {
+public class k5_A_Aktsiaturg {
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         int t = Integer.parseInt(in.readLine());
 
         int[] tehingud = new int[t];
-        int[] pikkused = new int[t + 1];
         String sisend[] = in.readLine().split(" ");
         for (int i = 0; i < t ; i++) {
             tehingud[i] = Integer.valueOf(sisend[i]);
-            pikkused[i+1] = tehingud[i];
         }
-
-
-        for (int i = 2; i <= t; i++) {
-            for (int j = i; j < t; j++) {
-                pikkused[i] = Math.max(pikkused[i], pikkused[i]+ tehingud[j]) ;
-            }
-        }
-        System.out.println("paa");
         System.out.println(maxSubArraySum(tehingud));
     }
     static int maxSubArraySum(int a[])

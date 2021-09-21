@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class MINMEXCUT {
+public class CF_MINMEXCUT {
 
     public static void main(String[] args )throws Exception {
 

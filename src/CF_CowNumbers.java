@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 
-public class Lehmanumbrid {
+public class CF_CowNumbers {
 
 
     //

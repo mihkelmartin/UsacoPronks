@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
-public class JuryMeeting {
+public class CF_JuryMeeting {
 
     private static final long MOD=998244353;
     private static final int mx = 2 * 100001;

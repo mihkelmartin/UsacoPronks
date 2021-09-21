@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class A {
+public class CF_PaaritudPaaris {
 
     public static BufferedReader in;
     public static void main(String[] args )throws Exception {
