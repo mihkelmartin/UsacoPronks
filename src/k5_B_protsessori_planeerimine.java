@@ -11,45 +11,31 @@ public class k5_B_protsessori_planeerimine {
         int n = Integer.parseInt(sisend[1]);
         int t = Integer.parseInt(sisend[2]);
 
-        // Erijuhtumid
-        if(t == 0 || (t < m && t < n)){
-            System.out.println("0");
-            System.exit(0);
-        } else {
-            int eri_pikkusega_ylesandeid = 1;
-            if(m != n ){
-                eri_pikkusega_ylesandeid = 2;
-            }
-            int[] ylesande_kestused = new int[eri_pikkusega_ylesandeid];
-            if(m == n){
-                ylesande_kestused[0] = m;
-            } else
-            if(m < n){
-                ylesande_kestused[0] = m;
-                ylesande_kestused[1] = n;
-             } else {
-                ylesande_kestused[0] = n;
-                ylesande_kestused[1] = m;
-            }
+        int[] toid_sekundil = new int[t+1]; // Algväärtus 0
+        // Pane alates 1 väärtuseks -1 - tähendab, et sinna ei jõuta korda
+        for (int i = 1; i < t + 1; i++) {
+            toid_sekundil[i] = -1;
+        }
 
-            int[] kaugus_lopust_sekundil = new int[t+1];  //siia peab maks panema
-            int[] toid_sekundil = new int[t+1];  //siia peab maks panema
-
-            for (int i = 0; i < t + 1; i++) {
-                kaugus_lopust_sekundil[i] = t;
+        for (int i = 1; i <= t; i++) {
+            if(m <= i && toid_sekundil[i-m] >= 0){
+                toid_sekundil[i] = Math.max(toid_sekundil[i-m] + 1, toid_sekundil[i]);
             }
-            for (int i = 1; i <= t; i++) {
-                for (int j = 0; j < ylesande_kestused.length; j++) {
-                    if( i >= ylesande_kestused[j]
-                            && kaugus_lopust_sekundil[i-ylesande_kestused[j]] - ylesande_kestused[j] < kaugus_lopust_sekundil[i]){
-                        kaugus_lopust_sekundil[i] = kaugus_lopust_sekundil[i-ylesande_kestused[j]] - ylesande_kestused[j];
-                        toid_sekundil[i] = toid_sekundil[i-ylesande_kestused[j]] + 1;
-                    }
-                }
+            if(n <= i && toid_sekundil[i-n] >= 0){
+                toid_sekundil[i] = Math.max(toid_sekundil[i-n] + 1, toid_sekundil[i]);
             }
-            System.out.println(toid_sekundil[t - kaugus_lopust_sekundil[t]]);
+        }
 
-            /*
+        for (int i = t; i >= 0 ; i--) {
+            if(toid_sekundil[i] != -1){
+                System.out.println(toid_sekundil[i]);
+                break;
+            }
+        }
+    }
+}
+
+/*
             #include<iostream>
 #include<algorithm>
 #include<cstring>
@@ -69,6 +55,3 @@ int main(){
 }
 
              */
-        }
-    }
-}
