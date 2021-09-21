@@ -20,18 +20,21 @@ public class k8_A_Torn {
             max_kandevoime = kandevoime > max_kandevoime ? kandevoime : max_kandevoime;
         }
 
-        // Selle massiivi indeksi i kohal on i kasti korral suurim kandevõime
-        // Näiteks kui i = 1, siis algses massiivis parim kandevõime
-        int[] parim_alles_kandevoime = new int[max_kandevoime + 1];
-        // Alustame 2st ses 0 ja 1 on olemas
+
+        // i-sse summerrime i kandevõime maximaalset
+        int[] kandevoime_kaste = new int[max_kandevoime + 1];
+        // Käime üle kõikide kastide
         for (int j = 0; j <= kaste; j++) {
-            for (int i = 0; i < kaste; i++) {
-                int parimast_eelmisest_kandevoimest_kasti_kaal_maha =parim_alles_kandevoime[j-1] - kastid_kandevoimed[i][0];
-                int kaesolev_kandevoime = kastid_kandevoimed[i][1];
-                // Kasi enda kandevõime võib olla väiksem kui allesjäänust maha lahutatud kaal
-                int alles_jaav_kandevoime = Math.min(parimast_eelmisest_kandevoimest_kasti_kaal_maha, kaesolev_kandevoime);
-                // Pane suurim
-                parim_alles_kandevoime[j] = Math.max(parim_alles_kandevoime[j], alles_jaav_kandevoime);
+            // Kui vastavat kandevõimet pole pane 1
+            if(kandevoime_kaste[kastid_kandevoimed[j][1]] == 0)
+                kandevoime_kaste[kastid_kandevoimed[j][1]] = 1;
+            // Leia kandevõimed mille peale sobib kaalu järgi
+            for (int i = max_kandevoime; i < kastid_kandevoimed[j][0]; i--) {
+                // Peab olemas  olema
+                if(kandevoime_kaste[i] != 0){
+                    int uus_kandevoime = Math.min(kandevoime_kaste[i] - kastid_kandevoimed[j][0], kastid_kandevoimed[j][1]);
+                    kandevoime_kaste[uus_kandevoime] = Math.max(kandevoime_kaste[i] + 1, kandevoime_kaste[uus_kandevoime]);
+                }
             }
         }
         System.out.println("");
