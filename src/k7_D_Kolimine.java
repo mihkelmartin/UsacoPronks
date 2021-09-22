@@ -14,18 +14,20 @@ public class k7_D_Kolimine {
             kaste[i] = Integer.valueOf(sisend[i]);
         }
         Arrays.sort(kaste);
-        int vastus = 1;
+        int peidus = 0;
         for (int i = t - 1; i >= 0; i--) {
             int kast = kaste[i];
-            int mahtus = 1;
+            if(kast == Integer.MAX_VALUE)
+                continue;
+            int mahub = kast;
             for (int j = i - 1; j >=0 ; j--) {
-                if(kast >= kaste[j]){
-                    kast -= kaste[j];
-                    mahtus++;
+                if(mahub > kaste[j]){
+                    mahub = kaste[j];
+                    kaste[j] = Integer.MAX_VALUE; // Kasutatud
+                    peidus++;
                 }
             }
-            vastus = Math.max(vastus, mahtus);
         }
-        System.out.println(vastus);
+        System.out.println(t - peidus);
     }
 }
