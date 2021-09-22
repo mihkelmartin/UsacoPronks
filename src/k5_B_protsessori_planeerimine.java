@@ -38,6 +38,8 @@ public class k5_B_protsessori_planeerimine {
     }
 }
 
+
+// SEE ON ETTEPOOLE VAATAMISEGA
 /*
             #include<iostream>
 #include<algorithm>

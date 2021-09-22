@@ -21,9 +21,9 @@ public class k8_A_Torn {
         }
 
 
-        // i-sse summerrime i kandevõime maximaalset
+        // i-sse summerrime i kandevõime maximaalset kastide arvu
         int[] kandevoime_kaste = new int[max_kandevoime + 1];
-        // Käime üle kõikide kastide
+        // Käime üle kõikide kastide - pane tähele, et iga kasti vaid 1 kord, seetõttu, et ei tohtinud suurema numbriga vaiksema peale panna
         int vastus = 0;
         for (int j = 0; j < kaste; j++) {
             // Kui vastavat kandevõimet pole pane 1
@@ -31,7 +31,7 @@ public class k8_A_Torn {
                 kandevoime_kaste[kastid_kandevoimed[j][1]] = 1;
             // Leia kandevõimed mille peale sobib kaalu järgi
             for (int i = max_kandevoime; i >= kastid_kandevoimed[j][0]; i--) {
-                // Peab olemas  olema
+                // Kandevõime peab olemas  olema
                 if(kandevoime_kaste[i] != 0){
                     int uus_kandevoime = Math.min(i - kastid_kandevoimed[j][0], kastid_kandevoimed[j][1]);
                     kandevoime_kaste[uus_kandevoime] = Math.max(kandevoime_kaste[i] + 1, kandevoime_kaste[uus_kandevoime]);
