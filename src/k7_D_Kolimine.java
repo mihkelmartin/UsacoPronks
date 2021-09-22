@@ -15,6 +15,8 @@ public class k7_D_Kolimine {
         }
         Arrays.sort(kaste);
         int peidus = 0;
+
+        // Ahne algoritm, ei pruugi töötada
         for (int i = t - 1; i >= 0; i--) {
             int kast = kaste[i];
             if(kast == Integer.MAX_VALUE)
