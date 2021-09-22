@@ -20,7 +20,12 @@ public class k5_H_StatistikaManipulatsioon {
             paar[1] = onnetusi;
             autod.add(paar);
         }
+
+        // Samaväärsed
         Collections.sort(autod, Comparator.comparingInt(a -> ((int[]) a)[0]));
+        Collections.sort(autod, (a,b) -> ((int[]) a)[0] - ((int[]) b)[0]);
+        autod.sort((a,b) -> ((int[]) a)[0] - ((int[]) b)[0]);
+
 
         int[] pikkused = new int[autosid];
         // Üheelemendine jada on 1 pikkune
