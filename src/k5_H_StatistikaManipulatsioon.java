@@ -26,6 +26,16 @@ public class k5_H_StatistikaManipulatsioon {
         Collections.sort(autod, (a,b) -> ((int[]) a)[0] - ((int[]) b)[0]);
         autod.sort((a,b) -> ((int[]) a)[0] - ((int[]) b)[0]);
 
+        Comparator<Object> vordleja = new Comparator<Object>(){
+            @Override
+            public int compare(Object o1, Object o2) {
+                return ((int[]) o1)[0] - ((int[]) o2)[0];
+            }
+        };
+        autod.sort(vordleja);
+
+
+
 
         int[] pikkused = new int[autosid];
         // Üheelemendine jada on 1 pikkune
