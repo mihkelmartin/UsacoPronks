@@ -16,15 +16,15 @@ public class k7_D_Kolimine {
         Arrays.sort(kaste);
         int peidus = 0;
 
-        // Ahne algoritm, ei pruugi töötada
+        // Ahne algoritm, ei pruugi alati töötada. Ehk siis sorteeritud suuruse järjekorras ning
+        // seetõttu kõige suurem mis mahub läheb alati esimesena
         for (int i = t - 1; i >= 0; i--) {
-            int kast = kaste[i];
-            if(kast == Integer.MAX_VALUE)
+            int kast = kaste[i]; // Siia kasti hakkame proovima järgmisi
+            if(kast == Integer.MAX_VALUE) // See kast on kasutatud
                 continue;
-            int mahub = kast;
             for (int j = i - 1; j >=0 ; j--) {
-                if(mahub > kaste[j]){
-                    mahub = kaste[j];
+                if(kast > kaste[j]){ // Kui järgmine väiksem
+                    kast = kaste[j]; // Uus jooksev suuruss
                     kaste[j] = Integer.MAX_VALUE; // Kasutatud
                     peidus++;
                 }
