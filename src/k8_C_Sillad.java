@@ -33,6 +33,7 @@ public class k8_C_Sillad {
             paremfirmad.add(new Firma(firma[0], firma[1], Integer.valueOf(firma[2])));
         }
 
+        int[][] tootlikkuse_tabel = new int[vasak_firmasid][parem_firmasid];
 
         System.out.println("Uhke");
     }
