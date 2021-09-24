@@ -55,7 +55,7 @@ public class k8_C_Sillad {
                                     tootlikkuse_tabel[i][j + 1]);
                     vastus = Math.max(vastus, tootlikkuse_tabel[i][j]);
                 } else {
-                    // Kui pole mätsi võta enda eelmine või eelmise eelmine kui see suurem
+                    // Kui pole   mätsi võta enda eelmine või eelmise eelmine kui see suurem
                     tootlikkuse_tabel[i][j] = Math.max(tootlikkuse_tabel[i][j+1], tootlikkuse_tabel[i+1][j]);
                 }
             }
