@@ -35,21 +35,21 @@ public class k8_C_Sillad {
         }
 
         // 1 rohkem, et seal oleks 0 valmis
-        int[][] tootlikkuse_tabel = new int[vasak_firmasid + 1][parem_firmasid] + 1;
+        int[][] tootlikkuse_tabel = new int[vasak_firmasid + 1][parem_firmasid + 1];
 
         // Rekursiooni korral hakkaks tulema ülevalt otsast vasakult poolt, pannes vastavusse paremat poolt
         // Dünaamilist teeme alt-üles, seega vasakult alt hakkame tulema ja vaatame kuidas paremal on sama usku
         // firmasid ja täidame tabelit. Firma nimi ei ole tegelikult oluline
         // Alusta eelviimasest, sest viimane on meil selleks, et oleks 0
-        for (int i = vasak_firmasid - 2; i >= 0; i--) {
+        for (int i = vasak_firmasid - 1; i >= 0; i--) {
             for (int j = 0; j < parem_firmasid; j++) {
                 Firma vasak = vasakfirmad.get(i);
                 Firma parem = paremfirmad.get(j);
                 if(vasak.usk.equals(parem.usk)){
-                    tootlikkuse_tabel[i][j + 1] = vasak.tootlikkus + parem.tootlikkus;
+                    tootlikkuse_tabel[i-1][j + 1] = vasak.tootlikkus + parem.tootlikkus;
                 } else {
                     // Kui ei ole sama usku siis säilita mis enne või kui .....
-                    tootlikkuse_tabel[i][j + 1] = Math.max(tootlikkuse_tabel[i + 1][j + 1], tootlikkuse_tabel[i][j]);
+                    tootlikkuse_tabel[i-1][j+1] = Math.max(tootlikkuse_tabel[i][j+1], tootlikkuse_tabel[i-1][j]);
                 }
             }
         }
