@@ -41,18 +41,20 @@ public class k8_C_Sillad {
         // Dünaamilist teeme alt-üles, seega vasakult alt hakkame tulema ja vaatame kuidas paremal on sama usku
         // firmasid ja täidame tabelit. Firma nimi ei ole tegelikult oluline
         // Alusta eelviimasest, sest viimane on meil selleks, et oleks 0
+        int vastus = 0;
         for (int i = vasak_firmasid - 1; i >= 0; i--) {
             for (int j = parem_firmasid - 1; j >= 0; j--) {
                 Firma vasak = vasakfirmad.get(i);
                 Firma parem = paremfirmad.get(j);
                 if(vasak.usk.equals(parem.usk)){
                     tootlikkuse_tabel[i][j] = vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j];
+                    vastus = Math.max(vastus, tootlikkuse_tabel[i][j]);
                 } else {
                     // Kui ei ole sama usku siis säilita mis enne või kui .....
                     tootlikkuse_tabel[i][j] = Math.max(tootlikkuse_tabel[i][j+1], tootlikkuse_tabel[i+1][j]);
                 }
             }
         }
-        System.out.println("Uhke");
+        System.out.println(vastus);
     }
 }
