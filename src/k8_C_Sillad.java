@@ -8,6 +8,7 @@ public class k8_C_Sillad {
         private String nimi;
         private String usk;
         private int tootlikkus;
+
         public Firma (String nimi, String usk, int tootlikkus){
             this.nimi = nimi;
             this.usk = usk;
@@ -35,6 +36,18 @@ public class k8_C_Sillad {
 
         int[][] tootlikkuse_tabel = new int[vasak_firmasid][parem_firmasid];
 
+        // Rekursiooni korral hakkaks tulema ülevalt otsast vasakult poolt, pannes vastavusse paremat poolt
+        // Dünaamilist teeme alt-üles, seega vasakult alt hakkame tulema ja vaatame kuidas paremal on sama usku
+        // firmasid ja täidame tabelit. Firma nimi ei ole tegelikult oluline
+        for (int i = vasak_firmasid - 1; i >= 0; i--) {
+            for (int j = 0; j < parem_firmasid; j++) {
+                Firma vasak = vasakfirmad.get(i);
+                Firma parem = paremfirmad.get(j);
+                if(vasak.usk.equals(parem.usk)){
+                    tootlikkuse_tabel[i][j] = vasak.tootlikkus + parem.tootlikkus;
+                }
+            }
+        }
         System.out.println("Uhke");
     }
 }
