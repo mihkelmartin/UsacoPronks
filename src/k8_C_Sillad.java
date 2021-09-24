@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class k8_C_Sillad {
 
@@ -46,19 +47,24 @@ public class k8_C_Sillad {
             for (int j = parem_firmasid - 1; j >= 0; j--) {
                 Firma vasak = vasakfirmad.get(i);
                 Firma parem = paremfirmad.get(j);
-                if(vasak.usk.equals(parem.usk)){
+                if (vasak.usk.equals(parem.usk)) {
                     tootlikkuse_tabel[i][j] =
                             // Kui eelmine suurem võta eelmine
-                            Math.max(vasak.tootlikkus + parem.tootlikkus, tootlikkuse_tabel[i][j+1])
-                                    // + Eelmise usu, eelmine rida
-                                    + tootlikkuse_tabel[i+1][j+1];
+                            Math.max(vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i + 1][j + 1],
+                                    // kui pole suurem siis võib alusmisega jätkata alati
+                                    tootlikkuse_tabel[i][j + 1]);
                     vastus = Math.max(vastus, tootlikkuse_tabel[i][j]);
                 } else {
-                    // Kui ei ole sama usku siis säilita mis enne või kui .....
+                    // Kui pole mätsi võta enda eelmine või eelmise eelmine kui see suurem
                     tootlikkuse_tabel[i][j] = Math.max(tootlikkuse_tabel[i][j+1], tootlikkuse_tabel[i+1][j]);
                 }
             }
         }
-        System.out.println(vastus);
+
+        HashSet<Integer> sildu = new HashSet<>();
+        for (int i = 0; i < parem_firmasid; i++) {
+            sildu.add(tootlikkuse_tabel[0][i]);
+        }
+        System.out.println(vastus + " " + sildu.size());
     }
 }
