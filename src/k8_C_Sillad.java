@@ -47,7 +47,11 @@ public class k8_C_Sillad {
                 Firma vasak = vasakfirmad.get(i);
                 Firma parem = paremfirmad.get(j);
                 if(vasak.usk.equals(parem.usk)){
-                    tootlikkuse_tabel[i][j] = vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j];
+                    tootlikkuse_tabel[i][j] =
+                            // Kui eelmine suurem võta eelmine
+                            Math.max(vasak.tootlikkus + parem.tootlikkus, tootlikkuse_tabel[i][j+1])
+                                    // + Eelmise usu, eelmine rida
+                                    + tootlikkuse_tabel[i+1][j+1];
                     vastus = Math.max(vastus, tootlikkuse_tabel[i][j]);
                 } else {
                     // Kui ei ole sama usku siis säilita mis enne või kui .....
