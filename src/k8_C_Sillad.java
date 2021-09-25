@@ -69,23 +69,19 @@ public class k8_C_Sillad {
         int sildu = 0;
         while (vahepealne_parim > 0) {
             // Kõik variandid
-            if(tootlikkuse_tabel[parima_i][parim_j+1] == vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] != vahepealne_parim){
+            if(tootlikkuse_tabel[parima_i][parim_j+1] == vahepealne_parim){
                 parim_j++;
             } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] == vahepealne_parim){
                 parima_i++;
             } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] != vahepealne_parim){
-                if(vahepealne_parim - tootlikkuse_tabel[parima_i][parim_j+1] > vahepealne_parim - tootlikkuse_tabel[parima_i+1][parim_j]){
+                if(vahepealne_parim - tootlikkuse_tabel[parima_i][parim_j+1] <= vahepealne_parim - tootlikkuse_tabel[parima_i+1][parim_j]){
                     parim_j++;
+                    sildu++;
                 } else {
                     parima_i++;
                 }
-            } else if(tootlikkuse_tabel[parima_i][parim_j+1] == vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] == vahepealne_parim){
-                parima_i++;parim_j++;
             }
-            if(tootlikkuse_tabel[parima_i][parim_j] != vahepealne_parim){
-                vahepealne_parim = tootlikkuse_tabel[parima_i][parim_j];
-                sildu++;
-            }
+            vahepealne_parim = tootlikkuse_tabel[parima_i][parim_j];
         }
         System.out.println(vastus + " " + sildu);
     }
