@@ -70,19 +70,20 @@ public class k8_C_Sillad {
         int sildu = 0;
         while (vahepealne_parim > 0) {
             // Kõik variandid
-            if(tootlikkuse_tabel[parima_i][parim_j+1] == vahepealne_parim){
-                parim_j++;
-            } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] == vahepealne_parim){
+            if(tootlikkuse_tabel[parima_i+1][parim_j] == vahepealne_parim){
                 parima_i++;
-            } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] != vahepealne_parim){
-                // Kui samaga suurem siis sellega edasi kui all samasuur või suurem siis sinna
-                // Siin tuleb vaadata kuidas me selle tulemuse saime, seda koodi, see kus oli Math.max
-                // On kolm varianti, üks suurem, teine suurem, võrdsed
-                if(tootlikkuse_tabel[parima_i][parim_j+1] > tootlikkuse_tabel[parima_i+1][parim_j]){
+            } else if(tootlikkuse_tabel[parima_i][parim_j+1] == vahepealne_parim){
+                parim_j++;
+            } else {
+                // Oleme nurgas kust järgneb muutus
+                if(vasakfirmad.get(parima_i+1).tootlikkus +
+                        paremfirmad.get(parim_j+1).tootlikkus +
+                        tootlikkuse_tabel[parima_i+2][parim_j+2] >
+                        tootlikkuse_tabel[parima_i +1 ][parim_j + 2]){
                     parim_j++;
-                } else {
-                    // Kui võrdsed, siis oleneb
                     parima_i++;
+                } else {
+                    parim_j++;
                 }
                 sildu++;
             }
