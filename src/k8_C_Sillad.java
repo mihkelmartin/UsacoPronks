@@ -75,12 +75,13 @@ public class k8_C_Sillad {
             } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] == vahepealne_parim){
                 parima_i++;
             } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] != vahepealne_parim){
-                if(vahepealne_parim - tootlikkuse_tabel[parima_i][parim_j+1] <= vahepealne_parim - tootlikkuse_tabel[parima_i+1][parim_j]){
+                // Kui samaga suurem siis sellega edasi kui all samasuur või suurem siis sinna
+                if(tootlikkuse_tabel[parima_i][parim_j+1] > tootlikkuse_tabel[parima_i+1][parim_j]){
                     parim_j++;
-                    sildu++;
                 } else {
                     parima_i++;
                 }
+                sildu++;
             }
             vahepealne_parim = tootlikkuse_tabel[parima_i][parim_j];
         }
