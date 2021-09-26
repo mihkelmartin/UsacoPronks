@@ -26,31 +26,52 @@ public class k8_E_Uuring {
         }
 
         HashSet<Integer> sobivad_arvud = new HashSet<>();
-        int millest_arvutame = F;
-        String vastus = "";
-        leia_tulemus(tulemused, arvud, N-1, sobivad_arvud, millest_arvutame, vastus);
-        System.out.println(vastus);
+        sobivad_arvud.add(F);
+        String loppvastus = "";
+        for (int i = N-1; i >=0 ; i--) {
+            String vastus = "";
+            leia_tulemus(tulemused, arvud, i, sobivad_arvud, vastus);
+            if(vastus.equals("*")){
+                loppvastus = vastus;
+                break;
+            }
+            loppvastus = vastus + loppvastus;
+        }
+        System.out.println(loppvastus);
 
 
     }
 
-    private static void leia_tulemus(int[][] tulemused, int[] arvud, int positsioon, HashSet<Integer> sobivad_arvud, int millest_arvutame, String vastus) {
+    private static void leia_tulemus(int[][] tulemused, int[] arvud, int positsioon, HashSet<Integer> sobivad_arvud, String vastus) {
+        HashSet<Integer> uued_arvud = new HashSet<>();
         int kaesolev_arv = arvud[positsioon];
-        int tagasi_vaiksem = millest_arvutame - kaesolev_arv;
-        int tagasi_suurem = millest_arvutame + kaesolev_arv;
-        String vahe_vastus = "";
-        if(tulemused[positsioon - 1][tagasi_vaiksem] > 0){
-            vahe_vastus = "+";
-        } else if(tulemused[positsioon - 1][tagasi_suurem] > 0){
-            if(vahe_vastus.equals("+")){
-                vahe_vastus = "?";
-            } else {
-                vahe_vastus = "-";
+
+        boolean bPos = false;
+        boolean bNeg = false;
+        for (Integer i : sobivad_arvud) {
+            int tagasi_vaiksem = i - kaesolev_arv;
+            int tagasi_suurem = i + kaesolev_arv;
+
+            if (tulemused[positsioon - 1][tagasi_vaiksem] > 0) {
+                bPos = true;
+                uued_arvud.add(tagasi_vaiksem);
+            } else if (tulemused[positsioon - 1][tagasi_suurem] > 0) {
+                uued_arvud.add(tagasi_suurem);
+                bNeg = true;
             }
-        } else {
-            vahe_vastus = "*";
-            return;
         }
+        if(bNeg && bPos){
+            vastus = "?";
+        } else if(bNeg && !bPos){
+            vastus = "-";
+        } else if(!bNeg && bPos){
+            vastus = "+";
+        } else {
+            vastus = "*";
+        }
+        sobivad_arvud.clear();
+        sobivad_arvud.addAll(uued_arvud);
+
     }
 
     private static void taida_tabel(int[][] tulemused, int[] arvud, HashSet<Integer> arvutatud_arvud, int positsioon, int vaartus, int tulemus) {
