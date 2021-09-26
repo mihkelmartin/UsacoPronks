@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public class k8_E_Uuring {
 
-    private  static  int massiivi_poolsuurus =16000;
+    private  static  int massiivi_poolsuurus =200;
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
@@ -55,7 +55,8 @@ public class k8_E_Uuring {
             if (tulemused[positsioon - 1][tagasi_vaiksem + massiivi_poolsuurus] > 0) {
                 bPos = true;
                 uued_arvud.add(tagasi_vaiksem);
-            } else if (tulemused[positsioon - 1][tagasi_suurem + massiivi_poolsuurus] > 0) {
+            }
+            if (tulemused[positsioon - 1][tagasi_suurem + massiivi_poolsuurus] > 0) {
                 uued_arvud.add(tagasi_suurem);
                 bNeg = true;
             }
