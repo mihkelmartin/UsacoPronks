@@ -29,8 +29,7 @@ public class k8_E_Uuring {
         sobivad_arvud.add(F);
         String loppvastus = "";
         for (int i = N-1; i >=0 ; i--) {
-            String vastus = "";
-            leia_tulemus(tulemused, arvud, i, sobivad_arvud, vastus);
+            String vastus = leia_tulemus(tulemused, arvud, i, sobivad_arvud);
             if(vastus.equals("*")){
                 loppvastus = vastus;
                 break;
@@ -42,7 +41,8 @@ public class k8_E_Uuring {
 
     }
 
-    private static void leia_tulemus(int[][] tulemused, int[] arvud, int positsioon, HashSet<Integer> sobivad_arvud, String vastus) {
+    private static String leia_tulemus(int[][] tulemused, int[] arvud, int positsioon, HashSet<Integer> sobivad_arvud) {
+        String vastus = "";
         HashSet<Integer> uued_arvud = new HashSet<>();
         int kaesolev_arv = arvud[positsioon];
 
@@ -52,10 +52,10 @@ public class k8_E_Uuring {
             int tagasi_vaiksem = i - kaesolev_arv;
             int tagasi_suurem = i + kaesolev_arv;
 
-            if (tulemused[positsioon - 1][tagasi_vaiksem] > 0) {
+            if (tulemused[positsioon - 1][tagasi_vaiksem + massiivi_poolsuurus] > 0) {
                 bPos = true;
                 uued_arvud.add(tagasi_vaiksem);
-            } else if (tulemused[positsioon - 1][tagasi_suurem] > 0) {
+            } else if (tulemused[positsioon - 1][tagasi_suurem + massiivi_poolsuurus] > 0) {
                 uued_arvud.add(tagasi_suurem);
                 bNeg = true;
             }
@@ -71,6 +71,7 @@ public class k8_E_Uuring {
         }
         sobivad_arvud.clear();
         sobivad_arvud.addAll(uued_arvud);
+        return vastus;
 
     }
 
