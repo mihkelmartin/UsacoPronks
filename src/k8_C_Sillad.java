@@ -50,7 +50,7 @@ public class k8_C_Sillad {
                 if (vasak.usk.equals(parem.usk)) {
                     tootlikkuse_tabel[i][j] =
                             Math.max(
-                                    // Sama usuga eelmise tasam tootlikkus (+1 liigub tegelikult paremal pool allapoole)
+                                    // Eelmise tasam tootlikkus
                                     vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j+1],
                                     // Vasakul pool järgmine  ja madalamal kõrgusel, sest ei tohi üle minna
                                     tootlikkuse_tabel[i][j + 1]);
@@ -76,10 +76,10 @@ public class k8_C_Sillad {
                 parim_j++;
             } else {
                 // Oleme nurgas kust järgneb muutus
-                if(vasakfirmad.get(parima_i+1).tootlikkus +
-                        paremfirmad.get(parim_j+1).tootlikkus +
-                        tootlikkuse_tabel[parima_i+2][parim_j+2] >
-                        tootlikkuse_tabel[parima_i +1 ][parim_j + 2]){
+                if(vasakfirmad.get(parima_i).tootlikkus +
+                        paremfirmad.get(parim_j).tootlikkus +
+                        tootlikkuse_tabel[parima_i+1][parim_j+1] >
+                        tootlikkuse_tabel[parima_i][parim_j+1]){
                     parim_j++;
                     parima_i++;
                 } else {
