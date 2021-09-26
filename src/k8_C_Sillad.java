@@ -51,9 +51,9 @@ public class k8_C_Sillad {
                     tootlikkuse_tabel[i][j] =
                             Math.max(
                                     // Sama usuga eelmise tasam tootlikkus (+1 liigub tegelikult paremal pool allapoole)
-                                    vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i][j + 1],
-                                    // Vasakul pool järgmine  aga samale kõrgusele paremal
-                                    vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j]);
+                                    vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j+1],
+                                    // Vasakul pool järgmine  ja madalamal kõrgusel, sest ei tohi üle minna
+                                    tootlikkuse_tabel[i][j + 1]);
                     if(tootlikkuse_tabel[i][j] > vastus){
                         vastus = tootlikkuse_tabel[i][j];
                         parima_i = i; parim_j = j;
@@ -76,9 +76,12 @@ public class k8_C_Sillad {
                 parima_i++;
             } else if(tootlikkuse_tabel[parima_i][parim_j+1] != vahepealne_parim && tootlikkuse_tabel[parima_i+1][parim_j] != vahepealne_parim){
                 // Kui samaga suurem siis sellega edasi kui all samasuur või suurem siis sinna
+                // Siin tuleb vaadata kuidas me selle tulemuse saime, seda koodi, see kus oli Math.max
+                // On kolm varianti, üks suurem, teine suurem, võrdsed
                 if(tootlikkuse_tabel[parima_i][parim_j+1] > tootlikkuse_tabel[parima_i+1][parim_j]){
                     parim_j++;
                 } else {
+                    // Kui võrdsed, siis oleneb
                     parima_i++;
                 }
                 sildu++;
