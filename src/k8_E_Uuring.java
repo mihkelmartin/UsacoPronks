@@ -25,9 +25,32 @@ public class k8_E_Uuring {
             taida_tabel(tulemused, arvud, arvutatud_arvud, i, N - 1, F);
         }
 
-        System.out.println("Juhheid");
+        HashSet<Integer> sobivad_arvud = new HashSet<>();
+        int millest_arvutame = F;
+        String vastus = "";
+        leia_tulemus(tulemused, arvud, N-1, sobivad_arvud, millest_arvutame, vastus);
+        System.out.println(vastus);
 
 
+    }
+
+    private static void leia_tulemus(int[][] tulemused, int[] arvud, int positsioon, HashSet<Integer> sobivad_arvud, int millest_arvutame, String vastus) {
+        int kaesolev_arv = arvud[positsioon];
+        int tagasi_vaiksem = millest_arvutame - kaesolev_arv;
+        int tagasi_suurem = millest_arvutame + kaesolev_arv;
+        String vahe_vastus = "";
+        if(tulemused[positsioon - 1][tagasi_vaiksem] > 0){
+            vahe_vastus = "+";
+        } else if(tulemused[positsioon - 1][tagasi_suurem] > 0){
+            if(vahe_vastus.equals("+")){
+                vahe_vastus = "?";
+            } else {
+                vahe_vastus = "-";
+            }
+        } else {
+            vahe_vastus = "*";
+            return;
+        }
     }
 
     private static void taida_tabel(int[][] tulemused, int[] arvud, HashSet<Integer> arvutatud_arvud, int positsioon, int vaartus, int tulemus) {
