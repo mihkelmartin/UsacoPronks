@@ -1,10 +1,11 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class k8_E_Uuring {
 
-    private  static  int massiivi_poolsuurus = 30;
+    private  static  int massiivi_poolsuurus =16000;
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
@@ -18,25 +19,28 @@ public class k8_E_Uuring {
         }
         int[][] tulemused = new int[N][massiivi_poolsuurus * 2 + 1];
 
-        ArrayList<Integer> arvutatud_arvud = new ArrayList<>();
+        HashSet<Integer> arvutatud_arvud = new HashSet<>();
         arvutatud_arvud.add(0);
-        taida_tabel(tulemused, arvud, arvutatud_arvud, 0, N - 1, F);
+        for (int i = 0; i < N; i++) {
+            taida_tabel(tulemused, arvud, arvutatud_arvud, i, N - 1, F);
+        }
 
         System.out.println("Juhheid");
 
 
     }
 
-    private static void taida_tabel(int[][] tulemused, int[] arvud, ArrayList<Integer> arvutatud_arvud, int positsioon, int vaartus, int tulemus) {
+    private static void taida_tabel(int[][] tulemused, int[] arvud, HashSet<Integer> arvutatud_arvud, int positsioon, int vaartus, int tulemus) {
 
         int arvutatud_arve = arvutatud_arvud.size();
+        HashSet<Integer> uuedArvud = new HashSet<>();
 
-        for (int i = 0; i < arvutatud_arve; i++) {
-            int arvutatud_arv = arvutatud_arvud.get(i);
+        for (Integer i : arvutatud_arvud) {
+            int arvutatud_arv = i;
             int liidetud = arvutatud_arv + arvud[positsioon];
             int lahutatud = arvutatud_arv - arvud[positsioon];
-            arvutatud_arvud.add(liidetud);
-            arvutatud_arvud.add(lahutatud);
+            uuedArvud.add(liidetud);
+            uuedArvud.add(lahutatud);
             if(positsioon != vaartus || lahutatud == tulemus)
               tulemused[positsioon][lahutatud + massiivi_poolsuurus] ++;
             if(positsioon != vaartus || liidetud == tulemus)
@@ -45,13 +49,7 @@ public class k8_E_Uuring {
         if(arvutatud_arve == 1){
             arvutatud_arvud.remove(0);
         }
-        if (positsioon < vaartus){
-            taida_tabel(tulemused, arvud, arvutatud_arvud, positsioon + 1, vaartus, tulemus);
-        }
-
-
-
-
+        arvutatud_arvud.addAll(uuedArvud);
     }
 
 }
