@@ -28,7 +28,7 @@ public class k8_E_Uuring {
         HashSet<Integer> sobivad_arvud = new HashSet<>();
         sobivad_arvud.add(F);
         String loppvastus = "";
-        for (int i = N-1; i >=0 ; i--) {
+        for (int i = N-1; i >0 ; i--) {
             String vastus = leia_tulemus(tulemused, arvud, i, sobivad_arvud);
             if(vastus.equals("*")){
                 loppvastus = vastus;
