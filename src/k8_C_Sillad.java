@@ -49,10 +49,11 @@ public class k8_C_Sillad {
                 Firma parem = paremfirmad.get(j);
                 if (vasak.usk.equals(parem.usk)) {
                     tootlikkuse_tabel[i][j] =
-                            // Kui eelmine suurem võta eelmine
-                            Math.max(vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i + 1][j + 1],
-                                    // kui pole suurem siis võib alusmisega jätkata alati
-                                    tootlikkuse_tabel[i][j + 1]);
+                            Math.max(
+                                    // Sama usuga eelmise tasam tootlikkus (+1 liigub tegelikult paremal pool allapoole)
+                                    vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i][j + 1],
+                                    // Vasakul pool järgmine  aga samale kõrgusele paremal
+                                    vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j]);
                     if(tootlikkuse_tabel[i][j] > vastus){
                         vastus = tootlikkuse_tabel[i][j];
                         parima_i = i; parim_j = j;
