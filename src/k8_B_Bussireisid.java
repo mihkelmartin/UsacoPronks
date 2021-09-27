@@ -58,6 +58,6 @@ public class k8_B_Bussireisid {
                 }
             }
         }
-        System.out.println(vastus);
+        System.out.println(vastus >= 0 ? vastus : 0);
     }
 }
