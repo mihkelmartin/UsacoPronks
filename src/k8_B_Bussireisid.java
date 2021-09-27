@@ -34,6 +34,9 @@ public class k8_B_Bussireisid {
             peatuse_tulu[Integer.parseInt(sisend[0])] = Integer.parseInt(sisend[1]);
         }
 
+        // Esimene rida edasisõit, teine rida tagasisõit.
+        int[][] soidu_tulu = new[2][n+1];
+
         System.out.println("OK");
     }
 }
