@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public class k8_E_Uuring {
 
-    private  static  int massiivi_poolsuurus =200;
+    private  static  int massiivi_poolsuurus =30;
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
@@ -17,7 +17,8 @@ public class k8_E_Uuring {
         for (int i = 0; i < N; i++) {
             arvud[i] = Integer.valueOf(in.readLine());
         }
-        int[][] tulemused = new int[N][massiivi_poolsuurus * 2 + 1];
+        int[][] tulemused = new int[N + 1][massiivi_poolsuurus * 2 + 1];
+        tulemused[0][massiivi_poolsuurus] = 1; // 0 ehk lõpptulemus, seda peab olema 1
 
         HashSet<Integer> arvutatud_arvud = new HashSet<>();
         arvutatud_arvud.add(0);
@@ -28,7 +29,7 @@ public class k8_E_Uuring {
         HashSet<Integer> sobivad_arvud = new HashSet<>();
         sobivad_arvud.add(F);
         String loppvastus = "";
-        for (int i = N-1; i >0 ; i--) {
+        for (int i = N; i >0 ; i--) {
             String vastus = leia_tulemus(tulemused, arvud, i, sobivad_arvud);
             if(vastus.equals("*")){
                 loppvastus = vastus;
@@ -44,7 +45,7 @@ public class k8_E_Uuring {
     private static String leia_tulemus(int[][] tulemused, int[] arvud, int positsioon, HashSet<Integer> sobivad_arvud) {
         String vastus = "";
         HashSet<Integer> uued_arvud = new HashSet<>();
-        int kaesolev_arv = arvud[positsioon];
+        int kaesolev_arv = arvud[positsioon - 1];
 
         boolean bPos = false;
         boolean bNeg = false;
@@ -87,10 +88,10 @@ public class k8_E_Uuring {
             int lahutatud = arvutatud_arv - arvud[positsioon];
             uuedArvud.add(liidetud);
             uuedArvud.add(lahutatud);
-            if(positsioon != vaartus || lahutatud == tulemus)
-              tulemused[positsioon][lahutatud + massiivi_poolsuurus] ++;
-            if(positsioon != vaartus || liidetud == tulemus)
-              tulemused[positsioon][liidetud + massiivi_poolsuurus] ++;
+            if(positsioon < vaartus || lahutatud == tulemus)
+              tulemused[positsioon + 1][lahutatud + massiivi_poolsuurus] ++;
+            if(positsioon < vaartus || liidetud == tulemus)
+              tulemused[positsioon + 1][liidetud + massiivi_poolsuurus] ++;
         }
         if(arvutatud_arve == 1){
             arvutatud_arvud.remove(0);
