@@ -51,6 +51,10 @@ public class k8_B_Bussireisid {
                     int kokku_tulu = soidu_tulu_peatuses[0][tee.algus_peatus] + peatuse_tulu[tee.lopp_peatus] - tee.soidu_kulu;
                     soidu_tulu_peatuses[0][i] = Math.max(soidu_tulu_peatuses[0][i], kokku_tulu);
                 }
+                // Kuidas saame tagasi, esimene kord i - 1 = 0, teine i - 2 = 1 jne
+                if(tee.algus_peatus == i - 1){
+                    int kokku_tulu = soidu_tulu_peatuses[1][tee.algus_peatus] + peatuse_tulu[tee.algus_peatus] - tee.soidu_kulu;
+                }
             }
 
         }
