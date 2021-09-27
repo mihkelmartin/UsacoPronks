@@ -42,23 +42,22 @@ public class k8_B_Bussireisid {
         soidu_tulu_peatuses[1][0] = 0;
 
         // Liigume üle peatuste
+        int vastus = Integer.MIN_VALUE;
         for (int i = 1; i <= n; i++) {
             soidu_tulu_peatuses[0][i] = Integer.MIN_VALUE;
+            soidu_tulu_peatuses[1][i] = Integer.MIN_VALUE;
             for(Tee tee : teed){
                 // Vaatame neid teid mis lõpevad käesolevas peatuses - ja leiame kõige tulusama
                 if(tee.lopp_peatus == i){
                     // Alguspeatuses on meil juba arvestatud parim hind sinnani
-                    int kokku_tulu = soidu_tulu_peatuses[0][tee.algus_peatus] + peatuse_tulu[tee.lopp_peatus] - tee.soidu_kulu;
-                    soidu_tulu_peatuses[0][i] = Math.max(soidu_tulu_peatuses[0][i], kokku_tulu);
-                }
-                // Kuidas saame tagasi, esimene kord i - 1 = 0, teine i - 2 = 1 jne
-                if(tee.algus_peatus == i - 1){
-                    int kokku_tulu = soidu_tulu_peatuses[1][tee.algus_peatus] + peatuse_tulu[tee.algus_peatus] - tee.soidu_kulu;
+                    int kokku_edasi_tulu = soidu_tulu_peatuses[0][tee.algus_peatus] + peatuse_tulu[tee.lopp_peatus] - tee.soidu_kulu;
+                    soidu_tulu_peatuses[0][i] = Math.max(soidu_tulu_peatuses[0][i], kokku_edasi_tulu);
+                    int kokku_tagasi_tulu = soidu_tulu_peatuses[1][tee.algus_peatus] - tee.soidu_kulu;
+                    soidu_tulu_peatuses[1][i] = Math.max(soidu_tulu_peatuses[1][i], kokku_tagasi_tulu);
+                    vastus = Math.max(vastus, kokku_tagasi_tulu + kokku_edasi_tulu);
                 }
             }
-
         }
-
-        System.out.println("OK");
+        System.out.println(vastus);
     }
 }
