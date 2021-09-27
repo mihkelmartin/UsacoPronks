@@ -35,7 +35,11 @@ public class k8_B_Bussireisid {
         }
 
         // Esimene rida edasisõit, teine rida tagasisõit.
+        // kuidas siis kui peatust polegi - kas 0, või MIN, vaatame
         int[][] soidu_tulu = new[2][n + 1];
+        for (int i = 1; i < n; i++) {
+
+        }
 
         System.out.println("OK");
     }
