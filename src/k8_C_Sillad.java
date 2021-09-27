@@ -53,7 +53,7 @@ public class k8_C_Sillad {
                                     // Eelmise tasam tootlikkus
                                     vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i+1][j+1],
                                     // Vasakul pool järgmine  ja madalamal kõrgusel, sest ei tohi üle minna
-                                    tootlikkuse_tabel[i][j + 1]);
+                                    Math.max(tootlikkuse_tabel[i][j + 1], tootlikkuse_tabel[i +1 ][j]));
                     if(tootlikkuse_tabel[i][j] > vastus){
                         vastus = tootlikkuse_tabel[i][j];
                         parima_i = i; parim_j = j;
