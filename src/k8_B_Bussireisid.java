@@ -42,7 +42,7 @@ public class k8_B_Bussireisid {
         soidu_tulu_peatuses[1][0] = 0;
 
         // Liigume üle peatuste
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             soidu_tulu_peatuses[0][i] = Integer.MIN_VALUE;
             for(Tee tee : teed){
                 // Vaatame neid teid mis lõpevad käesolevas peatuses - ja leiame kõige tulusama
