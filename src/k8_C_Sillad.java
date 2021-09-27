@@ -35,13 +35,16 @@ public class k8_C_Sillad {
             paremfirmad.add(new Firma(firma[0], firma[1], Integer.valueOf(firma[2])));
         }
 
-        // 1 rohkem, et seal oleks 0 valmis
+        // 1 rohkem, et seal oleks 0 äärtes valmis siis saab arvutusvalemid teha Math.max kasutades
         int[][] tootlikkuse_tabel = new int[vasak_firmasid + 1][parem_firmasid + 1];
 
-        // Rekursiooni korral hakkaks tulema ülevalt otsast vasakult poolt, pannes vastavusse paremat poolt
+        // Rekursiooni korral hakkaks tulema alt otsast vasakult poolt, pannes vastavusse paremat poolt alt otsast alates
+        // Nii saame ülespoole liikudes maksimaalselt võimalikku väärtust eelmise põhjal lihtsalt vaadata
         // Dünaamilist teeme alt-üles, seega vasakult alt hakkame tulema ja vaatame kuidas paremal on sama usku
         // firmasid ja täidame tabelit. Firma nimi ei ole tegelikult oluline
-        // Alusta eelviimasest, sest viimane on meil selleks, et oleks 0
+        // Alusta eelviimasest reast, sest viimane on meil selleks, et oleks 0
+
+        // jätame meelde koha kus parim väärtus saada parim_j ja parima_i
         int vastus = 0, parima_i = vasak_firmasid, parim_j = parem_firmasid;
         for (int i = vasak_firmasid - 1; i >= 0; i--) {
             for (int j = parem_firmasid - 1; j >= 0; j--) {
@@ -50,10 +53,13 @@ public class k8_C_Sillad {
                 if (vasak.usk.equals(parem.usk)) {
                     tootlikkuse_tabel[i][j] =
                             Math.max(
-                                    // Eelmise tasam tootlikkus
+                                    // Liida kokku ja lisa eelmise taseme tootlikkus. i+1 on eelmine vasak ja
+                                    // j+1 eelmine parem --> sest sillad ei tohi lõikuda
                                     vasak.tootlikkus + parem.tootlikkus + tootlikkuse_tabel[i + 1][j + 1],
-                                    // Vasakul pool järgmine  ja madalamal kõrgusel, sest ei tohi üle minna
+                                    // Ülal tehtud liitmine ei pruugi olukorda parandada, seega on need siin all, siis
+                                    // jätame eelmise parema tulemuse alles
                                     Math.max(tootlikkuse_tabel[i][j + 1], tootlikkuse_tabel[i + 1][j]));
+                    // Jäta parim vastus ja selle indeksid meelde
                     if(tootlikkuse_tabel[i][j] > vastus){
                         vastus = tootlikkuse_tabel[i][j];
                         parima_i = i; parim_j = j;
