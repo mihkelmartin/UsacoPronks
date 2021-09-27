@@ -42,7 +42,8 @@ public class k8_B_Bussireisid {
         int[] peatuse_tulu = new int[n + 1];
         for (int i = 0; i < p; i++) {
             sisend = in.readLine().split(" ");
-            peatuse_tulu[Integer.parseInt(sisend[0])] = Integer.parseInt(sisend[1]);
+            peatuse_tulu[Integer.parseInt(sisend[0])] = Math.max(peatuse_tulu[Integer.parseInt(sisend[0])],
+                    Integer.parseInt(sisend[1]));
         }
 
         // Esimene rida edasisõit, teine rida tagasisõit.
