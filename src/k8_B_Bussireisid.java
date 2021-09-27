@@ -28,14 +28,14 @@ public class k8_B_Bussireisid {
             teed.add(new Tee(Integer.parseInt(sisend[0]),Integer.parseInt(sisend[1]),Integer.parseInt(sisend[2])));
         }
         int p = Integer.valueOf(in.readLine());
-        int[] peatuse_tulu = new int[n+1];
+        int[] peatuse_tulu = new int[n + 1];
         for (int i = 0; i < p; i++) {
             sisend = in.readLine().split(" ");
             peatuse_tulu[Integer.parseInt(sisend[0])] = Integer.parseInt(sisend[1]);
         }
 
         // Esimene rida edasisõit, teine rida tagasisõit.
-        int[][] soidu_tulu = new[2][n+1];
+        int[][] soidu_tulu = new[2][n + 1];
 
         System.out.println("OK");
     }
