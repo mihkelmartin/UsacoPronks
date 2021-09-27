@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public class k8_E_Uuring {
 
-    private  static  int massiivi_poolsuurus =30;
+    private  static  int massiivi_poolsuurus =16000;
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
