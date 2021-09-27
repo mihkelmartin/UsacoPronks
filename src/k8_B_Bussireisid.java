@@ -25,7 +25,18 @@ public class k8_B_Bussireisid {
         ArrayList<Tee> teed = new ArrayList<>();
         for (int i = 0; i < m ; i++) {
             sisend = in.readLine().split(" ");
-            teed.add(new Tee(Integer.parseInt(sisend[0]),Integer.parseInt(sisend[1]),Integer.parseInt(sisend[2])));
+            int algus = Integer.parseInt(sisend[0]);
+            int lopp = Integer.parseInt(sisend[1]);
+            // Algandmed võivad olla nõmedad
+            // Jätta välja kui algus ja lõpp on sama
+            if(algus != lopp) {
+                // Vaheta järjekord kui lõpp on väiksem kui algus, kuna teed on kahesuunalised siis nii
+                // võib ja meie tabeli-täitmise-loogika toimib nii, et on õiges järjekorras
+                if(algus < lopp)
+                   teed.add(new Tee(algus, lopp, Integer.parseInt(sisend[2])));
+                else
+                    teed.add(new Tee(lopp, algus, Integer.parseInt(sisend[2])));
+            }
         }
         int p = Integer.valueOf(in.readLine());
         int[] peatuse_tulu = new int[n + 1];
