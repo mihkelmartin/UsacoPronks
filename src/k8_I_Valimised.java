@@ -74,9 +74,6 @@ public class k8_I_Valimised {
                 if(!kasutatud_riigid.get(pos).contains(riik)){
                     // Mis kui on võrdne ?
                     if(maksta_haali[pos] + riik.hind < maksta_haali[i]){
-                        if(maksta_haali[pos] + riik.hind == maksta_haali[i]){
-                            int k=0;
-                        }
                         maksta_haali[i] = maksta_haali[pos] + riik.hind;
 
                         // Uuendame riike mis on positsioonil kasutatud
