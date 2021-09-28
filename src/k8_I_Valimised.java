@@ -12,6 +12,7 @@ public class k8_I_Valimised {
         private String vanem;
         // -1 näitab, et ei ole veel kontrollitud
         private int haalte_arv = -1;
+        ArrayList<Riik> soltuvad_riigid = new ArrayList<>();
 
         public Riik(String nimi, int hind, String vanem) {
             this.nimi = nimi;
@@ -28,6 +29,8 @@ public class k8_I_Valimised {
                         riik.leiaSoltuvateRiikideArv(riigid);
                     }
                     this.haalte_arv += riik.haalte_arv;
+                    soltuvad_riigid.add(riik);
+                    soltuvad_riigid.addAll(riik.soltuvad_riigid);
                 }
             }
         }
@@ -66,6 +69,7 @@ public class k8_I_Valimised {
                         riigid_kasutatud_kohal_i.clear();
                         riigid_kasutatud_kohal_i.addAll(kasutatud_riigid.get(pos));
                         riigid_kasutatud_kohal_i.add(riik);
+                        riigid_kasutatud_kohal_i.addAll(riik.soltuvad_riigid);
 
                         vastus = maksta_haali[i];
                     }
