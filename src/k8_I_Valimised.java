@@ -54,10 +54,23 @@ public class k8_I_Valimised {
         // Indeks 0 on jällegi kui hääli on vaja 0
         int[] maksta_haali = new int[m + 1];
         HashMap<Integer, ArrayList<Riik>> kasutatud_riigid = new HashMap<>();
+        // Lisa kohe 0 haalte puhul kasutatud riigid, mis on tühi hulk
+        kasutatud_riigid.put(0, new ArrayList<>());
+        int vastus = 0;
         for (int i = 1; i <= m; i++) {
-
+            ArrayList<Riik> riigid_kasutatud_kohal_i =  new ArrayList<>();
+            kasutatud_riigid.put(i, riigid_kasutatud_kohal_i);
+            for (Riik riik : riigid) {
+                int pos = Math.max(i - riik.haalte_arv, 0);
+                if(!kasutatud_riigid.get(pos).contains(riik)){
+                    if(maksta_haali[i-pos] + riik.hind < maksta_haali[i]){
+                        maksta_haali[i] = maksta_haali[i-pos] + riik.hind;
+                        riigid_kasutatud_kohal_i.add(riik);
+                        vastus = Math.max(vastus, maksta_haali[i]);
+                    }
+                }
+            }
         }
-
-        System.out.println("OK");
+        System.out.println(vastus);
     }
 }
