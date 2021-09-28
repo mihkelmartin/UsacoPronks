@@ -87,7 +87,7 @@ public class k8_I_Valimised {
                 }
             }
             // Ka kõik eelenvalt kasutatud tuleb listi panna
-            riigid_kasutatud_kohal_i.addAll(kasutatud_riigid.get(i-1));
+            //riigid_kasutatud_kohal_i.addAll(kasutatud_riigid.get(i-1));
         }
         System.out.println(vastus);
     }
