@@ -26,12 +26,8 @@ public class k8_I_Valimised {
                     // Leia tema alamate hulk
                     if(riik.haalte_arv == -1) {
                         riik.leiaSoltuvateRiikideArv(riigid);
-                    } else {
-                        int i = 0;
                     }
                     this.haalte_arv += riik.haalte_arv;
-                    // Kuna riik ei saa olla mitmele vanem, siis võime katkestada
-                    break;
                 }
             }
         }
