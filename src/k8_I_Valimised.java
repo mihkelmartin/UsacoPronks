@@ -20,18 +20,17 @@ public class k8_I_Valimised {
             this.hind = hind;
             this.vanem = vanem;
         }
-        private void leiaSoltuvateRiigid(ArrayList<Riik> riigid){
-            haalte_arv = 1; // Vaikimisi 1, käesolev riik ise
-            for (Riik riik : riigid){
-                // On sõltuv riik
-                if(nimi.equals(riik.vanem)){
-                    // Leia tema alamate hulk
-                    if(riik.haalte_arv == -1) {
-                        riik.leiaSoltuvateRiigid(riigid);
+        private void leiaSoltuvatRiigid(ArrayList<Riik> riigid){
+            if(haalte_arv == -1) {
+                haalte_arv = 1; // Vaikimisi 1, käesolev riik ise
+                for (Riik riik : riigid) {
+                    // On sõltuv riik
+                    if (nimi.equals(riik.vanem)) {
+                        riik.leiaSoltuvatRiigid(riigid);
+                        this.haalte_arv += riik.haalte_arv;
+                        soltuvad_riigid.add(riik);
+                        soltuvad_riigid.addAll(riik.soltuvad_riigid);
                     }
-                    this.haalte_arv += riik.haalte_arv;
-                    soltuvad_riigid.add(riik);
-                    soltuvad_riigid.addAll(riik.soltuvad_riigid);
                 }
             }
         }
@@ -51,7 +50,7 @@ public class k8_I_Valimised {
         // Ei pea tegelikult sorteerima, aga õpi
         Collections.sort(riigid, Comparator.comparingInt(riik -> riik.hind));
         // Nii on kõige lihtsam meetodit välja kutsuda
-        riigid.forEach(riik -> riik.leiaSoltuvateRiigid(riigid));
+        riigid.forEach(riik -> riik.leiaSoltuvatRiigid(riigid));
 
         // Indeks 0 on jällegi kui hääli on vaja 0
         int[] maksta_haali = new int[m + 1];
