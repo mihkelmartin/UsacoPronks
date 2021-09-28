@@ -58,15 +58,20 @@ public class k8_I_Valimised {
         kasutatud_riigid.put(0, new ArrayList<>());
         int vastus = 0;
         for (int i = 1; i <= m; i++) {
+            maksta_haali[i] = Integer.MAX_VALUE;
             ArrayList<Riik> riigid_kasutatud_kohal_i =  new ArrayList<>();
             kasutatud_riigid.put(i, riigid_kasutatud_kohal_i);
             for (Riik riik : riigid) {
                 int pos = Math.max(i - riik.haalte_arv, 0);
                 if(!kasutatud_riigid.get(pos).contains(riik)){
-                    if(maksta_haali[i-pos] + riik.hind < maksta_haali[i]){
-                        maksta_haali[i] = maksta_haali[i-pos] + riik.hind;
+                    if(maksta_haali[pos] + riik.hind < maksta_haali[i]){
+                        maksta_haali[i] = maksta_haali[pos] + riik.hind;
+
+                        riigid_kasutatud_kohal_i.clear();
+                        riigid_kasutatud_kohal_i.addAll(kasutatud_riigid.get(pos));
                         riigid_kasutatud_kohal_i.add(riik);
-                        vastus = Math.max(vastus, maksta_haali[i]);
+
+                        vastus = maksta_haali[i];
                     }
                 }
             }
