@@ -63,6 +63,10 @@ public class k8_I_Valimised {
         // Hakkame leidma dünaamiliselt parimat hinda alates 1
         for (int i = 1; i <= m; i++) {
 
+
+            // NB! Kui riik ja tema sõltuvad on kasutusele võetud siis ei tohi neid kasutada
+            // NB! Sama siis kui riik kellel on sõltuvaid, kes on eelnevalt kasutusele võetud tuleb ju maha võtta
+            // Ilge porno ikka - kas sel on tõesti nii keeruline hulkade jamamine või on mingi lihtsam lahendus
             maksta_haali[i] = Integer.MAX_VALUE;
             ArrayList<Riik> riigid_kasutatud_kohal_i =  new ArrayList<>();
             kasutatud_riigid.put(i, riigid_kasutatud_kohal_i);
