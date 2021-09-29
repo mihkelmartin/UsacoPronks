@@ -66,7 +66,6 @@ public class k8_I_Valimised {
             ArrayList<Riik> voetud_kasutusele_kohal_i =  new ArrayList<>();
             kasutatud_riigid.put(i, voetud_kasutusele_kohal_i);
 
-            Riik lisatud_riik = null;
             for (Riik riik : riigid) {
                 ArrayList<Riik> teiste_poolt_kasutusel_olevad =  new ArrayList<>();
                 kasutatud_riigid.get(i-1).forEach(kasutatud_riik -> {
@@ -99,12 +98,9 @@ public class k8_I_Valimised {
                         voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(pos));
                         voetud_kasutusele_kohal_i.add(riik);
                         vastus = maksta_haali[i];
-                        lisatud_riik = riik;
                     }
                 }
             }
-            System.out.print(i);
-            System.out.println(lisatud_riik ==null ? " Ei lisatud" : " " + lisatud_riik.hind + " " +lisatud_riik.nimi);
             // Ka kõik eelenvalt kasutatud tuleb listi panna
             //voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
         }
