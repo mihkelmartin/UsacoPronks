@@ -62,35 +62,51 @@ public class k8_I_Valimised {
 
         // Hakkame leidma dünaamiliselt parimat hinda alates 1
         for (int i = 1; i <= m; i++) {
-
-
-            // NB! Kui riik ja tema sõltuvad on kasutusele võetud siis ei tohi neid kasutada
-            // NB! Sama siis kui riik kellel on sõltuvaid, kes on eelnevalt kasutusele võetud tuleb ju maha võtta
-            // Ilge porno ikka - kas sel on tõesti nii keeruline hulkade jamamine või on mingi lihtsam lahendus
             maksta_haali[i] = Integer.MAX_VALUE;
-            ArrayList<Riik> riigid_kasutatud_kohal_i =  new ArrayList<>();
-            kasutatud_riigid.put(i, riigid_kasutatud_kohal_i);
+            ArrayList<Riik> voetud_kasutusele_kohal_i =  new ArrayList<>();
+            kasutatud_riigid.put(i, voetud_kasutusele_kohal_i);
 
+            Riik lisatud_riik = null;
             for (Riik riik : riigid) {
+                ArrayList<Riik> teiste_poolt_kasutusel_olevad =  new ArrayList<>();
+                kasutatud_riigid.get(i-1).forEach(kasutatud_riik -> {
+                    if(kasutatud_riik!=riik)
+                        teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
+                        }
+                );
                 // Kui kaugel on ettevõetud riik alguspunktist
-                int pos = Math.max(i - riik.haalte_arv, 0);
+                // Arvtua maha need soltuvad mis juba kasutusel
+                int alles_haalte_arv = riik.haalte_arv;
+
+                // Kui riik pole veel kasutusel siis ta võidakse võtta kasutusele kuid tema häälte arvu
+                // tuleb vähendada selle võrra kui palju on temast sõltuvaid, ja sõltuvate sõltuvaid juba kasutusel
+
+                // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
+                for (Riik riik_soltuv : riik.soltuvad_riigid) {
+                    // Eelmises peaks kõik kasutusel oleva sees olema
+                    if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv))
+                        alles_haalte_arv--;
+                }
+
+                int pos = Math.max(i - alles_haalte_arv, 0);
                 if(!kasutatud_riigid.get(pos).contains(riik)){
                     // Mis kui on võrdne ?
                     if(maksta_haali[pos] + riik.hind < maksta_haali[i]){
                         maksta_haali[i] = maksta_haali[pos] + riik.hind;
 
                         // Uuendame riike mis on positsioonil kasutatud
-                        riigid_kasutatud_kohal_i.clear();
-                        riigid_kasutatud_kohal_i.addAll(kasutatud_riigid.get(pos));
-                        riigid_kasutatud_kohal_i.add(riik);
-                        riigid_kasutatud_kohal_i.addAll(riik.soltuvad_riigid);
-
+                        voetud_kasutusele_kohal_i.clear();
+                        voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(pos));
+                        voetud_kasutusele_kohal_i.add(riik);
                         vastus = maksta_haali[i];
+                        lisatud_riik = riik;
                     }
                 }
             }
+            System.out.print(i);
+            System.out.println(lisatud_riik ==null ? " Ei lisatud" : " " + lisatud_riik.hind + " " +lisatud_riik.nimi);
             // Ka kõik eelenvalt kasutatud tuleb listi panna
-            //riigid_kasutatud_kohal_i.addAll(kasutatud_riigid.get(i-1));
+            //voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
         }
         System.out.println(vastus);
     }
