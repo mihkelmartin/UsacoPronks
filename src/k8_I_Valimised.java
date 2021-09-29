@@ -68,14 +68,14 @@ public class k8_I_Valimised {
 
             for (Riik riik : riigid) {
                 ArrayList<Riik> teiste_poolt_kasutusel_olevad =  new ArrayList<>();
-                kasutatud_riigid.get(i-1).forEach(kasutatud_riik -> {
+                // Kui kaugel on ettevõetud riik alguspunktist
+                // Arvtua maha need soltuvad mis juba kasutusel
+                int alles_haalte_arv = riik.haalte_arv;
+                kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).forEach(kasutatud_riik -> {
                     if(kasutatud_riik!=riik)
                         teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
                         }
                 );
-                // Kui kaugel on ettevõetud riik alguspunktist
-                // Arvtua maha need soltuvad mis juba kasutusel
-                int alles_haalte_arv = riik.haalte_arv;
 
                 // Kui riik pole veel kasutusel siis ta võidakse võtta kasutusele kuid tema häälte arvu
                 // tuleb vähendada selle võrra kui palju on temast sõltuvaid, ja sõltuvate sõltuvaid juba kasutusel
@@ -103,7 +103,7 @@ public class k8_I_Valimised {
                 }
             }
             // Ka kõik eelenvalt kasutatud tuleb listi panna
-            voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
+            // voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
         }
         System.out.println(vastus);
     }
