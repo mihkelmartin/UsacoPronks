@@ -82,15 +82,31 @@ public class k8_I_Valimised {
 
                 // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
                 // Siin peab iga kord uuesti kontrollima
-                for (Riik riik_soltuv : riik.soltuvad_riigid) {
-                    // Eelmises peaks kõik kasutusel oleva sees olema
-                    if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
-                            kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).contains(riik_soltuv))
-                        alles_haalte_arv--;
+                boolean leiti = true;
+                while (leiti) {
+                    leiti = false;
+                    for (Riik riik_soltuv : riik.soltuvad_riigid) {
+                        // Eelmises peaks kõik kasutusel oleva sees olema
+                        if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
+                                teiste_poolt_kasutusel_olevad.contains(riik) ||
+                                kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).contains(riik_soltuv)) {
+                            alles_haalte_arv--;
+                            if(alles_haalte_arv == 0)
+                                break;
+                            teiste_poolt_kasutusel_olevad.clear();
+                            kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).forEach(kasutatud_riik -> {
+                                        if (kasutatud_riik != riik)
+                                            teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
+                                    }
+                            );
+                            leiti = true;
+                            break;
+                        }
+                    }
                 }
 
                 int pos = Math.max(i - alles_haalte_arv, 0);
-                if(!kasutatud_riigid.get(pos).contains(riik)){
+                if(alles_haalte_arv > 0 && !kasutatud_riigid.get(pos).contains(riik)){
                     // Mis kui on võrdne ?
                     if(maksta_haali[pos] + riik.hind < maksta_haali[i]){
                         maksta_haali[i] = maksta_haali[pos] + riik.hind;
