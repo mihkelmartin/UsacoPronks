@@ -83,7 +83,8 @@ public class k8_I_Valimised {
                 // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
                 for (Riik riik_soltuv : riik.soltuvad_riigid) {
                     // Eelmises peaks kõik kasutusel oleva sees olema
-                    if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv))
+                    if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
+                            kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).contains(riik_soltuv))
                         alles_haalte_arv--;
                 }
 
@@ -102,7 +103,7 @@ public class k8_I_Valimised {
                 }
             }
             // Ka kõik eelenvalt kasutatud tuleb listi panna
-            // voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
+            voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
         }
         System.out.println(vastus);
     }
