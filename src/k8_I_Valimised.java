@@ -81,6 +81,7 @@ public class k8_I_Valimised {
                 // tuleb vähendada selle võrra kui palju on temast sõltuvaid, ja sõltuvate sõltuvaid juba kasutusel
 
                 // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
+                // Siin peab iga kord uuesti kontrollima
                 for (Riik riik_soltuv : riik.soltuvad_riigid) {
                     // Eelmises peaks kõik kasutusel oleva sees olema
                     if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
