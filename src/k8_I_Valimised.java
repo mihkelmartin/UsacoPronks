@@ -70,43 +70,31 @@ public class k8_I_Valimised {
                 ArrayList<Riik> teiste_poolt_kasutusel_olevad =  new ArrayList<>();
                 // Kui kaugel on ettevõetud riik alguspunktist
                 // Arvtua maha need soltuvad mis juba kasutusel
-                int alles_haalte_arv = riik.haalte_arv;
-                kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).forEach(kasutatud_riik -> {
-                    if(kasutatud_riik!=riik)
-                        teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
-                        }
-                );
+
 
                 // Kui riik pole veel kasutusel siis ta võidakse võtta kasutusele kuid tema häälte arvu
                 // tuleb vähendada selle võrra kui palju on temast sõltuvaid, ja sõltuvate sõltuvaid juba kasutusel
 
                 // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
                 // Siin peab iga kord uuesti kontrollima
-                boolean leiti = true;
-                while (leiti) {
-                    leiti = false;
-                    for (Riik riik_soltuv : riik.soltuvad_riigid) {
-                        // Eelmises peaks kõik kasutusel oleva sees olema
-                        if (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
-                                teiste_poolt_kasutusel_olevad.contains(riik) ||
-                                kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).contains(riik_soltuv)) {
-                            alles_haalte_arv--;
-                            if(alles_haalte_arv == 0)
-                                break;
-                            teiste_poolt_kasutusel_olevad.clear();
-                            kasutatud_riigid.get(Math.max(i - alles_haalte_arv, 0)).forEach(kasutatud_riik -> {
-                                        if (kasutatud_riik != riik)
-                                            teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
-                                    }
-                            );
-                            leiti = true;
-                            break;
+
+                int tmp_haalte_arv = riik.haalte_arv;
+                kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).forEach(kasutatud_riik -> {
+                            if(kasutatud_riik!=riik)
+                                teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
                         }
+                );
+                for (Riik riik_soltuv : riik.soltuvad_riigid) {
+                    // Eelmises peaks kõik kasutusel oleva sees olema
+                    if (tmp_haalte_arv >= 1 && teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
+                            teiste_poolt_kasutusel_olevad.contains(riik) ||
+                            kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).contains(riik_soltuv)) {
+                        tmp_haalte_arv--;
                     }
                 }
 
-                int pos = Math.max(i - alles_haalte_arv, 0);
-                if(alles_haalte_arv > 0 && !kasutatud_riigid.get(pos).contains(riik)){
+                int pos = Math.max(i - tmp_haalte_arv, 0);
+                if(!kasutatud_riigid.get(pos).contains(riik)){
                     // Mis kui on võrdne ?
                     if(maksta_haali[pos] + riik.hind < maksta_haali[i]){
                         maksta_haali[i] = maksta_haali[pos] + riik.hind;
