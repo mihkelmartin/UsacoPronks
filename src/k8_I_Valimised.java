@@ -84,11 +84,12 @@ public class k8_I_Valimised {
                                 teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
                         }
                 );
+                if(riik.haalte_arv > 1 && teiste_poolt_kasutusel_olevad.contains(riik))
+                    tmp_haalte_arv--;
                 for (Riik riik_soltuv : riik.soltuvad_riigid) {
                     // Eelmises peaks kõik kasutusel oleva sees olema
-                    if (tmp_haalte_arv >= 1 && teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
-                            teiste_poolt_kasutusel_olevad.contains(riik) ||
-                            kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).contains(riik_soltuv)) {
+                    if (tmp_haalte_arv > 1 && (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
+                            kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).contains(riik_soltuv))) {
                         tmp_haalte_arv--;
                     }
                 }
