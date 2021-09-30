@@ -78,6 +78,8 @@ public class k8_I_Valimised {
                 // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
                 // Siin peab iga kord uuesti kontrollima
 
+                // NB 5. test ei läheb läbi
+
                 int tmp_haalte_arv = riik.haalte_arv;
                 kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).forEach(kasutatud_riik -> {
                             if(kasutatud_riik!=riik)
@@ -85,7 +87,7 @@ public class k8_I_Valimised {
                         }
                 );
                 if(riik.haalte_arv > 1 && teiste_poolt_kasutusel_olevad.contains(riik))
-                    tmp_haalte_arv--;
+                    continue;
                 for (Riik riik_soltuv : riik.soltuvad_riigid) {
                     // Eelmises peaks kõik kasutusel oleva sees olema
                     if (tmp_haalte_arv > 1 && (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
