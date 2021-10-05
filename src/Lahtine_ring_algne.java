@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class ring {
+public class Lahtine_ring_algne {
     public static void main(String[] args )throws Exception {
 
         InputStreamReader ina = new InputStreamReader(System.in);
@@ -27,27 +27,28 @@ public class ring {
         }
 
         // 1 rohkem, et saaks indeksiga 1 alustada
-        int[] kaidud = new int[N + 1];
-        int vastus = otsi(S, servad, kaidud, S);
+        boolean[] kaidud = new boolean[N + 1];
+        int vastus = otsi(S, servad, kaidud);
         System.out.println(vastus);
 
     }
 
-    private static int otsi(int valjak, ArrayList<ArrayList<Integer>> servad, int[] kaidud, int eelmine) {
+    private static int otsi(int valjak, ArrayList<ArrayList<Integer>> servad, boolean[] kaidud) {
         int vastus = 0;
-        kaidud[valjak] += 1;
+        kaidud[valjak] = true;
 
         ArrayList<Integer> valjaku_teed = servad.get(valjak);
+        boolean oliLapsi = false;
         for (int i = 0; i < valjaku_teed.size(); i++) {
             int uus_valjak = valjaku_teed.get(i);
-            if(kaidud[uus_valjak] == 0){
-                kaidud[uus_valjak] = 1;
-                vastus += otsi(uus_valjak, servad, kaidud, valjak);
-            } else if(uus_valjak != eelmine){
-                kaidud[uus_valjak]++;
-            } else {
-                return 1;
+            if(!kaidud[uus_valjak]){
+                vastus += otsi(uus_valjak, servad, kaidud);
+                oliLapsi = true;
             }
+        }
+        // Järelikult puu tipp
+        if(!oliLapsi){
+            return 1;
         }
         return vastus;
     }
