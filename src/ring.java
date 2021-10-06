@@ -45,12 +45,21 @@ public class ring {
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
                 if(kaidud[valjak]==2){
-                    return ++vastus;
+                    // Saabume tagasi ringist
+                    if(servad.get(uus_valjak).size() <= 2){
+                        vastus++;
+                    }
+                    return vastus;
                 }
             } else if(uus_valjak != eelmine) {
-                // Ring, liida vastusele 1 ja sea ringi marker == 2
+                // Avastasime ringi, sätime püsti = 2
                 kaidud[uus_valjak] = 2;
-                vastus++;
+                // See kust tuldi, kui sellel ei ole rohkem teid kui kust tuldi ja ringi lõpp
+                // vaid siis lisame juurde. Vastasel juhul saab sealt ka mujale minna ja siis
+                // ringi lõppu kasutada ei saa
+                if(valjaku_teed.size() <= 2) {
+                    vastus++;
+                }
             }
         }
         if(!bLeiti){
