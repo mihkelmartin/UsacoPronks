@@ -39,16 +39,16 @@ public class ring {
         ArrayList<Integer> valjaku_teed = servad.get(valjak);
         boolean bLeiti = false;
         for (int i = 0; i < valjaku_teed.size(); i++) {
-            if(kaidud[valjak] == 2){
-                // Selle elemendiga juhtus ring, korruta 2ga
-                vastus *= 2;
-                return vastus;
-            }
             int uus_valjak = valjaku_teed.get(i);
             if(kaidud[uus_valjak] == 0){
                 bLeiti = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
+                if(kaidud[valjak] == 2){
+                    // Selle elemendiga juhtus ring, korruta 2ga
+                    vastus *= 2;
+                    return vastus;
+                }
             } else if(uus_valjak != eelmine) {
                     bLeiti = false;
                     kaidud[uus_valjak] = 2;
