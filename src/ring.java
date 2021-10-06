@@ -50,7 +50,7 @@ public class ring {
                     return vastus;
                 }
             } else if(uus_valjak != eelmine) {
-                    bLeiti = false;
+                    vastus++;
                     kaidud[uus_valjak] = 2;
             }
         }
