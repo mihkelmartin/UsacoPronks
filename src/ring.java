@@ -44,10 +44,13 @@ public class ring {
                 bLeiti = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
+                if(kaidud[valjak]==2){
+                    return ++vastus;
+                }
             } else if(uus_valjak != eelmine) {
-                // Ring, liida vastusele 1 ja seas ringi marker == 2
-                bLeiti = true;
-                vastus ++;
+                // Ring, liida vastusele 1 ja sea ringi marker == 2
+                kaidud[uus_valjak] = 2;
+                vastus++;
             }
         }
         if(!bLeiti){
