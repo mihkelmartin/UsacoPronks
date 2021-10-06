@@ -44,11 +44,17 @@ public class ring {
                 bLeiti = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
-            } else if(uus_valjak != eelmine){
+            } else if(uus_valjak != eelmine) {
                 // See on koht kus tekib ring
                 // Mis me teeme ??? Kogu asi tuleks kahekordistada mis siit tuleb aga kuidas
                 // sest oleme rekursiooni kuskil otsas !
-                bLeiti = false;
+                if(kaidud[uus_valjak] == 2){
+                    vastus = valjak * 2;
+                    kaidud[uus_valjak] = 1;
+                } else {
+                    bLeiti = false;
+                    kaidud[uus_valjak] = 2;
+                }
             }
         }
         if(!bLeiti){
