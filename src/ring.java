@@ -61,6 +61,7 @@ public class ring {
                 if(valjaku_teed.size() <= 2) {
                     vastus++;
                 }
+                return vastus;
             }
         }
         if(!bLeiti){
