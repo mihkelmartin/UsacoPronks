@@ -50,6 +50,7 @@ public class ring {
                     return vastus;
                 }
             } else if(uus_valjak != eelmine) {
+                   // Ring, liida vastusele 1 ja seas ringi marker == 2
                     vastus++;
                     kaidud[uus_valjak] = 2;
             }
