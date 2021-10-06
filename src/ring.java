@@ -39,22 +39,19 @@ public class ring {
         ArrayList<Integer> valjaku_teed = servad.get(valjak);
         boolean bLeiti = false;
         for (int i = 0; i < valjaku_teed.size(); i++) {
+            if(kaidud[valjak] == 2){
+                // Selle elemendiga juhtus ring, korruta 2ga
+                vastus *= 2;
+                return vastus;
+            }
             int uus_valjak = valjaku_teed.get(i);
             if(kaidud[uus_valjak] == 0){
                 bLeiti = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
             } else if(uus_valjak != eelmine) {
-                // See on koht kus tekib ring
-                // Mis me teeme ??? Kogu asi tuleks kahekordistada mis siit tuleb aga kuidas
-                // sest oleme rekursiooni kuskil otsas !
-                if(kaidud[uus_valjak] == 2){
-                    vastus = valjak * 2;
-                    kaidud[uus_valjak] = 1;
-                } else {
                     bLeiti = false;
                     kaidud[uus_valjak] = 2;
-                }
             }
         }
         if(!bLeiti){
@@ -63,3 +60,18 @@ public class ring {
         return vastus;
     }
 }
+/*
+Iga silmus tuleb kohe läbi teha, ei saa tagasi tulla
+
+8 9 3
+1 2
+2 3
+3 4
+4 1
+2 5
+5 6
+6 7
+5 7
+7 8
+
+ */
