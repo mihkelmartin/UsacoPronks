@@ -28,6 +28,7 @@ public class ring {
 
         // 1 rohkem, et saaks indeksiga 1 alustada
         int[] kaidud = new int[N + 1];
+        kaidud[S] = 1;
         int vastus = otsi(S, servad, kaidud, S);
         System.out.println(vastus);
 
@@ -35,19 +36,27 @@ public class ring {
 
     private static int otsi(int valjak, ArrayList<ArrayList<Integer>> servad, int[] kaidud, int eelmine) {
         int vastus = 0;
-        kaidud[valjak] += 1;
-
         ArrayList<Integer> valjaku_teed = servad.get(valjak);
+        boolean bLeiti = false;
         for (int i = 0; i < valjaku_teed.size(); i++) {
             int uus_valjak = valjaku_teed.get(i);
             if(kaidud[uus_valjak] == 0){
+                bLeiti = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
             } else if(uus_valjak != eelmine){
-                kaidud[uus_valjak]++;
-            } else {
-                return 1;
+                // Ringi lõppu - mis teeme - oleks vaja 2-ga korrutada aga me oleme rekursioonis !!
+                // Ära tee midagi ? Et siis ringi teiselpoolt tulija leiab sama asja uuesti ja ongi 2x
+                // Aga ei leia, sest meil on 1 pandud
+
+                // See jura *2 ei tööta kuidagi - me oleme ju rekursiooni kuskil otsas
+                // Kuna on ring, siis ka ei saada 1 kuidagi kätte -tuleb ära lõpetada ja kuidagi märkida, et ring
+                bLeiti = true;
+                vastus = vastus * 2;
             }
+        }
+        if(!bLeiti){
+            return 1;
         }
         return vastus;
     }
