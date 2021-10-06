@@ -45,14 +45,10 @@ public class ring {
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
             } else if(uus_valjak != eelmine){
-                // Ringi lõppu - mis teeme - oleks vaja 2-ga korrutada aga me oleme rekursioonis !!
-                // Ära tee midagi ? Et siis ringi teiselpoolt tulija leiab sama asja uuesti ja ongi 2x
-                // Aga ei leia, sest meil on 1 pandud
-
-                // See jura *2 ei tööta kuidagi - me oleme ju rekursiooni kuskil otsas
-                // Kuna on ring, siis ka ei saada 1 kuidagi kätte -tuleb ära lõpetada ja kuidagi märkida, et ring
-                bLeiti = true;
-                vastus = vastus * 2;
+                // See on koht kus tekib ring
+                // Mis me teeme ??? Kogu asi tuleks kahekordistada mis siit tuleb aga kuidas
+                // sest oleme rekursiooni kuskil otsas !
+                bLeiti = false;
             }
         }
         if(!bLeiti){
