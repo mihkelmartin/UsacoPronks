@@ -44,15 +44,10 @@ public class ring {
                 bLeiti = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
-                if(kaidud[valjak] == 2){
-                    // Selle elemendiga juhtus ring, korruta 2ga
-                    vastus *= 2;
-                    return vastus;
-                }
             } else if(uus_valjak != eelmine) {
-                   // Ring, liida vastusele 1 ja seas ringi marker == 2
-                    vastus++;
-                    kaidud[uus_valjak] = 2;
+                // Ring, liida vastusele 1 ja seas ringi marker == 2
+                bLeiti = true;
+                vastus ++;
             }
         }
         if(!bLeiti){
