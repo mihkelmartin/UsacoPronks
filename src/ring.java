@@ -75,4 +75,16 @@ Iga silmus tuleb kohe läbi teha, ei saa tagasi tulla
 5 7
 7 8
 
+9 10 3
+1 2
+2 3
+3 4
+4 1
+2 5
+5 6
+6 7
+5 7
+7 8
+4 9
+
  */
