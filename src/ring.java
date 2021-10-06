@@ -49,6 +49,7 @@ public class ring {
                     if(servad.get(uus_valjak).size() <= 2){
                         vastus++;
                     }
+                    // Return, sest kui on ring siis ärme edasi lähe, see rikub ära
                     return vastus;
                 }
             } else if(uus_valjak != eelmine) {
