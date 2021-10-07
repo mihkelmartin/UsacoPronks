@@ -74,6 +74,62 @@ public class ring {
         return vastus;
     }
 }
+
+/* C++ samaväärne - erinevus 1. sisselugmine 2. ArrayListide tegemine Javas
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int N, M, S;
+int otsi(int valjak, vector<int> *servad, int kaidud[], int eelmine);
+
+int main()
+{
+    cin>>N>>M>>S;
+    std::vector<int> servad[N+1];
+    for (int i = 0; i < M; i++) {
+        int s1, s2;
+        cin>>s1>>s2;
+        servad[s1].push_back(s2);
+        servad[s2].push_back(s1);
+    }
+    int kaidud[N+1];
+    for (int i = 0; i < N+1; i++) {
+        kaidud[i]=0;
+    }
+    kaidud[S] = 1;
+    cout<<otsi(S, servad, kaidud, S)<<endl;
+}
+
+int otsi(int valjak, vector<int> *servad, int kaidud[], int eelmine){
+    int vastus = 0;
+    bool bLiigutiEdasi = false;
+    vector<int> teed_valjakult = servad[valjak];
+    for (int i = 0; i < teed_valjakult.size(); i++) {
+        int uus_valjak = teed_valjakult[i];
+        if(kaidud[uus_valjak] == 0){
+            bLiigutiEdasi = true;
+            kaidud[uus_valjak] = 1;
+            vastus += otsi(uus_valjak, servad, kaidud, valjak);
+            if(kaidud[valjak] == 2){
+                if(servad[uus_valjak].size() <=2){
+                    vastus++;
+                }
+                kaidud[valjak] = 3;
+            }
+        } else if(uus_valjak != eelmine){
+            kaidud[uus_valjak] = 2;
+        }
+    }
+    if(!bLiigutiEdasi){
+        vastus = 1;
+    }
+    return vastus;
+}
+*/
+
+
 /*
 Iga silmus tuleb kohe läbi teha, ei saa tagasi tulla
 
