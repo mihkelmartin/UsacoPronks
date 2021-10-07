@@ -55,17 +55,11 @@ public class ring {
             } else if(uus_valjak != eelmine) {
                 // Avastasime ringi, sätime püsti = 2
                 kaidud[uus_valjak] = 2;
-                // See kust tuldi, kui sellel ei ole rohkem teid kui kust tuldi ja ringi lõpp
-                // vaid siis lisame juurde. Vastasel juhul saab sealt ka mujale minna ja siis
-                // ringi lõppu kasutada ei saa
-                if(valjaku_teed.size() <= 2) {
-                    vastus++;
-                }
-                return vastus;
             }
         }
+        // Käidi tipus või avastati ringi mille servas ei olnud muid tippe
         if(!bLeiti){
-            return 1;
+            vastus = 1;
         }
         return vastus;
     }
