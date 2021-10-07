@@ -37,19 +37,20 @@ public class ring {
     private static int otsi(int valjak, ArrayList<ArrayList<Integer>> servad, int[] kaidud, int eelmine) {
         int vastus = 0;
         ArrayList<Integer> valjaku_teed = servad.get(valjak);
-        boolean bLeiti = false;
+        boolean bLiigutiEdasi = false;
         for (int i = 0; i < valjaku_teed.size(); i++) {
             int uus_valjak = valjaku_teed.get(i);
             if(kaidud[uus_valjak] == 0){
-                bLeiti = true;
+                bLiigutiEdasi = true;
                 kaidud[uus_valjak] = 1;
                 vastus += otsi(uus_valjak, servad, kaidud, valjak);
+
+                // Reksursioonis saabusime tagasi punkti kus avastati ring
                 if(kaidud[valjak]==2){
-                    // Saabume tagasi ringist
                     if(servad.get(uus_valjak).size() <= 2){
                         vastus++;
                     }
-                    // Return, sest kui on ring siis ärme edasi lähe, see rikub ära
+                    // Return, sest kui on ring siis ärme edasi lähe, see rikub ära ???
                     return vastus;
                 }
             } else if(uus_valjak != eelmine) {
@@ -58,7 +59,7 @@ public class ring {
             }
         }
         // Käidi tipus või avastati ringi mille servas ei olnud muid tippe
-        if(!bLeiti){
+        if(!bLiigutiEdasi){
             vastus = 1;
         }
         return vastus;
