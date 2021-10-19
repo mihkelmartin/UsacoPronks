@@ -1,8 +1,9 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Vormel {
+public class vormel {
     public static void main(String[] args)throws Exception{
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
@@ -51,41 +52,42 @@ public class Vormel {
                 }
             }
         }
-        System.out.println("Ahmeddov");
-    }
-}
-
-/*
-        int parim_aeg = andmed[0][ringide_arv-1][1], parim_indeks = 0;
-        for (int i = 0; i < rehvide_arv; i++) {
-            if(andmed[i][ringide_arv-1][1] < parim_aeg){
-                parim_aeg = andmed[i][ringide_arv-1][1];
-                parim_indeks = i;
-            }
-        }
         int mitu_vastust = 0;
-        String tulemus = "";
         int kust_votsin = ringide_arv-1;
-        ArrayList<Integer> kus_vahetasin = new ArrayList<>();
+        int viimane_vahetus = 0;
+        ArrayList<String> kus_vahetasin = new ArrayList<>();
         int check = 0;
         while (check == 0){
             if (kust_votsin == 0){
                 check++;
             }else {
                 mitu_vastust++;
-                kus_vahetasin.add(andmed[parim_indeks][kust_votsin][0]);
-                kust_votsin = andmed[parim_indeks][kust_votsin][0];
+                kus_vahetasin.add(andmed[kust_votsin][2]+1 + " " + andmed[kust_votsin][0]);
+                viimane_vahetus = kust_votsin;
+                kust_votsin = andmed[kust_votsin][0];
             }
         }
-        Collections.sort(kus_vahetasin);
-        parim_indeks++;
-        if(mitu_vastust == 0)System.out.println(parim_indeks + " " + mitu_vastust);
-        else System.out.println(parim_indeks + " " + (mitu_vastust - 1));
-        for (int m = 1; m < mitu_vastust; m++) {
-            System.out.println(kus_vahetasin.get(m) + " " + parim_indeks);
+        if(mitu_vastust == 0)System.out.println(andmed[viimane_vahetus][2]+1 + " " + mitu_vastust);
+        else System.out.println(andmed[kust_votsin][2]+1 + " " + (mitu_vastust - 1));
+        for (int m = kus_vahetasin.size() - 2; m >= 0; m--) {
+            System.out.println(kus_vahetasin.get(m));
         }
     }
 }
+
+/*
+2 2 25
+45 11
+40 20
+
+2 44 170
+60 8
+30 29
+
+3 1 25
+45 10
+40 20
+55 10
 
 
  */
