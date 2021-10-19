@@ -8,29 +8,23 @@ public class vormel {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         StringTokenizer st = new StringTokenizer(in.readLine());
+
         int rehvide_arv = Integer.parseInt(st.nextToken());
         int ringide_arv = Integer.parseInt(st.nextToken());
         int pit_stop = Integer.parseInt(st.nextToken());
+
         int[][] andmed = new int[ringide_arv][3];
         int[][] rehvid = new int[rehvide_arv][2];
-        int parim_rehv = Integer.MAX_VALUE, parima_rehvi_indeks = 0;
         for (int i = 0; i < rehvide_arv; i++) {
             StringTokenizer sa = new StringTokenizer(in.readLine());
             int kiirus = Integer.parseInt(sa.nextToken()), aeglustus = Integer.parseInt(sa.nextToken());
-            if (parim_rehv > kiirus){
-                parim_rehv = kiirus;
-                parima_rehvi_indeks = i;
-            }
             rehvid[i][0] = kiirus;
             rehvid[i][1] = aeglustus;
         }
-        andmed[0][1] = rehvid[parima_rehvi_indeks][0];
-        andmed[0][2] = parima_rehvi_indeks;
+
         int pit_stop_meelse = pit_stop;
-        for (int j = 1; j < ringide_arv; j++) {
-            andmed[j][1] = andmed[j-1][1] + rehvid[andmed[j-1][2]][0] + rehvid[andmed[j-1][2]][1]*(j - andmed[j-1][0]);
-            andmed[j][0] = andmed[j-1][0];
-            andmed[j][2] = andmed[j-1][2];
+        for (int j = 0; j < ringide_arv; j++) {
+            andmed[j][1] = Integer.MAX_VALUE;
             for (int i = 0; i < rehvide_arv; i++) {
                 for (int k = j; k >=0; k--) {
 
