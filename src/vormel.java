@@ -15,7 +15,7 @@ public class vormel {
         int ringide_arv = Integer.parseInt(st.nextToken());
         int pit_stop_orginaal = Integer.parseInt(st.nextToken());
 
-        // 0 vahetuse koht sellele rehvile, 1 summaarne aeg, 2 rehv
+        // 0 koht kus sellele rehvile mindi, 1 summaarne aeg, 2 rehv
         int[][] ringi_andmed = new int[ringide_arv][3];
         int[][] rehvid = new int[rehvide_arv][2];
         for (int i = 0; i < rehvide_arv; i++) {
