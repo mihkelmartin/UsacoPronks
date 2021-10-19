@@ -56,7 +56,7 @@ public class vormel {
             if(kust_votsin == andmed[kust_votsin][0]){
                 andmed[kust_votsin][0]--;
             }
-            kus_vahetasin.add((andmed[kust_votsin][2]+1) + " " + (andmed[kust_votsin][0]));
+            kus_vahetasin.add((andmed[kust_votsin][0]) + " " + (andmed[kust_votsin][2]+1));
             viimane_vahetus = kust_votsin;
             // Eelmist ratast peame vaatama, kaua see kasutuse oli
             kust_votsin = andmed[kust_votsin][0] - 1;
