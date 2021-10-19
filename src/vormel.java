@@ -70,7 +70,7 @@ public class vormel {
             }
         }
         if(mitu_vastust == 0)System.out.println(andmed[viimane_vahetus][2]+1 + " " + mitu_vastust);
-        else System.out.println(andmed[kust_votsin][2]+1 + " " + (mitu_vastust - 1));
+        else System.out.println(andmed[viimane_vahetus][2]+1 + " " + (mitu_vastust - 1));
         for (int m = kus_vahetasin.size() - 2; m >= 0; m--) {
             System.out.println(kus_vahetasin.get(m));
         }
