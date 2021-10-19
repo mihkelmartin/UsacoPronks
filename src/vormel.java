@@ -11,7 +11,7 @@ public class vormel {
 
         int rehvide_arv = Integer.parseInt(st.nextToken());
         int ringide_arv = Integer.parseInt(st.nextToken());
-        int pit_stop = Integer.parseInt(st.nextToken());
+        int pit_stop_orginaal = Integer.parseInt(st.nextToken());
 
         int[][] andmed = new int[ringide_arv][3];
         int[][] rehvid = new int[rehvide_arv][2];
@@ -22,21 +22,19 @@ public class vormel {
             rehvid[i][1] = aeglustus;
         }
 
-        int pit_stop_meelse = pit_stop;
         for (int j = 0; j < ringide_arv; j++) {
             andmed[j][1] = Integer.MAX_VALUE;
             for (int i = 0; i < rehvide_arv; i++) {
-                for (int k = j; k >=0; k--) {
+                for (int k = 0; k <= j; k++) {
 
-                    pit_stop = pit_stop_meelse;
-                    int eelmine_tegelikult = 0;
-                    if(k == 0) {
-                        pit_stop = 0;
-                    }
-                    else {
-                        eelmine_tegelikult = andmed[k - 1][1];
-                    }
-                    int vahe_tulemus = eelmine_tegelikult + pit_stop  + rehvid[i][0] * (j-k+1) + rehvid[i][1] * ((j-k+1)*(j-k) / 2);
+                    int pit_stop = pit_stop_orginaal;
+                    if(k == 0) pit_stop = 0;
+
+                    int eelmine = 0;
+                    if(k != 0) eelmine = andmed[k - 1][1];
+
+                    int p = j-k+1;
+                    int vahe_tulemus = eelmine + pit_stop + rehvid[i][0]*p + rehvid[i][1] * p*(p-1)/2;
                     if(vahe_tulemus < andmed[j][1]){
                         andmed[j][1] = vahe_tulemus;
                         andmed[j][0] = k;
@@ -45,6 +43,8 @@ public class vormel {
                 }
             }
         }
+
+
         int mitu_vastust = 0;
         int kust_votsin = ringide_arv-1;
         int viimane_vahetus = 0;
@@ -79,6 +79,10 @@ public class vormel {
 2 44 170
 60 8
 30 29
+
+2 44 170
+30 29
+60 8
 
 3 1 25
 45 10
