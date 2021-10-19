@@ -46,16 +46,13 @@ public class vormel {
             }
         }
 
-
+        // Vastuse väljakirjuamine
         int mitu_vastust = 0;
         int kust_votsin = ringide_arv-1;
         int viimane_vahetus = 0;
         ArrayList<String> kus_vahetasin = new ArrayList<>();
         while (kust_votsin >= 0){
             mitu_vastust++;
-            if(kust_votsin == andmed[kust_votsin][0]){
-                andmed[kust_votsin][0]--;
-            }
             kus_vahetasin.add((andmed[kust_votsin][0]) + " " + (andmed[kust_votsin][2]+1));
             viimane_vahetus = kust_votsin;
             // Eelmist ratast peame vaatama, kaua see kasutuse oli
@@ -69,28 +66,3 @@ public class vormel {
         }
     }
 }
-
-/*
-2 2 25
-45 11
-40 20
-
-2 44 170
-60 8
-30 29
-
-2 44 170
-30 29
-60 8
-
-3 1 25
-45 10
-40 20
-55 10
-
-2 44 1
-60 8
-30 29
-
-
- */
