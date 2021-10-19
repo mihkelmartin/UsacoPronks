@@ -32,7 +32,6 @@ public class vormel {
             andmed[j][0] = andmed[j-1][0];
             andmed[j][2] = andmed[j-1][2];
             for (int i = 0; i < rehvide_arv; i++) {
-                int eelmine_vahetulemus = Integer.MAX_VALUE;
                 for (int k = j; k >=0; k--) {
 
                     pit_stop = pit_stop_meelse;
@@ -62,6 +61,9 @@ public class vormel {
                 check++;
             }else {
                 mitu_vastust++;
+                if(kust_votsin == andmed[kust_votsin][0]){
+                    andmed[kust_votsin][0]--;
+                }
                 kus_vahetasin.add(andmed[kust_votsin][2]+1 + " " + andmed[kust_votsin][0]);
                 viimane_vahetus = kust_votsin;
                 kust_votsin = andmed[kust_votsin][0];
@@ -88,6 +90,10 @@ public class vormel {
 45 10
 40 20
 55 10
+
+2 44 1
+60 8
+30 29
 
 
  */
