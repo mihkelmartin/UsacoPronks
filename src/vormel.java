@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class vormel {
+
     public static void main(String[] args)throws Exception{
+
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         StringTokenizer st = new StringTokenizer(in.readLine());
@@ -33,7 +35,7 @@ public class vormel {
                     int eelmine = 0;
                     if(k != 0) eelmine = andmed[k - 1][1];
 
-                    int p = j-k+1;
+                    int p = j - k + 1;
                     int vahe_tulemus = eelmine + pit_stop + rehvid[i][0]*p + rehvid[i][1] * p*(p-1)/2;
                     if(vahe_tulemus < andmed[j][1]){
                         andmed[j][1] = vahe_tulemus;
@@ -49,22 +51,19 @@ public class vormel {
         int kust_votsin = ringide_arv-1;
         int viimane_vahetus = 0;
         ArrayList<String> kus_vahetasin = new ArrayList<>();
-        int check = 0;
-        while (check == 0){
-            if (kust_votsin == 0){
-                check++;
-            }else {
-                mitu_vastust++;
-                if(kust_votsin == andmed[kust_votsin][0]){
-                    andmed[kust_votsin][0]--;
-                }
-                kus_vahetasin.add((andmed[kust_votsin][2]+1) + " " + (andmed[kust_votsin][0]+1));
-                viimane_vahetus = kust_votsin;
-                kust_votsin = andmed[kust_votsin][0];
+        while (kust_votsin >= 0){
+            mitu_vastust++;
+            if(kust_votsin == andmed[kust_votsin][0]){
+                andmed[kust_votsin][0]--;
             }
+            kus_vahetasin.add((andmed[kust_votsin][2]+1) + " " + (andmed[kust_votsin][0]));
+            viimane_vahetus = kust_votsin;
+            // Eelmist ratast peame vaatama, kaua see kasutuse oli
+            kust_votsin = andmed[kust_votsin][0] - 1;
         }
-        if(mitu_vastust == 0)System.out.println((andmed[viimane_vahetus][2]+1) + " " + mitu_vastust);
-        else System.out.println((andmed[viimane_vahetus][2]+1) + " " + (mitu_vastust - 1));
+
+        mitu_vastust = mitu_vastust == 0 ? mitu_vastust : mitu_vastust--;
+        System.out.println((andmed[viimane_vahetus][2]+1) + " " + (mitu_vastust - 1));
         for (int m = kus_vahetasin.size() - 2; m >= 0; m--) {
             System.out.println(kus_vahetasin.get(m));
         }
