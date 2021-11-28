@@ -31,8 +31,12 @@ public class k8_E_UuringA {
             }
             samm_summad.add(samm_i);
         }
+        if(!samm_summad.get(N).contains(F)){
+            System.out.println("*");
+            System.exit(1);
+        }
 
-        System.out.println("*");
+        System.out.println("A");
 
     }
 }
