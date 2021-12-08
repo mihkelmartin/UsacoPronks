@@ -3,6 +3,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class kolm {
 
@@ -46,14 +47,18 @@ public class kolm {
         public boolean equals(Object obj) {
             return algus.equals(((Loik)obj).algus) && lopp.equals(((Loik)obj).lopp);
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(algus.x,algus.y,lopp.x, lopp.y);
+        }
     }
 
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         int loike = Integer.parseInt(in.readLine());
-        ArrayList<Loik> loigud = new ArrayList<>();
-        HashMap<Punkt, ArrayList<Loik>> punkt_loigud = new HashMap<>();
+        HashSet<Loik> loigud = new HashSet<>();
         for (int i = 0; i < loike; i++) {
             String strloik[] = in.readLine().split(" ");
             Punkt punkt1 = new Punkt(Short.parseShort(strloik[0]), Short.parseShort(strloik[1]));

@@ -49,6 +49,34 @@ public class k8_I_Valimised {
         }
         // Ei pea tegelikult sorteerima, aga õpi
         Collections.sort(riigid, Comparator.comparingInt(riik -> riik.hind));
+        Collections.sort(riigid, (riik1, riik2) ->
+                {if(riik1.haalte_arv - riik2.haalte_arv == 0)
+            return riik1.hind - riik2.hind;
+        else
+            return riik1.haalte_arv -riik2.haalte_arv;
+        }
+        );
+        Collections.reverseOrder();
+
+        riigid.sort((riik1, riik2) ->
+        {if(riik1.haalte_arv - riik2.haalte_arv == 0)
+            return riik1.hind - riik2.hind;
+        else
+            return riik1.haalte_arv -riik2.haalte_arv;
+        }
+        );
+
+        Comparator<Riik> comparator = new Comparator<Riik>() {
+            @Override
+            public int compare(Riik o1, Riik o2) {
+                return o1.hind - o2.hind;
+            }
+        };
+        riigid.sort(comparator.reversed());
+
+
+        riigid.sort(Comparator.comparingInt(riik->riik.hind));
+
         // Nii on kõige lihtsam meetodit välja kutsuda
         riigid.forEach(riik -> riik.leiaSoltuvatRiigid(riigid));
 
