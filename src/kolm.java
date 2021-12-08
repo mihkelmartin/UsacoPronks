@@ -75,9 +75,21 @@ public class kolm {
                     // Pole sellist lõiku
                     continue;
                 }
+                if(vektorKorrutis(loik.algus, loik1.lopp, loik2.lopp) == 0) {
+                    // samal sirgel, seega kolmnurk kõdunud
+                    continue;
+                }
                 vastus++;
             }
         }
         System.out.println(vastus/2);
+    }
+
+    private static int vektorKorrutis(Punkt p0, Punkt p1, Punkt p2){
+            int dx1 = p1.x - p0.x, dy1 = p1.y - p0.y;
+            int dx2 = p2.x - p0.x, dy2 = p2.y - p0.y;
+            return dx1 * dy2 - dx2 * dy1;
+        }
+
     }
 }
