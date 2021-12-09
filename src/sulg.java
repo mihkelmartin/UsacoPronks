@@ -5,6 +5,8 @@ public class sulg {
 
     private static int sonePikkus;
     private static int[] puu;
+    private static int[] lfend;
+    private static int[] rgend;
     private static int puuSuurus = 1;
 
     public static void main(String[] args )throws Exception {
@@ -19,6 +21,18 @@ public class sulg {
             puuSuurus *= 2;
         }
         puu = new int[puuSuurus * 2];
+        lfend = new int[puuSuurus * 2];
+        rgend = new int[puuSuurus * 2];
+        for (int i = puuSuurus; i < 2 * puuSuurus; i++) {
+            lfend[i] = i - puuSuurus;
+            rgend[i] = i - puuSuurus;
+        }
+
+        for (int i = puuSuurus - 1; i > 0; i--) {
+            lfend[i] = lfend[2 * i];
+            rgend[i] = rgend[2 * i + 1];
+        }
+
         for (int i = 0; i < puuSuurus * 2; i++) {
             puu[i] = Integer.MAX_VALUE;
         }
