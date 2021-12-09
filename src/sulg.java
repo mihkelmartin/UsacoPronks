@@ -10,6 +10,7 @@ public class sulg {
     private static int puuSuurus = 1;
 
     public static void main(String[] args )throws Exception {
+        long startTime = System.nanoTime();
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         String sisend[] = in.readLine().split(" ");
@@ -51,11 +52,20 @@ public class sulg {
 
         for (int i = 0; i < qc; i++) {
             sisend = in.readLine().split(" ");
-            if(solve(sone, Integer.parseInt(sisend[0])-1, Integer.parseInt(sisend[1])))
-                System.out.println("JAH");
-            else
+            int l = Integer.parseInt(sisend[0]);
+            int r = Integer.parseInt(sisend[1]);
+            if (balance[l - 1] != balance[r]) {
                 System.out.println("EI");
+            } else if (query(l, r - 1, 1) == balance[l - 1]) {
+                System.out.println("JAH");
+            } else {
+                System.out.println("EI");
+            }
         }
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1000000; // to get milliseconds.
+        System.out.println(duration);
+
     }
 
     public static void genereeriPuu(int positsioon, int vaartus){
@@ -66,27 +76,14 @@ public class sulg {
         }
     }
 
-    private static boolean solve (String s, int l, int r) {
-        int lptr = l, rptr = r - 1;
-        int bal = 0, rbal = 0;
-        boolean seen0 = false;
-        while (lptr <= rptr) {
-            if (s.charAt(lptr) == '(') bal++;
-            else bal--;
-            if (bal < 0) return false;
-            if (bal == 0 && lptr != r - 1) seen0 = true;
+    public static  int query (int ql, int qr, int u) {
+        ql = Math.max(ql, lfend[u]);
+        qr = Math.min(qr, rgend[u]);
 
-            if (lptr == rptr) break;
-
-            if (s.charAt(rptr) == '(') rbal++;
-            else rbal--;
-            if (rbal > 0) return false;
-            if (rbal == 0) seen0 = true;
-
-            lptr++;
-            rptr--;
-        }
-        return seen0 && bal + rbal == 0;
+        if (ql > qr) return Integer.MAX_VALUE;
+        if (ql == lfend[u] && qr == rgend[u]) return puu[u];
+        return Math.min(query(ql, qr, 2 * u), query(ql, qr, 2 * u + 1));
     }
+
 }
 
