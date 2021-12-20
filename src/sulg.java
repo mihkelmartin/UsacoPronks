@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
 
 public class sulg {
 
@@ -50,22 +53,20 @@ public class sulg {
             genereeriPuu(i, balance[i]);
         }
 
+        BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
         for (int i = 0; i < qc; i++) {
-            sisend = in.readLine().split(" ");
-            int l = Integer.parseInt(sisend[0]);
-            int r = Integer.parseInt(sisend[1]);
+            StringTokenizer stringTokenizer = new StringTokenizer(in.readLine(), " ");
+            int l = Integer.parseInt(stringTokenizer.nextToken());
+            int r = Integer.parseInt(stringTokenizer.nextToken());
             if (balance[l - 1] != balance[r]) {
-                System.out.println("EI");
+               log.write("EI\n");
             } else if (query(l, r - 1, 1) == balance[l - 1]) {
-                System.out.println("JAH");
+                log.write("JAH\n");
             } else {
-                System.out.println("EI");
+                log.write("EI\n");
             }
         }
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000; // to get milliseconds.
-        System.out.println(duration);
-
+        log.flush();
     }
 
     public static void genereeriPuu(int positsioon, int vaartus){
