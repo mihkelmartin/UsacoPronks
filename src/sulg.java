@@ -11,9 +11,15 @@ public class sulg {
 
     public static void main(String[] args )throws Exception {
         long startTime = System.nanoTime();
+
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         String sisend[] = in.readLine().split(" ");
+
+        long duration = (System.nanoTime() - startTime) / 1000000; // to get milliseconds.
+        System.out.println(duration);
+
+
         sonePikkus = Integer.parseInt(sisend[0]);
         int qc = Integer.parseInt(sisend[1]);
         String sone = in.readLine();
@@ -63,7 +69,7 @@ public class sulg {
             }
         }
         long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000; // to get milliseconds.
+        duration = (endTime - startTime) / 1000000; // to get milliseconds.
         System.out.println(duration);
 
     }
