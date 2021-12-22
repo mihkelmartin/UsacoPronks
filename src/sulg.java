@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class sulg {
@@ -53,20 +50,20 @@ public class sulg {
             genereeriPuu(i, balance[i]);
         }
 
-        BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
         for (int i = 0; i < qc; i++) {
             StringTokenizer stringTokenizer = new StringTokenizer(in.readLine(), " ");
             int l = Integer.parseInt(stringTokenizer.nextToken());
             int r = Integer.parseInt(stringTokenizer.nextToken());
             if (balance[l - 1] != balance[r]) {
-               log.write("EI\n");
+               out.append("EI\n");
             } else if (query(l, r - 1, 1) == balance[l - 1]) {
-                log.write("JAH\n");
+                out.append("JAH\n");
             } else {
-                log.write("EI\n");
+                out.append("EI\n");
             }
         }
-        log.flush();
+        out.flush();
     }
 
     public static void genereeriPuu(int positsioon, int vaartus){
