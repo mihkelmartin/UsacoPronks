@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class sulg {
@@ -10,10 +13,9 @@ public class sulg {
     private static int puuSuurus = 1;
 
     public static void main(String[] args )throws Exception {
-        long startTime = System.nanoTime();
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
-        String sisend[] = in.readLine().split(" ");
+        String[] sisend = in.readLine().split(" ");
         sonePikkus = Integer.parseInt(sisend[0]);
         int qc = Integer.parseInt(sisend[1]);
         String sone = in.readLine();
@@ -50,20 +52,20 @@ public class sulg {
             genereeriPuu(i, balance[i]);
         }
 
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
         for (int i = 0; i < qc; i++) {
             StringTokenizer stringTokenizer = new StringTokenizer(in.readLine(), " ");
             int l = Integer.parseInt(stringTokenizer.nextToken());
             int r = Integer.parseInt(stringTokenizer.nextToken());
             if (balance[l - 1] != balance[r]) {
-               out.append("EI\n");
+               log.write("EI\n");
             } else if (query(l, r - 1, 1) == balance[l - 1]) {
-                out.append("JAH\n");
+                log.write("JAH\n");
             } else {
-                out.append("EI\n");
+                log.write("EI\n");
             }
         }
-        out.flush();
+        log.flush();
     }
 
     public static void genereeriPuu(int positsioon, int vaartus){
