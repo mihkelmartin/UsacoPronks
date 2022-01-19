@@ -15,6 +15,7 @@ public class k8_I_Valimised {
             this.nimi = nimi;
             this.hind = hind;
             this.vanem = vanem;
+            soltuvad_riigid.add(nimi);
         }
         private void varskendaVanem(Riik[] riigid){
             if(vanem != null){
@@ -58,15 +59,15 @@ public class k8_I_Valimised {
                 // Leia haalte arv
 
                 int muutus_alates = Math.max(i - riik.haalte_arv, 0);
+                muutus_alates = muutus_alates + samadeArv(kasutuses_riigid[muutus_alates], riik);
                 int hind_enne = riikidearv_maksumus[muutus_alates];
                 int hind_koos_uuega = hind_enne + riik.hind;
 
-                if(!kasutuses_riigid[muutus_alates].contains(riik.nimi) &&
-                        eiOleSoltuvateSeas(kasutuses_riigid[muutus_alates], riik, riigid)){
+                if(!kasutuses_riigid[muutus_alates].contains(riik.nimi)){
                     if(hind_koos_uuega < riikidearv_maksumus[i]){
                         kasutuses_riigid[i].clear();
                         kasutuses_riigid[i].addAll(kasutuses_riigid[muutus_alates]);
-                        kasutuses_riigid[i].add(riik.nimi);
+                        kasutuses_riigid[i].addAll(riik.soltuvad_riigid);
                         riikidearv_maksumus[i] = hind_koos_uuega;
                     }
                 }
@@ -75,23 +76,12 @@ public class k8_I_Valimised {
         System.out.println(riikidearv_maksumus[m]);
     }
 
-    static boolean eiOleSoltuvateSeas(HashSet<String> kasutusesRiigid, Riik riik, Riik[] riigid){
-        boolean retVal = true;
-        for (String riiginimi : kasutusesRiigid) {
-            for (Riik riik1 : riigid) {
-                if(riiginimi.equals(riik1.nimi)){
-                    if(riik1.soltuvad_riigid.contains(riik.nimi)){
-                        return false;
-                    }
-                    for (String s : riik.soltuvad_riigid) {
-                        if(s.equals(riik1.nimi))
-                            return false;
-                    }
-
-                }
-            }
+    static int samadeArv(HashSet<String> kasutusesRiigid, Riik riik){
+        int retVal = 0;
+        for (String riigiNimi : riik.soltuvad_riigid) {
+            if(kasutusesRiigid.contains(riigiNimi))
+                retVal++;
         }
-
         return retVal;
     }
 
