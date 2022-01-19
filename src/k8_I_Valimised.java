@@ -46,28 +46,34 @@ public class k8_I_Valimised {
         }
 
         int[] riikidearv_maksumus = new int[n+1];
-        HashSet<String>[] kasutuses_riigid = new HashSet[n+1];
+        HashSet<String>[] haalte_riigid = new HashSet[n+1];
+        HashSet<String>[] valitud_riigid = new HashSet[n+1];
         riikidearv_maksumus[0] = 0;
-        kasutuses_riigid[0] = new HashSet<>();
+        haalte_riigid[0] = new HashSet<>();
+        valitud_riigid[0] = new HashSet<>();
 
         for (int i = 1; i <= n; i++) {
             riikidearv_maksumus[i] = Integer.MAX_VALUE;
-            kasutuses_riigid[i] = new HashSet<>();
+            haalte_riigid[i] = new HashSet<>();
+            valitud_riigid[i] = new HashSet<>();
             for (int j = 1; j <= n; j++) {
                 Riik riik = riigid[j-1];
                 // Math.min, et massiivis välja ei läheks
                 // Leia haalte arv
 
                 int muutus_alates = Math.max(i - riik.haalte_arv, 0);
-                muutus_alates = muutus_alates + samadeArv(kasutuses_riigid[muutus_alates], riik);
+                //muutus_alates = muutus_alates + samadeArv(haalte_riigid[muutus_alates], riik);
                 int hind_enne = riikidearv_maksumus[muutus_alates];
                 int hind_koos_uuega = hind_enne + riik.hind;
 
-                if(!kasutuses_riigid[muutus_alates].contains(riik.nimi)){
-                    if(hind_koos_uuega < riikidearv_maksumus[i]){
-                        kasutuses_riigid[i].clear();
-                        kasutuses_riigid[i].addAll(kasutuses_riigid[muutus_alates]);
-                        kasutuses_riigid[i].addAll(riik.soltuvad_riigid);
+                if(!valitud_riigid[muutus_alates].contains(riik.nimi)){
+                    if(hind_koos_uuega <= riikidearv_maksumus[i]){
+                        haalte_riigid[i].clear();
+                        haalte_riigid[i].addAll(haalte_riigid[muutus_alates]);
+                        haalte_riigid[i].addAll(riik.soltuvad_riigid);
+                        valitud_riigid[i].clear();
+                        valitud_riigid[i].addAll(valitud_riigid[muutus_alates]);
+                        valitud_riigid[i].add(riik.nimi);
                         riikidearv_maksumus[i] = hind_koos_uuega;
                     }
                 }
