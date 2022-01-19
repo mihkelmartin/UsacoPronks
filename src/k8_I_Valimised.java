@@ -58,11 +58,9 @@ public class k8_I_Valimised {
             valitud_riigid[i] = new HashSet<>();
             for (int j = 1; j <= n; j++) {
                 Riik riik = riigid[j-1];
-                // Math.min, et massiivis välja ei läheks
-                // Leia haalte arv
 
                 int muutus_alates = Math.max(i - riik.haalte_arv, 0);
-                //muutus_alates = muutus_alates + samadeArv(haalte_riigid[muutus_alates], riik);
+                muutus_alates = muutus_alates + samadeArv(haalte_riigid[muutus_alates], riik);
                 int hind_enne = riikidearv_maksumus[muutus_alates];
                 int hind_koos_uuega = hind_enne + riik.hind;
 
