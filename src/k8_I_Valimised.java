@@ -1,35 +1,29 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 public class k8_I_Valimised {
 
     private static class Riik{
         private String nimi;
-        private int hind = 0;
+        private int hind;
         private String vanem;
-        // -1 näitab, et ei ole veel kontrollitud
-        private int haalte_arv = -1;
-        ArrayList<Riik> soltuvad_riigid = new ArrayList<>();
+        private int haalte_arv = 1;
+        HashSet<String> soltuvad_riigid = new HashSet<>();
 
         public Riik(String nimi, int hind, String vanem) {
             this.nimi = nimi;
             this.hind = hind;
             this.vanem = vanem;
         }
-        private void leiaSoltuvatRiigid(ArrayList<Riik> riigid){
-            if(haalte_arv == -1) {
-                haalte_arv = 1; // Vaikimisi 1, käesolev riik ise
+        private void varskendaVanem(Riik[] riigid){
+            if(vanem != null){
                 for (Riik riik : riigid) {
-                    // On sõltuv riik
-                    if (nimi.equals(riik.vanem)) {
-                        riik.leiaSoltuvatRiigid(riigid);
-                        this.haalte_arv += riik.haalte_arv;
-                        soltuvad_riigid.add(riik);
-                        soltuvad_riigid.addAll(riik.soltuvad_riigid);
+                    if(riik != null && riik.nimi.equals(vanem)){
+                        riik.haalte_arv += 1;
+                        riik.soltuvad_riigid.add(this.nimi);
+                        riik.soltuvad_riigid.addAll(this.soltuvad_riigid);
+                        riik.varskendaVanem(riigid);
                     }
                 }
             }
@@ -42,105 +36,74 @@ public class k8_I_Valimised {
         String sisend[] = in.readLine().split(" ");
         int n = Integer.parseInt(sisend[0]);
         int m = Integer.parseInt(sisend[1]);
-        ArrayList<Riik> riigid = new ArrayList<>();
+        Riik[] riigid = new Riik[n];
         for (int i = 0; i < n ; i++) {
             sisend = in.readLine().split(" ");
-            riigid.add(new Riik(sisend[0], Integer.parseInt(sisend[1]), sisend[2].equals("0") ? null : sisend[3]));
+            Riik riik = new Riik(sisend[0], Integer.parseInt(sisend[1]), sisend[2].equals("0") ? null : sisend[3]);
+            riigid[i] = riik;
+            riik.varskendaVanem(riigid);
         }
-        // Ei pea tegelikult sorteerima, aga õpi
-        Collections.sort(riigid, Comparator.comparingInt(riik -> riik.hind));
-        Collections.sort(riigid, (riik1, riik2) ->
-                {if(riik1.haalte_arv - riik2.haalte_arv == 0)
-            return riik1.hind - riik2.hind;
-        else
-            return riik1.haalte_arv -riik2.haalte_arv;
-        }
-        );
-        Collections.reverseOrder();
 
-        riigid.sort((riik1, riik2) ->
-        {if(riik1.haalte_arv - riik2.haalte_arv == 0)
-            return riik1.hind - riik2.hind;
-        else
-            return riik1.haalte_arv -riik2.haalte_arv;
-        }
-        );
+        int[] riikidearv_maksumus = new int[n+1];
+        HashSet<String>[] kasutuses_riigid = new HashSet[n+1];
+        riikidearv_maksumus[0] = 0;
+        kasutuses_riigid[0] = new HashSet<>();
 
-        Comparator<Riik> comparator = new Comparator<Riik>() {
-            @Override
-            public int compare(Riik o1, Riik o2) {
-                return o1.hind - o2.hind;
-            }
-        };
-        riigid.sort(comparator.reversed());
+        for (int i = 1; i <= n; i++) {
+            riikidearv_maksumus[i] = Integer.MAX_VALUE;
+            kasutuses_riigid[i] = new HashSet<>();
+            for (int j = 1; j <= n; j++) {
+                Riik riik = riigid[j-1];
+                // Math.min, et massiivis välja ei läheks
+                // Leia haalte arv
 
+                int muutus_alates = Math.max(i - riik.haalte_arv, 0);
+                int hind_enne = riikidearv_maksumus[muutus_alates];
+                int hind_koos_uuega = hind_enne + riik.hind;
 
-        riigid.sort(Comparator.comparingInt(riik->riik.hind));
-
-        // Nii on kõige lihtsam meetodit välja kutsuda
-        riigid.forEach(riik -> riik.leiaSoltuvatRiigid(riigid));
-
-        // Indeks 0 on jällegi kui hääli on vaja 0
-        int[] maksta_haali = new int[m + 1];
-        // Mingil häälte arvul juba kasutatud riigid
-        HashMap<Integer, ArrayList<Riik>> kasutatud_riigid = new HashMap<>();
-        // Lisa kohe 0 haalte puhul kasutatud riigid, mis on tühi hulk
-        kasutatud_riigid.put(0, new ArrayList<>());
-        int vastus = 0;
-
-        // Hakkame leidma dünaamiliselt parimat hinda alates 1
-        for (int i = 1; i <= m; i++) {
-            maksta_haali[i] = Integer.MAX_VALUE;
-            ArrayList<Riik> voetud_kasutusele_kohal_i =  new ArrayList<>();
-            kasutatud_riigid.put(i, voetud_kasutusele_kohal_i);
-
-            for (Riik riik : riigid) {
-                ArrayList<Riik> teiste_poolt_kasutusel_olevad =  new ArrayList<>();
-                // Kui kaugel on ettevõetud riik alguspunktist
-                // Arvtua maha need soltuvad mis juba kasutusel
-
-
-                // Kui riik pole veel kasutusel siis ta võidakse võtta kasutusele kuid tema häälte arvu
-                // tuleb vähendada selle võrra kui palju on temast sõltuvaid, ja sõltuvate sõltuvaid juba kasutusel
-
-                // Siin probleem !!!! Kui sees on ka siis tuleb maha võtta, võib teiste kaudu olla
-                // Siin peab iga kord uuesti kontrollima
-
-                // NB 5. test ei läheb läbi
-
-                int tmp_haalte_arv = riik.haalte_arv;
-                kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).forEach(kasutatud_riik -> {
-                            if(kasutatud_riik!=riik)
-                                teiste_poolt_kasutusel_olevad.addAll(kasutatud_riik.soltuvad_riigid);
-                        }
-                );
-                if(riik.haalte_arv > 1 && teiste_poolt_kasutusel_olevad.contains(riik))
-                    continue;
-                for (Riik riik_soltuv : riik.soltuvad_riigid) {
-                    // Eelmises peaks kõik kasutusel oleva sees olema
-                    if (tmp_haalte_arv > 1 && (teiste_poolt_kasutusel_olevad.contains(riik_soltuv) ||
-                            kasutatud_riigid.get(Math.max(i - tmp_haalte_arv, 0)).contains(riik_soltuv))) {
-                        tmp_haalte_arv--;
-                    }
-                }
-
-                int pos = Math.max(i - tmp_haalte_arv, 0);
-                if(!kasutatud_riigid.get(pos).contains(riik)){
-                    // Mis kui on võrdne ?
-                    if(maksta_haali[pos] + riik.hind < maksta_haali[i]){
-                        maksta_haali[i] = maksta_haali[pos] + riik.hind;
-
-                        // Uuendame riike mis on positsioonil kasutatud
-                        voetud_kasutusele_kohal_i.clear();
-                        voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(pos));
-                        voetud_kasutusele_kohal_i.add(riik);
-                        vastus = maksta_haali[i];
+                if(!kasutuses_riigid[muutus_alates].contains(riik.nimi) &&
+                        eiOleSoltuvateSeas(kasutuses_riigid[muutus_alates], riik, riigid)){
+                    if(hind_koos_uuega < riikidearv_maksumus[i]){
+                        kasutuses_riigid[i].clear();
+                        kasutuses_riigid[i].addAll(kasutuses_riigid[muutus_alates]);
+                        kasutuses_riigid[i].add(riik.nimi);
+                        riikidearv_maksumus[i] = hind_koos_uuega;
                     }
                 }
             }
-            // Ka kõik eelenvalt kasutatud tuleb listi panna
-            // voetud_kasutusele_kohal_i.addAll(kasutatud_riigid.get(i-1));
         }
-        System.out.println(vastus);
+        System.out.println(riikidearv_maksumus[m]);
     }
+
+    static boolean eiOleSoltuvateSeas(HashSet<String> kasutusesRiigid, Riik riik, Riik[] riigid){
+        boolean retVal = true;
+        for (String riiginimi : kasutusesRiigid) {
+            for (Riik riik1 : riigid) {
+                if(riiginimi.equals(riik1.nimi)){
+                    if(riik1.soltuvad_riigid.contains(riik.nimi)){
+                        return false;
+                    }
+                    for (String s : riik.soltuvad_riigid) {
+                        if(s.equals(riik1.nimi))
+                            return false;
+                    }
+
+                }
+            }
+        }
+
+        return retVal;
+    }
+
 }
+
+/*
+6 2
+Lati 15 0
+USA 20 0
+Kanada 10 1 USA
+Eesti 40 1 Kanada
+Leedu 30 1 Eesti
+Poola 100 1 USA
+
+ */
