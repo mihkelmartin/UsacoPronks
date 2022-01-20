@@ -91,7 +91,6 @@ public class k8_I_Valimised {
             if(kasutusesRiigid.contains(riigiNimi))
                 retVal++;
         }
-        // Kaks korda üheseid tuleb maha võtta, sest need on ju mõlemas
         return kasutusesRiigid.size() + riik.soltuvad_riigid.size() - retVal;
     }
 
