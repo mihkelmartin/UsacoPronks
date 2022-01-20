@@ -61,10 +61,11 @@ public class k8_I_Valimised {
 
                 for (int k = 1; k <= riik.haalte_arv && i - k >= 0 ; k++) {
                     int muutus_alates = i - k;
-                    int haaliMaha = samadeArv(haalte_riigid[muutus_alates], riik);
-                    int haaliJuurde = riik.haalte_arv - haaliMaha;
+                    // Haali üldse kokku
+                    int haali = haaliKoosEelnevaga(haalte_riigid[muutus_alates], riik);
+                    int haali_lisaks = haali - muutus_alates;
 
-                    if(haaliJuurde >= k){
+                    if(haali_lisaks >= k){
                         int hind_enne = riikidearv_maksumus[muutus_alates];
                         int hind_koos_uuega = hind_enne + riik.hind;
 
@@ -77,11 +78,11 @@ public class k8_I_Valimised {
                                 valitud_riigid[i].addAll(valitud_riigid[muutus_alates]);
                                 valitud_riigid[i].add(riik.nimi);
                                 riikidearv_maksumus[i] = hind_koos_uuega;
-                                while (haaliJuurde > k){
-                                    riikidearv_maksumus[i + (haaliJuurde - k)] =
-                                            Math.max(hind_koos_uuega, riikidearv_maksumus[i + (haaliJuurde - k)]);
-                                    haaliJuurde--;
-                                }
+                                /*while (haali_lisaks > k){
+                                    riikidearv_maksumus[i + (haali_lisaks - k)] =
+                                            Math.max(hind_koos_uuega, riikidearv_maksumus[i + (haali_lisaks - k)]);
+                                    haali_lisaks--;
+                                }*/
                             }
                         }
                     }
@@ -91,13 +92,14 @@ public class k8_I_Valimised {
         System.out.println(riikidearv_maksumus[m]);
     }
 
-    static int samadeArv(HashSet<String> kasutusesRiigid, Riik riik){
+    static int haaliKoosEelnevaga(HashSet<String> kasutusesRiigid, Riik riik){
         int retVal = 0;
         for (String riigiNimi : riik.soltuvad_riigid) {
             if(kasutusesRiigid.contains(riigiNimi))
                 retVal++;
         }
-        return retVal;
+        // Kaks korda üheseid tuleb maha võtta, sest need on ju mõlemas
+        return kasutusesRiigid.size() + riik.soltuvad_riigid.size() -  2 * retVal;
     }
 
 }
