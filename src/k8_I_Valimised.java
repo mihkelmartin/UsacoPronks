@@ -69,21 +69,14 @@ public class k8_I_Valimised {
                         int hind_enne = riikidearv_maksumus[muutus_alates];
                         int hind_koos_uuega = hind_enne + riik.hind;
 
-                        if (!valitud_riigid[muutus_alates].contains(riik.nimi)) {
-                            if (hind_koos_uuega <= riikidearv_maksumus[i]) {
-                                haalte_riigid[i].clear();
-                                haalte_riigid[i].addAll(haalte_riigid[muutus_alates]);
-                                haalte_riigid[i].addAll(riik.soltuvad_riigid);
-                                valitud_riigid[i].clear();
-                                valitud_riigid[i].addAll(valitud_riigid[muutus_alates]);
-                                valitud_riigid[i].add(riik.nimi);
-                                riikidearv_maksumus[i] = hind_koos_uuega;
-                                /*while (haali_lisaks > k){
-                                    riikidearv_maksumus[i + (haali_lisaks - k)] =
-                                            Math.max(hind_koos_uuega, riikidearv_maksumus[i + (haali_lisaks - k)]);
-                                    haali_lisaks--;
-                                }*/
-                            }
+                        if (hind_koos_uuega < riikidearv_maksumus[i]) {
+                            haalte_riigid[i].clear();
+                            haalte_riigid[i].addAll(haalte_riigid[muutus_alates]);
+                            haalte_riigid[i].addAll(riik.soltuvad_riigid);
+                            valitud_riigid[i].clear();
+                            valitud_riigid[i].addAll(valitud_riigid[muutus_alates]);
+                            valitud_riigid[i].add(riik.nimi);
+                            riikidearv_maksumus[i] = hind_koos_uuega;
                         }
                     }
                 }
@@ -99,7 +92,7 @@ public class k8_I_Valimised {
                 retVal++;
         }
         // Kaks korda üheseid tuleb maha võtta, sest need on ju mõlemas
-        return kasutusesRiigid.size() + riik.soltuvad_riigid.size() -  2 * retVal;
+        return kasutusesRiigid.size() + riik.soltuvad_riigid.size() - retVal;
     }
 
 }
