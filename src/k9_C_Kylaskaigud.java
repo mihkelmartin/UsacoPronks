@@ -5,61 +5,40 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 public class k9_C_Kylaskaigud {
-    public static void main(String[] args )throws Exception {
 
-        final long startTime = System.currentTimeMillis();
+    public static void main(String[] args )throws Exception {
 
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         String sisend[] = in.readLine().split(" ");
         int maju = Integer.parseInt(sisend[0]);
-        int lapsi = Integer.parseInt(sisend[1]);
-        int[][] maja_grupp = new int[maju + 1][2]; // Maja koos samakõrgus grupi numbriga. Yks rohkem, et saaks alustada 1 indeksist
+        int paringuid = Integer.parseInt(sisend[1]);
 
-        StringTokenizer st = new StringTokenizer(in.readLine()," ");
-        int maja_korgus_eelmine = -100001;
-        int korgus_grupp = 1;
-        int korgus_grupi_pikkus = 1;
-        int korgus_grupi_algus = 1;
+        int[] maja_korgusgrupp = new int[maju + 1];
         TreeMap<Integer, Object> korgus_grupid_maps = new TreeMap<>();
 
-        for (int i = 1; i <=maju ; i++) {
+        int korgus_grupp = 1;
+        int korgus_grupi_algus = 1;
 
-            int maja_korgus = Integer.valueOf(st.nextToken());
-            maja_grupp[i][0] = maja_korgus; // i-nda maja kõrgus
-            korgus_grupi_pikkus++;
+        // Loeme esimese maha enne tsüklit, nii on parem korguse muutust jälgida
+        // ei pea eraldi if-i tegema esimese muutuse jaoks
+        StringTokenizer st = new StringTokenizer(in.readLine()," ");
+        int maja_korgus = Integer.valueOf(st.nextToken()), maja_korgus_eelmine = maja_korgus;
+        maja_korgusgrupp[1] = korgus_grupp ; // 1 maja kõrgusgrupp on 1
 
-
-            // Et esimene kord ei läheks järgmisse if-i
-            if(i == 1){
+        for (int i = 2; i <=maju ; i++) {
+            maja_korgus = Integer.valueOf(st.nextToken());
+            if(maja_korgus != maja_korgus_eelmine){
                 maja_korgus_eelmine = maja_korgus;
-                korgus_grupi_pikkus = 0;
-            }
-
-
-            // Paneme tagantjärgi, kui grupp läbi
-            if(maja_korgus != maja_korgus_eelmine){ // Ei ole esimene kord
-                // Kui muutus kasvata korgus_gruppi
-                maja_korgus_eelmine = maja_korgus;
-                int[] korgus_grupi_andmed = new int[3];
-                korgus_grupi_andmed[0] = korgus_grupi_algus;
-                korgus_grupi_andmed[1] = i - 1; // lopp, esimene kord ei tule seega -1 ok
-                korgus_grupi_andmed[2] = korgus_grupi_pikkus;
-                korgus_grupid_maps.put(korgus_grupp, korgus_grupi_andmed);
-
+                loo_korgusgrupp(korgus_grupi_algus, i, korgus_grupp, korgus_grupid_maps);
                 korgus_grupp++;
                 korgus_grupi_algus = i; // järgmise korgus_grupi algus
-                korgus_grupi_pikkus = 0;
             }
-            // pane kõrgusgrupp
-            maja_grupp[i][1] = korgus_grupp;
+            // pane majale kõrgusgrupp
+            maja_korgusgrupp[i] = korgus_grupp;
         }
-        // Lisa viimane
-        int[] korgus_grupi_andmed = new int[3];
-        korgus_grupi_andmed[0] = korgus_grupi_algus;
-        korgus_grupi_andmed[1] = maju; // lopp
-        korgus_grupi_andmed[2] = ++korgus_grupi_pikkus;
-        korgus_grupid_maps.put(korgus_grupp, korgus_grupi_andmed);
+        // Lisa viimane, sest siin muutust ei toimunud
+        loo_korgusgrupp(korgus_grupi_algus, maju, korgus_grupp, korgus_grupid_maps);
 
         // Nüüd tuleb teha kahendpuu Kõrgusgruppidest
         // Sealt saame kiirelt teada mis on mingite gruppide pikimad lõigud - näiteks grupist 35 - 2300 pikim lõik 45
@@ -74,13 +53,13 @@ public class k9_C_Kylaskaigud {
         loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size());
 
         // Hakka otsima
-        while (lapsi-- > 0){
+        while (paringuid-- > 0){
             String maja1_maja2[] = in.readLine().split(" ");
             int maja1 = Integer.valueOf(maja1_maja2[0]);
             int maja2 = Integer.valueOf(maja1_maja2[1]);
 
-            int maja_grupp1 = maja_grupp[maja1][1];
-            int maja_grupp2 = maja_grupp[maja2][1];
+            int maja_grupp1 = maja_korgusgrupp[maja1];
+            int maja_grupp2 = maja_korgusgrupp[maja2];
             if(maja_grupp1 == maja_grupp2){
                 System.out.println(maja2 - maja1 + 1);
                 continue;
@@ -105,6 +84,14 @@ public class k9_C_Kylaskaigud {
             System.out.println(max_kaugus);
         }
 //        System.out.println("Total execution time: " + (System.currentTimeMillis() - startTime));
+    }
+
+    private static void loo_korgusgrupp(int korgus_grupi_algus, int i, int korgus_grupp, TreeMap<Integer, Object> korgus_grupid_maps) {
+        int[] korgus_grupi_andmed = new int[3];
+        korgus_grupi_andmed[0] = korgus_grupi_algus;
+        korgus_grupi_andmed[1] = i - 1; // lopp, esimene kord ei tule seega -1 ok
+        korgus_grupi_andmed[2] = i - korgus_grupi_algus;
+        korgus_grupid_maps.put(korgus_grupp, korgus_grupi_andmed);
     }
 
     private static int otsi_kahendpuust(HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp, int maja1, int maja2) {
