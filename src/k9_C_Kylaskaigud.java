@@ -65,7 +65,7 @@ public class k9_C_Kylaskaigud {
                 continue;
             }
 
-            // Grupid võta +1 ja -1. Ostsi vaatame eraldi
+            // Grupid võta +1 ja -1. Otsi vaatame eraldi
             // Korgus --> lopp peab olema korgus grupid !!!!
             int max_kaugus = otsi_kahendpuust(gruppide_pikkuste_puu, 1, 1, korgus_grupid_maps.size(),
                     maja_grupp1 + 1, maja_grupp2 - 1);
@@ -90,7 +90,7 @@ public class k9_C_Kylaskaigud {
         int[] korgus_grupi_andmed = new int[3];
         korgus_grupi_andmed[0] = korgus_grupi_algus;
         korgus_grupi_andmed[1] = i - 1; // lopp, esimene kord ei tule seega -1 ok
-        korgus_grupi_andmed[2] = i - korgus_grupi_algus;
+        korgus_grupi_andmed[2] = i - korgus_grupi_algus; // Pikkus ehk mitu maja on samal kõrgusel SEE SEE KÕIGE TÄHTSAM LÄHEB PUUSSE
         korgus_grupid_maps.put(korgus_grupp, korgus_grupi_andmed);
     }
 
