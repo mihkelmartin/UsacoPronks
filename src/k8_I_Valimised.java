@@ -105,4 +105,12 @@ Eesti 40 1 Kanada
 Leedu 30 1 Eesti
 Poola 100 1 USA
 
+5 2
+E 5 0
+S 1 1 E
+K 3 1 E
+P 1 1 K
+T 4 1 K
+
+
  */
