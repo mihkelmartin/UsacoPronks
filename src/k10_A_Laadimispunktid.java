@@ -1,9 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public class k10_A_Laadimispunktid {
 
@@ -32,10 +29,19 @@ public class k10_A_Laadimispunktid {
             linnast_teed.computeIfAbsent(paar[0], e -> new ArrayList<>()).add(paar[1]);
             linnast_teed.computeIfAbsent(paar[1], e -> new ArrayList<>()).add(paar[0]);
         }
-        leiaAPd(linnad.get(0), linnast_teed);
+        for (String linn : linnad) {
+            kulastatud.clear();
+            vanemad.clear();
+            for (int i = 0; i < linnu; i++) {
+                aeg[i] = 0; madalaim[i] = 0;
+            }
+            jrk_nr = 0;
+            leiaAPd(linn, linnast_teed);
+        }
         System.out.println(ap.size());
-        Arrays.sort(ap.toArray());
-        for (String s : ap) {
+        ArrayList<String> sorditud = new ArrayList<>(ap);
+        Collections.sort(sorditud);
+        for (String s : sorditud) {
             System.out.println(s);
         }
 
@@ -57,7 +63,7 @@ public class k10_A_Laadimispunktid {
                 // u on artikulatsioonipunkt, kui:
                 if (!vanemad.containsKey(linn) && alluvaid > 1) // u on juur ja tal on mitu alluvat
                     ap.add(linn);
-                if (!vanemad.containsKey(linn) && madalaim[linn_kuhu_saab_index] >= aeg[linn_index]) // u alt ei ole tagasiserva
+                if (vanemad.containsKey(linn) && madalaim[linn_kuhu_saab_index] >= aeg[linn_index]) // u alt ei ole tagasiserva
                     ap.add(linn);
             }
             else if (vanemad.get(linn) == null || !vanemad.get(linn).equals(linn_kuhu_saab)) // kui v ei ole u vanem
