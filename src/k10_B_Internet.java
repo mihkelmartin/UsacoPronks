@@ -1,81 +1,17 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class k10_B_Internet {
-    public static boolean on_tsykkel(int tipp, int eelmine, ArrayList<ArrayList<Integer>> graaf, int m, boolean[] kaidud) {
-        kaidud[tipp] = true;
-        for (int i = 0; i < graaf.get(tipp).size(); i++) {
-            int naaber = graaf.get(tipp).get(i);
-            if (!kaidud[naaber]) {
-                if (on_tsykkel(naaber, tipp, graaf, m, kaidud))
-                    return true;
-            }
-            else if (naaber != eelmine)
-                return true;
-        }
-        return false;
-    }
 
-    public static void leiaPikkus(ArrayList<Serv> servad, ArrayList<ArrayList<Integer>> graaf, int m)
-    {
-        int servi_puus = 0;
-        int jrgm_serv = 0;
-        int vastus = 0;
-        int otsekaid = 0;
-        while (servi_puus < m - 1) // puus on m-1 serva
-        {
-            int kaugus = servad.get(jrgm_serv).kaal;
-            int yks = servad.get(jrgm_serv).ots_1, kaks = servad.get(jrgm_serv).ots_2;
-            graaf.get(yks).add(kaks);
-            graaf.get(kaks).add(yks);
-            //kui ei teki tsüklit, lisame serva puusse
-            boolean[] kaidud = new boolean[m];
-            if (!on_tsykkel(yks, -1, graaf, m, kaidud)) {
-                vastus += kaugus;
-                if(yks == m - 1 || kaks == m - 1){
-                    otsekaid++;
-                }
-                servi_puus++;
-            }
-            else {
-                Integer b = yks;
-                Integer c = kaks;
-                graaf.get(yks).remove(c);
-                graaf.get(kaks).remove(b);
-            }
-            jrgm_serv++;
-        }
-        System.out.println(vastus + " " + otsekaid);
-    }
-
-    public static class Serv implements Comparable<Serv>{
+    public static class Serv {
         int kaal;
-        int ots_1;
-        int ots_2;
-        public Serv(int ots_1, int ots_2, int kaal) {
+        int ots;
+        public Serv(int ots, int kaal) {
             this.kaal = kaal;
-            this.ots_1 = Math.min(ots_1, ots_2);// esimene väiksem
-            this.ots_2 = Math.max(ots_2, ots_1);// teine suurem
-            if(ots_1 == ots_2) System.out.println(ots_1 + " " + ots_2 + " " + kaal);
+            this.ots = ots;
         }
 
-        @Override
-        public int compareTo(Serv teine) {
-            if(kaal == teine.kaal){
-                return Integer.compare(teine.ots_2, ots_2);
-            }
-            else{
-                return Double.compare(kaal, teine.kaal);
-            }
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return this.ots_1 == ((Serv)o).ots_1 && this.ots_2 == ((Serv)o).ots_2;
-        }
     }
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
@@ -84,9 +20,13 @@ public class k10_B_Internet {
         int mitu_kooli = Integer.parseInt(st.nextToken());
         int teid = Integer.parseInt(st.nextToken());
         int otseyhendus = Integer.parseInt(st.nextToken());
-        ArrayList<ArrayList<Integer>> graaf = new ArrayList<>();
+        ArrayList<ArrayList<Serv>> graaf_kaaluga = new ArrayList<>();
+        HashSet<Integer> kasutatud_tipud = new HashSet<>();
+        HashSet<Integer> alles_tipud = new HashSet<>();
+        TreeMap<Integer, Integer> punktid_kasutuseks = new TreeMap<>();
         for (int i = 0; i < mitu_kooli + 1; i++) {
-            graaf.add(new ArrayList<>());
+            graaf_kaaluga.add(new ArrayList<>());
+            alles_tipud.add(i);
         }
         ArrayList<Serv> servad = new ArrayList<>();
         for (int i = 0; i < teid; i++) {
@@ -94,22 +34,44 @@ public class k10_B_Internet {
             int yks = Integer.parseInt(sa.nextToken()) - 1;
             int kaks = Integer.parseInt(sa.nextToken()) - 1;
             int kaal = Integer.parseInt(sa.nextToken());
-            Serv serv = new Serv(yks, kaks, kaal);
-            if(servad.contains(serv)) {
-                int indeks = servad.indexOf(serv);
-                servad.get(indeks).kaal = Math.min(kaal, servad.get(indeks).kaal);
-            }else {
-                if(yks != kaks){
-                    servad.add(serv);
+            if(yks == kaks)
+                continue;
+            graaf_kaaluga.get(yks).add(new Serv(kaks, kaal));
+            graaf_kaaluga.get(kaks).add(new Serv(yks, kaal));
+        }
+        for (int i = 0; i < mitu_kooli; i++) {
+            graaf_kaaluga.get(mitu_kooli).add(new Serv(i, otseyhendus));
+        }
+        kasutatud_tipud.add(0);
+        alles_tipud.remove(0);
+        punktid_kasutuseks.put(0, 0);
+        int vastus = 0;
+        while (alles_tipud.size() > 0){
+            int parim_punkt = -1;
+            int parim_kaal = Integer.MAX_VALUE;
+            TreeMap<Integer, Integer> vahe = new TreeMap<>();
+            for (Map.Entry<Integer, Integer> entry : punktid_kasutuseks.entrySet()){
+                for(Serv serv : graaf_kaaluga.get(entry.getKey())){
+                    if(!kasutatud_tipud.contains(serv.ots)) {
+                        if (serv.kaal < parim_kaal) {
+                            parim_punkt = serv.ots;
+                            parim_kaal = serv.kaal;
+                        }
+                        int endine = punktid_kasutuseks.computeIfAbsent(serv.ots, e -> Integer.MAX_VALUE);
+                        vahe.put(serv.ots, Math.min(serv.kaal, endine));
+                    }
+                }
+                if(parim_punkt != -1){
+                    vastus += parim_kaal;
+                    alles_tipud.remove(parim_punkt);
+                    kasutatud_tipud.add(parim_punkt);
                 }
             }
+            for (Map.Entry<Integer, Integer> entry : vahe.entrySet()){
+                punktid_kasutuseks.put(entry.getKey(), entry.getValue());
+            }
+            punktid_kasutuseks.remove(parim_punkt);
         }
-        mitu_kooli++;
-        for (int i = 0; i < mitu_kooli - 1; i++) {
-            Serv serv = new Serv(mitu_kooli - 1, i, otseyhendus);
-            servad.add(serv);
-        }
-        Collections.sort(servad);
-        leiaPikkus(servad, graaf, mitu_kooli);
+        System.out.println(vastus);
     }
 }
