@@ -7,7 +7,7 @@ public class k11_B_Enigma {
 
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
-        in.readLine();
+        int fibode_arv = Integer.valueOf(in.readLine());
         String fibonaccis[] = in.readLine().split(" ");
         String krupteeritud = in.readLine();
         BigInteger[] fibos = new BigInteger[101];
@@ -27,7 +27,14 @@ public class k11_B_Enigma {
             if(taht.equals(taht.toUpperCase()) && !taht.equals(" ") && !taht.equals(",") && !taht.equals("."))
                 suuredtahed += taht;
         }
+        String tulemus = "";
+        for (int i = 0; i < pikkus; i++) {
+            tulemus += " ";
+        }
+        for (int i = 1; i <= fibode_arv; i++) {
+            String taht = Character.toString(suuredtahed.charAt(i));
 
+        }
 
         System.out.println(fibos);
     }
