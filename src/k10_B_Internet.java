@@ -16,13 +16,14 @@ public class k10_B_Internet {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         StringTokenizer st = new StringTokenizer(in.readLine());
+
         int mitu_kooli = Integer.parseInt(st.nextToken());
         int teid = Integer.parseInt(st.nextToken());
         int otseyhendus = Integer.parseInt(st.nextToken());
-        ArrayList<ArrayList<Serv>> graaf_kaaluga = new ArrayList<>();
-        HashSet<Integer> kasutatud_tipud = new HashSet<>();
-        HashMap<Integer, Serv> punktid_kasutuseks_servaga = new HashMap<>();
 
+        ArrayList<ArrayList<Serv>> graaf_kaaluga = new ArrayList<>();
+
+        // 1 punkt lisaks mille ise lisame
         for (int i = 0; i < mitu_kooli + 1; i++) {
             graaf_kaaluga.add(new ArrayList<>());
         }
@@ -34,10 +35,14 @@ public class k10_B_Internet {
             graaf_kaaluga.get(yks).add(new Serv(kaks, kaal));
             graaf_kaaluga.get(kaks).add(new Serv(yks, kaal));
         }
+        // Meie lisapunkt otseyhenduse kaaluga
         for (int i = 0; i < mitu_kooli; i++) {
             graaf_kaaluga.get(mitu_kooli).add(new Serv(i, otseyhendus));
             graaf_kaaluga.get(i).add(new Serv(mitu_kooli, otseyhendus));
         }
+
+        HashSet<Integer> kasutatud_tipud = new HashSet<>();
+        HashMap<Integer, Serv> punktid_kasutuseks_servaga = new HashMap<>();
 
         punktid_kasutuseks_servaga.put(0, new Serv(0,0));
         int vastus = 0;
