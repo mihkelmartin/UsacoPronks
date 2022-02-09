@@ -11,7 +11,6 @@ public class k10_B_Internet {
             this.kaal = kaal;
             this.ots = ots;
         }
-
     }
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
@@ -22,56 +21,55 @@ public class k10_B_Internet {
         int otseyhendus = Integer.parseInt(st.nextToken());
         ArrayList<ArrayList<Serv>> graaf_kaaluga = new ArrayList<>();
         HashSet<Integer> kasutatud_tipud = new HashSet<>();
-        HashSet<Integer> alles_tipud = new HashSet<>();
-        TreeMap<Integer, Integer> punktid_kasutuseks = new TreeMap<>();
+        HashMap<Integer, Serv> punktid_kasutuseks_servaga = new HashMap<>();
+
         for (int i = 0; i < mitu_kooli + 1; i++) {
             graaf_kaaluga.add(new ArrayList<>());
-            alles_tipud.add(i);
         }
-        ArrayList<Serv> servad = new ArrayList<>();
         for (int i = 0; i < teid; i++) {
             StringTokenizer sa = new StringTokenizer(in.readLine());
             int yks = Integer.parseInt(sa.nextToken()) - 1;
             int kaks = Integer.parseInt(sa.nextToken()) - 1;
             int kaal = Integer.parseInt(sa.nextToken());
-            if(yks == kaks)
-                continue;
             graaf_kaaluga.get(yks).add(new Serv(kaks, kaal));
             graaf_kaaluga.get(kaks).add(new Serv(yks, kaal));
         }
         for (int i = 0; i < mitu_kooli; i++) {
             graaf_kaaluga.get(mitu_kooli).add(new Serv(i, otseyhendus));
+            graaf_kaaluga.get(i).add(new Serv(mitu_kooli, otseyhendus));
         }
-        kasutatud_tipud.add(0);
-        alles_tipud.remove(0);
-        punktid_kasutuseks.put(0, 0);
+
+        punktid_kasutuseks_servaga.put(0, new Serv(0,0));
         int vastus = 0;
-        while (alles_tipud.size() > 0){
-            int parim_punkt = -1;
-            int parim_kaal = Integer.MAX_VALUE;
-            TreeMap<Integer, Integer> vahe = new TreeMap<>();
-            for (Map.Entry<Integer, Integer> entry : punktid_kasutuseks.entrySet()){
-                for(Serv serv : graaf_kaaluga.get(entry.getKey())){
-                    if(!kasutatud_tipud.contains(serv.ots)) {
-                        if (serv.kaal < parim_kaal) {
-                            parim_punkt = serv.ots;
-                            parim_kaal = serv.kaal;
-                        }
-                        int endine = punktid_kasutuseks.computeIfAbsent(serv.ots, e -> Integer.MAX_VALUE);
-                        vahe.put(serv.ots, Math.min(serv.kaal, endine));
-                    }
-                }
-                if(parim_punkt != -1){
-                    vastus += parim_kaal;
-                    alles_tipud.remove(parim_punkt);
-                    kasutatud_tipud.add(parim_punkt);
+        int otse = 0;
+        while (kasutatud_tipud.size() != mitu_kooli + 1){
+
+            int parim_punkt = -1, parim_kaal = Integer.MAX_VALUE;
+            Serv parim_serv = null;
+            // Leia ootel olevatest tippudest vähima kaaluga tipp
+            for (Map.Entry<Integer, Serv> punkt_kasutuseks : punktid_kasutuseks_servaga.entrySet()) {
+                if(punkt_kasutuseks.getValue().kaal < parim_kaal){
+                    parim_punkt = punkt_kasutuseks.getKey();
+                    parim_kaal = punkt_kasutuseks.getValue().kaal;
+                    parim_serv = punkt_kasutuseks.getValue();
                 }
             }
-            for (Map.Entry<Integer, Integer> entry : vahe.entrySet()){
-                punktid_kasutuseks.put(entry.getKey(), entry.getValue());
+            // Leitud tipu järgi lisa uued ootel tipud
+            for( Serv serv : graaf_kaaluga.get(parim_punkt) ){
+                // Vaid juhul kui juba ei ole kasutuses
+                if(!kasutatud_tipud.contains(serv.ots)){
+                    // Vaata ka, et oleks parima kaaluga
+                    Serv eelmine_serv = punktid_kasutuseks_servaga.computeIfAbsent(serv.ots, e -> new Serv(0, Integer.MAX_VALUE));
+                    serv = serv.kaal <= eelmine_serv.kaal ? serv : eelmine_serv;
+                    punktid_kasutuseks_servaga.put(serv.ots, serv);
+                }
             }
-            punktid_kasutuseks.remove(parim_punkt);
+            vastus += parim_kaal;
+            otse = graaf_kaaluga.get(mitu_kooli).contains(parim_serv) || parim_punkt == mitu_kooli ? otse + 1 : otse;
+            // Võta ära ootel tippudest ning lisa kasutatud tippudesse
+            punktid_kasutuseks_servaga.remove(parim_punkt);
+            kasutatud_tipud.add(parim_punkt);
         }
-        System.out.println(vastus);
+        System.out.println(vastus + " " + otse);
     }
 }
