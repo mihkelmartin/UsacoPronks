@@ -15,9 +15,11 @@ public class k11_B_Enigma {
 
         int pikkus = 0;
         int[] positsioonid = new int[101];
+        int[] kasolemas = new int[101];
         for (int i = 0; i < fibonaccis.length; i++) {
             int k = mitmesFibo(fibonaccis[i], fibos);
             positsioonid[i+1] = k;
+            kasolemas[k] = 1;
             pikkus = Math.max(k, pikkus);
             System.out.println(k);
         }
@@ -28,15 +30,18 @@ public class k11_B_Enigma {
                 suuredtahed += taht;
         }
         String tulemus = "";
-        for (int i = 0; i < pikkus; i++) {
-            tulemus += " ";
+        int mitmes_taht = 0;
+        for (int i = 1; i <= pikkus; i++) {
+            if(kasolemas[i] == 0){
+                tulemus += " ";
+            } else {
+                mitmes_taht++;
+                tulemus += Character.toString(suuredtahed.charAt(positsioonid[mitmes_taht]-1));
+            }
         }
-        for (int i = 1; i <= fibode_arv; i++) {
-            String taht = Character.toString(suuredtahed.charAt(i));
+        //String taht = Character.toString(suuredtahed.charAt(i));
 
-        }
-
-        System.out.println(fibos);
+        System.out.println(tulemus);
     }
 
     private static int mitmesFibo(String fibonacci, BigInteger[] fibos) {
