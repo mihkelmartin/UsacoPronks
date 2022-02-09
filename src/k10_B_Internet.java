@@ -54,7 +54,7 @@ public class k10_B_Internet {
                     parim_serv = punkt_kasutuseks.getValue();
                 }
             }
-            // Leitud tipu järgi lisa uued ootel tipud
+            // Leitud vähima kaaluga tipu järgi lisa uued ootel tipud
             for( Serv serv : graaf_kaaluga.get(parim_punkt) ){
                 // Vaid juhul kui juba ei ole kasutuses
                 if(!kasutatud_tipud.contains(serv.ots)){
