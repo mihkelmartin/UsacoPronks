@@ -11,6 +11,12 @@ public class k10_B_Internet {
             this.kaal = kaal;
             this.ots = ots;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            Serv o1 = (Serv) o;
+            return this.kaal == o1.kaal && this.ots == o1.ots;
+        }
     }
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
