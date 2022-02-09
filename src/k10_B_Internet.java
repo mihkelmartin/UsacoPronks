@@ -68,6 +68,8 @@ public class k10_B_Internet {
                     // Kuna võis olla mitu ühendust siis vaata ka, et oleks parima kaaluga
                     // Ning võimalusel vali otseühendus
                     Serv eelmine_serv = punktid_kasutuseks_servaga.computeIfAbsent(serv.ots, e -> new Serv(0, Integer.MAX_VALUE));
+                    // Tegelikult peaks siin olema uurimine, et kas on täpselt otseühenduse hind ja siis valima otseühenduse
+                    // võib ju juhtuda, et võrdub mõni ühendus otseühendusega ning siis ei peab valima otseühenduse
                     serv = serv.kaal < eelmine_serv.kaal ? serv : eelmine_serv;
                     punktid_kasutuseks_servaga.put(serv.ots, serv);
                 }
