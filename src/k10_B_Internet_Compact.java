@@ -52,6 +52,12 @@ public class k10_B_Internet_Compact {
                     parim_serv = punkt_kasutuseks.getValue();
                 }
             }
+
+            vastus += parim_serv.kaal;
+            otse = graaf_kaaluga.get(mitu_kooli).contains(parim_serv) || parim_punkt == mitu_kooli ? otse + 1 : otse;
+            punktid_kasutuseks_servaga.remove(parim_punkt);
+            kasutatud_tipud.add(parim_punkt);
+
             for( Serv serv : graaf_kaaluga.get(parim_punkt) ){
                 if(!kasutatud_tipud.contains(serv.ots)){
                     Serv eelmine_serv = punktid_kasutuseks_servaga.computeIfAbsent(serv.ots, e -> new Serv(0, Integer.MAX_VALUE));
@@ -59,10 +65,6 @@ public class k10_B_Internet_Compact {
                     punktid_kasutuseks_servaga.put(serv.ots, serv);
                 }
             }
-            vastus += parim_serv.kaal;
-            otse = graaf_kaaluga.get(mitu_kooli).contains(parim_serv) || parim_punkt == mitu_kooli ? otse + 1 : otse;
-            punktid_kasutuseks_servaga.remove(parim_punkt);
-            kasutatud_tipud.add(parim_punkt);
         }
         System.out.println(vastus + " " + otse);
     }
