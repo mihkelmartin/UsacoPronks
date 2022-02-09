@@ -23,7 +23,7 @@ public class k10_B_Internet {
 
         ArrayList<ArrayList<Serv>> graaf_kaaluga = new ArrayList<>();
 
-        // 1 punkt lisaks mille ise lisame
+        // mitu_kooli + 1 - punkt lisaks mille ise lisame
         for (int i = 0; i < mitu_kooli + 1; i++) {
             graaf_kaaluga.add(new ArrayList<>());
         }
@@ -44,10 +44,11 @@ public class k10_B_Internet {
         HashSet<Integer> kasutatud_tipud = new HashSet<>();
         HashMap<Integer, Serv> punktid_kasutuseks_servaga = new HashMap<>();
 
+        // Esimene punkt ja kaal 0, sest see hinda ei lisa
         punktid_kasutuseks_servaga.put(0, new Serv(0,0));
         int vastus = 0;
         int otse = 0;
-        while (kasutatud_tipud.size() != mitu_kooli + 1){
+        while (kasutatud_tipud.size() < mitu_kooli + 1){
 
             int parim_punkt = -1, parim_kaal = Integer.MAX_VALUE;
             Serv parim_serv = null;
@@ -56,16 +57,18 @@ public class k10_B_Internet {
                 if(punkt_kasutuseks.getValue().kaal < parim_kaal){
                     parim_punkt = punkt_kasutuseks.getKey();
                     parim_kaal = punkt_kasutuseks.getValue().kaal;
+                    // Seda on vaja, et me saaks tuvastada otseühendust
                     parim_serv = punkt_kasutuseks.getValue();
                 }
             }
-            // Leitud vähima kaaluga tipu järgi lisa uued ootel tipud
+            // Leitud valitud, vähima kaaluga tipu järgi, järgmised ootel tipud
             for( Serv serv : graaf_kaaluga.get(parim_punkt) ){
                 // Vaid juhul kui juba ei ole kasutuses
                 if(!kasutatud_tipud.contains(serv.ots)){
-                    // Vaata ka, et oleks parima kaaluga
+                    // Kuna võis olla mitu ühendust siis vaata ka, et oleks parima kaaluga
+                    // Ning võimalusel vali otseühendus
                     Serv eelmine_serv = punktid_kasutuseks_servaga.computeIfAbsent(serv.ots, e -> new Serv(0, Integer.MAX_VALUE));
-                    serv = serv.kaal <= eelmine_serv.kaal ? serv : eelmine_serv;
+                    serv = serv.kaal < eelmine_serv.kaal ? serv : eelmine_serv;
                     punktid_kasutuseks_servaga.put(serv.ots, serv);
                 }
             }
