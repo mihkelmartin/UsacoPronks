@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class k11_B_Enigma {
     public static void main(String[] args )throws Exception {
@@ -15,32 +18,29 @@ public class k11_B_Enigma {
 
         int pikkus = 0;
         int[] positsioonid = new int[101];
-        int[] kasolemas = new int[101];
         for (int i = 0; i < fibonaccis.length; i++) {
             int k = mitmesFibo(fibonaccis[i], fibos);
             positsioonid[i+1] = k;
-            kasolemas[k] = 1;
             pikkus = Math.max(k, pikkus);
-            System.out.println(k);
         }
         String suuredtahed = "";
+        List<String> eba = Arrays.asList("1","2","3","4","5","6","7","8","9","0","!"," ",",",".",":");
         for (int i = 0; i < krupteeritud.length(); i++) {
             String taht = Character.toString(krupteeritud.charAt(i));
-            if(taht.equals(taht.toUpperCase()) && !taht.equals(" ") && !taht.equals(",") && !taht.equals("."))
+            if(taht.equals(taht.toUpperCase()) && !eba.contains(taht))
                 suuredtahed += taht;
         }
         String tulemus = "";
-        int mitmes_taht = 0;
         for (int i = 1; i <= pikkus; i++) {
-            if(kasolemas[i] == 0){
-                tulemus += " ";
-            } else {
-                mitmes_taht++;
-                tulemus += Character.toString(suuredtahed.charAt(positsioonid[mitmes_taht]-1));
+            int mitmes_taht = 0;
+            for (int j = 1; j <= fibode_arv; j++) {
+                if(positsioonid[j] == i){
+                    mitmes_taht = j;
+                    break;
+                }
             }
+            tulemus += mitmes_taht == 0 ? " " : suuredtahed.charAt(mitmes_taht -1);
         }
-        //String taht = Character.toString(suuredtahed.charAt(i));
-
         System.out.println(tulemus);
     }
 
