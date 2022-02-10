@@ -1,9 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.TreeSet;
 
 public class k11_F_Automaathelistaja {
