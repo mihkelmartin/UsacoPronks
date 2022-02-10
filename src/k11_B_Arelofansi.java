@@ -16,6 +16,6 @@ public class k11_B_Arelofansi {
             sona1.replace(s,"");
             sona2.replace(s,"");
         }
-        System.out.println(sona1.equals(sona2) ? "JAH" : "EI");
+        System.out.println(sona1.equals(sona2) ? "SAMA" : "ERINEV");
     }
 }
