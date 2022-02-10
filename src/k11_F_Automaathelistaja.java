@@ -9,6 +9,7 @@ public class k11_F_Automaathelistaja {
         InputStreamReader ina = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(ina);
         int numbreid = Integer.valueOf(in.readLine());
+        // TreeSet hoiab KOHE sorteeritult kasvavas järjekorras
         TreeSet<String>  numbrid = new TreeSet<>();
         for (int i = 0; i < numbreid; i++) {
             numbrid.add(in.readLine());
