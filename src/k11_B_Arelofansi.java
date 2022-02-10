@@ -13,8 +13,8 @@ public class k11_B_Arelofansi {
         String sona2 = in.readLine().toUpperCase();
         List<String> eba = Arrays.asList("A","E","I","O","U");
         for (String s : eba) {
-            sona1.replace(s,"");
-            sona2.replace(s,"");
+            sona1 = sona1.replace(s,"");
+            sona2 = sona2.replace(s,"");
         }
         System.out.println(sona1.equals(sona2) ? "SAMA" : "ERINEV");
     }
