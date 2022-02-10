@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Iterator;
 import java.util.TreeSet;
 
 public class k11_F_Automaathelistaja {
@@ -10,14 +9,14 @@ public class k11_F_Automaathelistaja {
         BufferedReader in = new BufferedReader(ina);
         int numbreid = Integer.valueOf(in.readLine());
         // TreeSet hoiab KOHE sorteeritult kasvavas järjekorras
+        // Teine variant oleks ArrayListi panna ja siis lõpus sorteerida
         TreeSet<String>  numbrid = new TreeSet<>();
         for (int i = 0; i < numbreid; i++) {
             numbrid.add(in.readLine());
         }
-        Iterator<String> iter = numbrid.iterator();
-        String eelmine = iter.next();
-        while (iter.hasNext()){
-            String praegune = iter.next();
+
+        String eelmine = "X";
+        for (String praegune : numbrid) {
             if(praegune.substring(0, Math.min(praegune.length(), eelmine.length())).equals(eelmine)) {
                 System.out.println("EI");
                 System.exit(0);
