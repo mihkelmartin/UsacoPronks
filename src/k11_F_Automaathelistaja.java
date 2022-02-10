@@ -24,6 +24,7 @@ public class k11_F_Automaathelistaja {
                 System.out.println("EI");
                 System.exit(0);
             }
+            eelmine = praegune;
         }
         System.out.println("JAH");
     }
