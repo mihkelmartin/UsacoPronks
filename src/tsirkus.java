@@ -27,7 +27,7 @@ public class tsirkus {
         boolean kas_muutus = false;
         int uus = 0;
         while(true){
-            HashSet<Integer> praegu_kaidud = new HashSet<>();
+            ArrayList<Integer> praegu_kaidud = new ArrayList<>();
             kas_muutus = false;
             mitmes_kord++;
             uus= 0 ;
@@ -39,18 +39,19 @@ public class tsirkus {
                         uus = redeli_kaik;
                     }
                     if(!kas_kaidud[Math.min(uus, lauasuurus)]){
-                        kas_kaidud[uus] = true;
+                        kas_kaidud[Math.min(uus, lauasuurus)] = true;
                         kas_muutus = true;
                         praegu_kaidud.add(uus);
                     }
                     if(uus >= lauasuurus)
                         break;
                 }
+                if(uus >= lauasuurus)
+                    break;
             }
             if(!kas_muutus || uus >= lauasuurus)
                 break;
-            eelmisel_korral_kaidud.clear();
-            eelmisel_korral_kaidud.addAll(praegu_kaidud);
+            eelmisel_korral_kaidud = praegu_kaidud;
         }
         if(mitmes_kord > lauasuurus || uus < lauasuurus){
             System.out.println("EI SAA");
