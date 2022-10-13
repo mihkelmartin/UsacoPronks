@@ -14,7 +14,9 @@ public class k9_C_Kylaskaigud {
         int maju = Integer.parseInt(sisend[0]);
         int paringuid = Integer.parseInt(sisend[1]);
 
+        // i-nda maja kõrgusgrupp. Ntx maja_korgusgrupp[23] = 7 -> 23-es maja 7ndas kõrgusgrupis
         int[] maja_korgusgrupp = new int[maju + 1];
+        // Map mis hoiuab kõrgusgrupi andmeid int[3] massiivis. Vt loo_korgusgrupp funktsiooni
         TreeMap<Integer, Object> korgus_grupid_maps = new TreeMap<>();
 
         int korgus_grupp = 1;
@@ -24,7 +26,7 @@ public class k9_C_Kylaskaigud {
         // ei pea eraldi if-i tegema esimese muutuse jaoks
         StringTokenizer st = new StringTokenizer(in.readLine()," ");
         int maja_korgus = Integer.valueOf(st.nextToken()), maja_korgus_eelmine = maja_korgus;
-        maja_korgusgrupp[1] = korgus_grupp ; // 1 maja kõrgusgrupp on 1
+        maja_korgusgrupp[1] = korgus_grupp ; // 1. maja kõrgusgrupp on 1
 
         for (int i = 2; i <=maju ; i++) {
             maja_korgus = Integer.valueOf(st.nextToken());
@@ -37,7 +39,7 @@ public class k9_C_Kylaskaigud {
             // pane majale kõrgusgrupp
             maja_korgusgrupp[i] = korgus_grupp;
         }
-        // Lisa viimane, sest siin muutust ei toimunud
+        // Lisa viimane kõrgusgrupp, sest siin maja_korgus != maja_korgus_eelmine muutust ei toimunud
         loo_korgusgrupp(korgus_grupi_algus, maju, korgus_grupp, korgus_grupid_maps);
 
         // Nüüd tuleb teha kahendpuu Kõrgusgruppidest
@@ -96,43 +98,15 @@ public class k9_C_Kylaskaigud {
 
     private static int otsi_kahendpuust(HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp, int maja1, int maja2) {
 
-        if(maja1 > maja2 || maja1 > lopp || maja2 < algus)
-            return 0;
+        // Koodi vaja
 
-        if( algus >= maja1 && lopp <= maja2){
-
-            // Vaata teooriat - lk 3, osadele indeksitele väärtust ei looda, sest kahenduspuus ei ole kõikväimalikke harusid
-            // siis tuleb tagastada sobiv väärtus Käesoleval juhul 0 pikkus
-            Integer pikkus = gruppide_pikkuste_puu.get(tipp);
-            return pikkus == null ? 0 : pikkus;
-        }
-
-
-        // Otsi vasakul
-        int uus_tipp = tipp * 2;
-        int pooleks = (algus + lopp) / 2;
-        int vasak_vaartus = otsi_kahendpuust(gruppide_pikkuste_puu, uus_tipp, algus, pooleks, maja1, maja2);
-        // Otsi paremalt
-        int parem_vaartus = otsi_kahendpuust(gruppide_pikkuste_puu, uus_tipp + 1, pooleks + 1, lopp, maja1, maja2);
-
-        if(vasak_vaartus > parem_vaartus)
-            return vasak_vaartus;
-        return parem_vaartus;
+        return -1;
     }
 
     private static void loo_kahendpuu(TreeMap<Integer, Object> korgus_grupid_maps, HashMap<Integer, Integer> gruppide_pikkuste_puu, int tipp, int algus, int lopp) {
 
-        if(algus == lopp) { // Oleme jõudnud puu lehele, kus on algandmed otse
-            gruppide_pikkuste_puu.put(tipp, ((int[])korgus_grupid_maps.get(algus))[2]);
-            return;
-        }
+        // Koodi vaja
 
-        int uus_tipp = tipp * 2;
-        int pooleks = (lopp + algus) / 2;
-        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp, algus, pooleks);
-        loo_kahendpuu(korgus_grupid_maps, gruppide_pikkuste_puu, uus_tipp  + 1, pooleks + 1, lopp);
-
-        gruppide_pikkuste_puu.put(tipp, Math.max(gruppide_pikkuste_puu.get(uus_tipp), gruppide_pikkuste_puu.get(uus_tipp+1)));
 
     }
 }
