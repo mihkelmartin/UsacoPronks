@@ -43,19 +43,22 @@ public class avaldis_ext {
         for (int i = tehteid - 1; i >= 0 ; i--) {
             Tehe tehe = tehted.get(i);
             if(tehe.tehe.equals("OR")){
-                if(tehe.cumulativeOR == -1){
+                tehe.cumulativeAND = tehted.get(Math.min(i+1, tehted.size()-1)).cumulativeAND;
+                if(i == tehteid - 1 || tehted.get(i+1).cumulativeOR == -1){
                     tehe.cumulativeOR = tehe.argument2;
                 } else {
-                    tehe.cumulativeOR |= tehe.argument2;
+                    tehe.cumulativeOR = tehted.get(i+1).cumulativeOR | tehe.argument2;
                 }
-                tehe.cumulativeAND = tehted.get(Math.min(i+1, tehted.size()-1)).cumulativeAND;
             }
             if(tehe.tehe.equals("AND")){
-                if(tehe.cumulativeAND == -1){
+                tehe.cumulativeOR = tehted.get(Math.min(i+1, tehted.size()-1)).cumulativeOR;
+                if(i == tehteid - 1 || tehted.get(i+1).cumulativeAND == -1){
                     tehe.cumulativeAND = tehe.argument2;
                 } else {
-                    tehe.cumulativeAND &= tehe.argument2;
-                    tehe.cumulativeOR |= (tehe.cumulativeAND | tehe.cumulativeOR);
+                    tehe.cumulativeAND = tehted.get(i+1).cumulativeAND & tehe.argument2;
+                    if(tehted.get(i+1).cumulativeOR != -1) {
+                        tehe.cumulativeOR |= (tehe.cumulativeAND | tehted.get(i+1).cumulativeOR);
+                    }
                 }
             }
 
