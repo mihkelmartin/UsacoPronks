@@ -2,14 +2,15 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class avaldis {
+public class avaldis_ext {
 
     static class Tehe {
         private int argument1;
         private int argument2;
         String tehe;
+        private int cumulativeAND = -1;
+        private int cumulativeOR = -1;
     }
     public static void main(String[] args )throws Exception {
         InputStreamReader ina = new InputStreamReader(System.in);
@@ -39,6 +40,27 @@ public class avaldis {
             }
             tehted.add(tehe);
         }
+        for (int i = tehteid - 1; i >= 0 ; i--) {
+            Tehe tehe = tehted.get(i);
+            if(tehe.tehe.equals("OR")){
+                if(tehe.cumulativeOR == -1){
+                    tehe.cumulativeOR = tehe.argument2;
+                } else {
+                    tehe.cumulativeOR |= tehe.argument2;
+                }
+                tehe.cumulativeAND = tehted.get(Math.min(i+1, tehted.size()-1)).cumulativeAND;
+            }
+            if(tehe.tehe.equals("AND")){
+                if(tehe.cumulativeAND == -1){
+                    tehe.cumulativeAND = tehe.argument2;
+                } else {
+                    tehe.cumulativeAND &= tehe.argument2;
+                    tehe.cumulativeOR |= (tehe.cumulativeAND | tehe.cumulativeOR);
+                }
+            }
+
+        }
+
 
         for(int i = 0; i < muutusi; i++){
             String[] muutusStr = in.readLine().split(" ");
@@ -46,7 +68,7 @@ public class avaldis {
             tehted.get(pos-1).tehe = muutusStr[1];
             tehted.get(pos-1).argument2 = Integer.parseInt(muutusStr[2]);
             int eelmineuus = tehted.get(pos-1).argument1;
-            for(int j = pos-1; j <= tehted.size()-2; j++){
+            for(int j = pos-1; j < tehted.size(); j++){
                 Tehe teheuus = tehted.get(j);
                 teheuus.argument1 = eelmineuus;
                 if(teheuus.tehe.equals("AND")){
