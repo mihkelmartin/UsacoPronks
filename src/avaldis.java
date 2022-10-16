@@ -46,7 +46,7 @@ public class avaldis {
             tehted.get(pos-1).tehe = muutusStr[1];
             tehted.get(pos-1).argument2 = Integer.parseInt(muutusStr[2]);
             int eelmineuus = tehted.get(pos-1).argument1;
-            for(int j = pos-1; j <= tehted.size()-2; j++){
+            for(int j = pos-1; j <= tehted.size()-1; j++){
                 Tehe teheuus = tehted.get(j);
                 teheuus.argument1 = eelmineuus;
                 if(teheuus.tehe.equals("AND")){
